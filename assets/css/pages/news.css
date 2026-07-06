@@ -51,8 +51,8 @@
 
 .news-category {
     display: inline-block;
-    background: var(--primary-light);
-    color: var(--primary);
+    background: var(--accent-light);
+    color: var(--accent);
     padding: 4px 12px;
     border-radius: 100px;
     font-size: 12px;

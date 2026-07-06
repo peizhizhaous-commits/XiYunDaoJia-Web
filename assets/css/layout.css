@@ -67,6 +67,9 @@
     display: flex;
     gap: 36px;
     align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .main-nav a {
@@ -596,6 +599,32 @@
 }
 
 .footer-column a:hover {
+    color: var(--primary);
+}
+
+/* 子页面页脚链接样式 */
+.footer-links {
+    margin-bottom: 32px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
     color: var(--primary);
 }
 

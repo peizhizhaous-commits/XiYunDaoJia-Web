@@ -99,6 +99,144 @@
             background: var(--primary-dark);
         }
 
+        /* 服务价格对比表 */
+        .price-comparison-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .section-header p {
+            font-size: 16px;
+            color: #666;
+        }
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .price-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .price-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .price-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .price-card-title {
+            padding: 16px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+        }
+        @media (max-width: 768px) {
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+            .price-card img {
+                height: 180px;
+            }
+        }
+
+        /* 图片预览模态框 */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            padding: 20px;
+        }
+        .image-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+        .image-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 20px;
+        }
+        .image-modal-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .image-modal-close {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-modal-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .image-modal-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+        }
+        .image-modal-body img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .image-modal-actions {
+            display: flex;
+            gap: 12px;
+            padding: 16px 0;
+        }
+        .image-modal-actions a {
+            padding: 10px 24px;
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .image-modal-actions a:hover {
+            background: #f0f0f0;
+        }
+        .image-modal-actions a:first-child {
+            background: var(--primary-color);
+            color: white;
+        }
+        .image-modal-actions a:first-child:hover {
+            background: var(--primary-dark);
+        }
+
         /* PDF预览模态框 */
         .pdf-modal {
             display: none;
@@ -207,6 +345,7 @@
                     <li><a href="cases.html">案例展示</a></li>
                     <li><a href="community.html">交流社区</a></li>
                     <li><a href="about.html">关于我们</a></li>
+                    <li><a href="documents.html" class="active">文档资料</a></li>
                     <li><a href="contact.html" class="btn btn-primary nav-btn">我要下单</a></li>
                 </ul>
             </nav>
@@ -222,6 +361,54 @@
             <div class="container">
                 <h1>文档资料</h1>
                 <p class="tagline">服务协议、合同模板、公司资质等文档下载</p>
+            </div>
+        </section>
+
+        <!-- 服务价格对比表 -->
+        <section class="price-comparison-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>服务价格一览</h2>
+                    <p>各类服务项目详细对比，助您选择最合适的服务</p>
+                </div>
+                <div class="price-grid">
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/日常保洁vs深度保洁.jpg', '日常保洁 vs 深度保洁')">
+                        <img src="../assets/images/services/日常保洁vs深度保洁.jpg" alt="日常保洁vs深度保洁">
+                        <div class="price-card-title">日常保洁 vs 深度保洁</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/精细保洁vs全屋大扫除.jpg', '精细保洁 vs 全屋大扫除')">
+                        <img src="../assets/images/services/精细保洁vs全屋大扫除.jpg" alt="精细保洁vs全屋大扫除">
+                        <div class="price-card-title">精细保洁 vs 全屋大扫除</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/粗开荒vs精开荒.jpg', '粗开荒 vs 精开荒')">
+                        <img src="../assets/images/services/粗开荒vs精开荒.jpg" alt="粗开荒vs精开荒">
+                        <div class="price-card-title">粗开荒 vs 精开荒</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/家电清洗&布艺清洗.jpg', '家电清洗 & 布艺清洗')">
+                        <img src="../assets/images/services/家电清洗&布艺清洗.jpg" alt="家电清洗&布艺清洗">
+                        <div class="price-card-title">家电清洗 & 布艺清洗</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/油烟机+灶台清洗.jpg', '油烟机 + 灶台清洗')">
+                        <img src="../assets/images/services/油烟机+灶台清洗.jpg" alt="油烟机+灶台清洗">
+                        <div class="price-card-title">油烟机 + 灶台清洗</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/四大核心产品.jpg', '四大核心产品')">
+                        <img src="../assets/images/services/四大核心产品.jpg" alt="四大核心产品">
+                        <div class="price-card-title">四大核心产品</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/保姆服务&钟点工服务.jpg', '保姆服务 & 钟点工服务')">
+                        <img src="../assets/images/services/保姆服务&钟点工服务.jpg" alt="保姆服务&钟点工服务">
+                        <div class="price-card-title">保姆服务 & 钟点工服务</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/居家养老病患康护.jpg', '居家养老病患康护')">
+                        <img src="../assets/images/services/居家养老病患康护.jpg" alt="居家养老病患康护">
+                        <div class="price-card-title">居家养老病患康护</div>
+                    </div>
+                    <div class="price-card" onclick="openImageModal('../assets/images/services/母婴照料.jpg', '母婴照料')">
+                        <img src="../assets/images/services/母婴照料.jpg" alt="母婴照料">
+                        <div class="price-card-title">母婴照料</div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -241,6 +428,21 @@
             </div>
         </section>
     </main>
+
+    <!-- 图片预览模态框 -->
+    <div class="image-modal" id="imageModal">
+        <div class="image-modal-header">
+            <span class="image-modal-title" id="imageTitle">图片预览</span>
+            <button class="image-modal-close" onclick="closeImageModal()">&times;</button>
+        </div>
+        <div class="image-modal-body">
+            <img id="imagePreview" src="" alt="预览图片">
+        </div>
+        <div class="image-modal-actions">
+            <a id="imageDownload" href="" download>下载图片</a>
+            <a href="#" onclick="closeImageModal(); return false;">关闭预览</a>
+        </div>
+    </div>
 
     <!-- PDF预览模态框 -->
     <div class="pdf-modal" id="pdfModal">
@@ -282,7 +484,7 @@
                 </ul>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 喜云到家 版权所有</p>
+                <p>© 2026 喜云到家 版权所有</p>
             </div>
         </div>
     </footer>
@@ -394,9 +596,36 @@
             document.body.style.overflow = '';
         }
 
+        // 打开图片预览
+        function openImageModal(url, title) {
+            const modal = document.getElementById('imageModal');
+            const img = document.getElementById('imagePreview');
+            const titleEl = document.getElementById('imageTitle');
+            const downloadBtn = document.getElementById('imageDownload');
+
+            titleEl.textContent = title;
+            img.src = url;
+            downloadBtn.href = url;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭图片预览
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            const img = document.getElementById('imagePreview');
+
+            modal.classList.remove('active');
+            img.src = '';
+            document.body.style.overflow = '';
+        }
+
         // ESC键关闭
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closePdfModal();
+            if (e.key === 'Escape') {
+                closePdfModal();
+                closeImageModal();
+            }
         });
 
         // 初始化

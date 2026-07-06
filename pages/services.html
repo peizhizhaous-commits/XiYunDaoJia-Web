@@ -28,6 +28,7 @@
                     <li><a href="cases.html">案例展示</a></li>
                     <li><a href="community.html">交流社区</a></li>
                     <li><a href="about.html">关于我们</a></li>
+                    <li><a href="documents.html">文档资料</a></li>
                     <li><a href="contact.html" class="btn btn-primary nav-btn">我要下单</a></li>
                 </ul>
             </nav>
@@ -254,7 +255,7 @@
                 </ul>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 喜云到家 版权所有</p>
+                <p>© 2026 喜云到家 版权所有</p>
             </div>
         </div>
     </footer>
@@ -263,18 +264,5 @@
     <script src="../assets/js/nav.js"></script>
     <script src="../assets/js/api.js"></script>
     <script src="../assets/js/pages/services.js"></script>
-    <script>
-        // 筛选功能
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.dataset.filter;
-                document.querySelectorAll('.service-card').forEach(card => {
-                    card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
-                });
-            });
-        });
-    </script>
 </body>
 </html>
