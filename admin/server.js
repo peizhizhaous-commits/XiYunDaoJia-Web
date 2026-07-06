@@ -144,8 +144,11 @@ db.exec(`
 `);
 
 // ============================================
-// 种子数据（首次运行时插入初始数据）
+// 种子数据（从 seed-data.json 加载）
 // ============================================
+
+// 加载种子数据文件
+const seedData = require('../seed-data.json');
 
 // 检查服务表是否为空（判断是否需要初始化）
 const count = db.prepare('SELECT COUNT(*) as c FROM services').get().c;
@@ -153,49 +156,46 @@ if (count === 0) {
   // 预编译 SQL 语句，提高插入效率
   const insertService = db.prepare('INSERT INTO services (title, description, price, category, sub_items, sort_order) VALUES (?, ?, ?, ?, ?, ?)');
   const insertCase = db.prepare('INSERT INTO cases (title, description, date, sort_order) VALUES (?, ?, ?, ?)');
-  const insertArticle = db.prepare('INSERT INTO articles (title, summary, date, category, sort_order) VALUES (?, ?, ?, ?, ?)');
+  const insertArticle = db.prepare('INSERT INTO articles (title, summary, content, date, category, sort_order) VALUES (?, ?, ?, ?, ?, ?)');
   const insertFeature = db.prepare('INSERT INTO features (title, description, sort_order) VALUES (?, ?, ?)');
 
   // 使用事务批量插入，确保原子性
   const seed = db.transaction(() => {
-    // 插入公司信息（INSERT OR IGNORE 避免重复）
+    // 插入公司信息
+    const c = seedData.company_info;
     db.prepare(`INSERT OR IGNORE INTO company_info (id, company_name, slogan, phone, email, address, work_hours, about_title, about_lead, about_content, mission, vision, core_values, copyright)
-      VALUES (1, '喜云到家', '家更干净，心更轻松', '400-xxx-xxxx', 'service@xiyun.com', 'XX市XX区XX路XX号', '周一至周日 8:00-20:00', '关于喜云到家', '我们坚信，洁净之家，是心灵最好的栖息与疗愈。', '作为智净优邸旗下专注家庭深度保洁与到家服务的品牌，喜云到家以专业、真诚、靠谱为核心。', '每一份劳动都有价值，每一个家庭都更安心', '做您身边值得信赖的生活伙伴', '至诚至信，匠心笃行', '2025 喜云到家 版权所有')`).run();
+      VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .run(c.company_name, c.slogan, c.phone, c.email, c.address, c.work_hours, c.about_title, c.about_lead, c.about_content, c.mission, c.vision, c.core_values, c.copyright);
 
-    // 插入服务项目（6项）
-    insertService.run('家政清洁', '专业清洁团队，提供日常家庭清洁服务', '¥99起', 'cleaning', '日常保洁、深度清洁、开荒保洁', 1);
-    insertService.run('深度清洁', '全方位深度清洁，让家焕然一新', '¥199起', 'cleaning', '', 2);
-    insertService.run('空调维修', '专业空调维修、清洗、加氟', '¥80起', 'repair', '', 3);
-    insertService.run('洗衣机维修', '各品牌洗衣机维修服务', '¥100起', 'repair', '', 4);
-    insertService.run('家庭搬家', '一站式搬家服务，省心省力', '¥300起', 'moving', '', 5);
-    insertService.run('下水道疏通', '快速解决各类管道堵塞问题', '¥120起', 'pipeline', '', 6);
+    // 插入服务项目
+    for (const s of seedData.services) {
+      insertService.run(s.title, s.description, s.price, s.category, s.sub_items || '', s.sort_order);
+    }
 
-    // 插入案例展示（6个）
-    insertCase.run('李女士家庭深度清洁', '120平米住宅全屋深度清洁，服务时长4小时', '2024-03-15', 1);
-    insertCase.run('王先生空调维修', '格力中央空调维修保养，恢复制冷效果', '2024-03-12', 2);
-    insertCase.run('张先生搬家服务', '三室两厅搬家，全程专业打包搬运', '2024-03-10', 3);
-    insertCase.run('赵女士管道疏通', '厨房下水道堵塞疏通，快速解决问题', '2024-03-08', 4);
-    insertCase.run('刘先生家电清洗', '油烟机、冰箱、洗衣机全套清洗', '2024-03-05', 5);
-    insertCase.run('陈女士家庭保洁', '日常保洁服务，每周定期上门', '2024-03-01', 6);
+    // 插入案例展示
+    for (const c of seedData.cases) {
+      insertCase.run(c.title, c.description, c.date, c.sort_order);
+    }
 
-    // 插入新闻资讯（4篇）
-    insertArticle.run('喜云到家完成A轮融资，加速全国布局', '近日，喜云到家宣布完成A轮融资，将用于技术研发、市场拓展和团队建设。', '2024-03-20', '公司动态', 1);
-    insertArticle.run('喜云到家服务标准升级', '为提供更优质的服务，喜云到家正式发布新版服务标准。', '2024-03-15', '服务升级', 2);
-    insertArticle.run('家庭服务行业趋势分析', '随着科技发展和消费升级，智能化、标准化成为行业发展新趋势。', '2024-03-10', '行业资讯', 3);
-    insertArticle.run('喜云到家荣获年度最佳称号', '喜云到家凭借优质服务和创新模式，荣获年度最佳家庭服务平台称号。', '2024-03-05', '荣誉奖项', 4);
+    // 插入新闻资讯
+    for (const a of seedData.articles) {
+      insertArticle.run(a.title, a.summary, a.content || '', a.date, a.category, a.sort_order);
+    }
 
-    // 插入优势特色（4项）
-    insertFeature.run('专业服务', '高标准服务体系，持证上岗', 1);
-    insertFeature.run('品质保障', '至诚至信，匠心笃行', 2);
-    insertFeature.run('便捷预约', '在线预约，快速响应', 3);
-    insertFeature.run('值得信赖', '百万用户的共同选择', 4);
+    // 插入优势特色
+    for (const f of seedData.features) {
+      insertFeature.run(f.title, f.description, f.sort_order);
+    }
 
-    // 插入首页配置
-    db.prepare(`INSERT OR IGNORE INTO pages (title, slug, hero_title, hero_tagline, hero_button_text, hero_button_link, brand_story_title, brand_story_lead, brand_story_content, cta_title, cta_content, cta_button_text, cta_button_link)
-      VALUES ('首页', 'home', '喜云到家', '家更干净，心更轻松', '了解服务', '/pages/services.html', '关于喜云到家', '我们坚信，洁净之家，是心灵最好的栖息与疗愈。', '作为智净优邸旗下专注家庭深度保洁与到家服务的品牌，喜云到家以专业、真诚、靠谱为核心。', '立即预约服务', '专业团队，让家更干净，心更轻松', '联系我们', '/pages/contact.html')`).run();
+    // 插入页面配置
+    for (const [slug, page] of Object.entries(seedData.pages)) {
+      db.prepare(`INSERT OR IGNORE INTO pages (title, slug, hero_title, hero_tagline, hero_button_text, hero_button_link, brand_story_title, brand_story_lead, brand_story_content, cta_title, cta_content, cta_button_text, cta_button_link)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+        .run(page.title, slug, page.hero_title || '', page.hero_tagline || '', page.hero_button_text || '', page.hero_button_link || '', page.brand_story_title || '', page.brand_story_lead || '', page.brand_story_content || '', page.cta_title || '', page.cta_content || '', page.cta_button_text || '', page.cta_button_link || '');
+    }
   });
   seed(); // 执行事务
-  console.log('数据库初始化完成！');
+  console.log('数据库初始化完成！（数据来源：seed-data.json）');
 }
 
 // ============================================
@@ -419,6 +419,21 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   const newPath = path.join(__dirname, '../assets/images/uploads', newName);
   fs.renameSync(req.file.path, newPath); // 移动文件到目标目录
   res.json({ url: `/assets/images/uploads/${newName}` }); // 返回文件访问路径
+});
+
+// 上传文档文件（PDF、Word等），保存到 assets/docs/ 目录
+app.post('/api/upload-doc', upload.single('file'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: '未选择文件' });
+  const ext = path.extname(req.file.originalname);
+  const originalName = path.parse(req.file.originalname).name;
+  const newName = Date.now() + ext;
+  const newPath = path.join(__dirname, '../assets/docs', newName);
+  fs.renameSync(req.file.path, newPath);
+  res.json({ 
+    url: `/assets/docs/${newName}`,
+    originalName: originalName,
+    size: req.file.size
+  });
 });
 
 // ============================================

@@ -1,63 +1,100 @@
 /**
  * ================================================================
- *  layout.css — 页面布局样式（页头、导航、Hero、区块布局、页脚、响应式）
+ *  layout.css — 极简现代风格布局
  * ================================================================
- * 【角色】定义全站通用布局结构：sticky 页头、主导航、Hero 横幅、features/services 网格、CTA 区、页脚及移动端断点
- * 【职责】
- *   1. 站点头部（.site-header）：sticky 定位、logo、导航栏、联系电话
- *   2. Hero 横幅区（.hero）：全宽渐变背景、居中文字
- *   3. 网格布局：.features-grid（4列）、.services-grid（4列）
- *   4. CTA 行动号召区
- *   5. 站点页脚（.site-footer）：深色背景、多栏信息
- *   6. 响应式断点（@media max-width: 768px）
- * 【被谁引用】所有 HTML 页面（在 base.css 之后加载）
- * 【依赖】base.css（CSS Variables: --primary-color, --shadow, --radius, --bg-light 等）
  */
 
-/* ==== 1. 站点头部（Sticky 顶栏）==== */
+/* ==== 1. 设计Token（CSS自定义属性）==== */
+:root {
+    --primary: #008800;
+    --primary-dark: #006600;
+    --primary-light: #e6f5e6;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+    --bg-white: #ffffff;
+    --bg-light: #f8f9fa;
+    --bg-dark: #1a1a1a;
+    --border: #e5e5e5;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+    --radius: 16px;
+    --radius-sm: 8px;
+}
+
+/* ==== 2. 站点头部（毛玻璃导航）==== */
 .site-header {
-    background-color: var(--bg-color);
-    box-shadow: var(--shadow);
     position: sticky;
     top: 0;
-    z-index: 1000;                  /* 确保导航在最上层 */
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.site-header.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-sm);
 }
 
 .site-header .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 72px;
+    transition: height 0.3s ease;
+}
+
+.site-header.scrolled .container {
+    height: 60px;
 }
 
 /* Logo */
 .logo img {
-    height: 50px;
+    height: 40px;
+    transition: height 0.3s ease;
 }
 
-/* ==== 2. 主导航 ==== */
+.site-header.scrolled .logo img {
+    height: 36px;
+}
+
+/* ==== 3. 主导航 ==== */
 .main-nav ul {
     display: flex;
-    gap: 30px;
+    gap: 36px;
+    align-items: center;
 }
 
 .main-nav a {
-    color: var(--text-color);
+    color: var(--text-primary);
     font-weight: 500;
+    font-size: 15px;
     padding: 8px 0;
-    position: relative;             /* 为 ::after 下划线定位 */
+    position: relative;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
-/* 导航下划线动画（hover / active 时从左侧滑入） */
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--primary);
+}
+
+/* 导航下划线动画 */
 .main-nav a::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
     width: 0;
     height: 2px;
-    background-color: var(--primary-color);
-    transition: var(--transition);
+    background-color: var(--primary);
+    transition: all 0.2s ease;
+    transform: translateX(-50%);
 }
 
 .main-nav a:hover::after,
@@ -65,217 +102,721 @@
     width: 100%;
 }
 
-/* 头部联系电话 */
-.header-contact .phone {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primary-color);
+/* 导航按钮 */
+.nav-btn {
+    background: var(--primary) !important;
+    color: white !important;
+    padding: 10px 24px !important;
+    border-radius: 100px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
 }
 
-/* ==== 3. Hero 横幅区 ==== */
+.nav-btn:hover {
+    background: var(--primary-dark) !important;
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 136, 0, 0.3);
+}
+
+/* 头部联系电话 */
+.header-contact .phone {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.header-contact .phone:hover {
+    opacity: 0.8;
+}
+
+/* ==== 4. Hero 横幅区（极简现代风格）==== */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color), #00aa00);
-    color: white;
-    text-align: center;
-    padding: 120px 0;
+    background: var(--bg-white);
+    padding: 100px 0 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero .container {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 560px;
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--text-primary);
     margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .hero .tagline {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-    opacity: 0.9;
-}
-
-/* ==== 4. 特色功能区（4 列网格）==== */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
-
-.feature-card {
-    text-align: center;
-    padding: 30px;
-    background-color: var(--bg-color);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);    /* hover 上浮效果 */
-}
-
-.feature-card img {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 20px;
-}
-
-.feature-card h3 {
-    margin-bottom: 10px;
-}
-
-/* ==== 5. 服务列表区（4 列网格）==== */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    font-size: 20px;
+    color: var(--text-secondary);
     margin-bottom: 40px;
+    line-height: 1.6;
 }
 
-.service-item {
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+/* 按钮样式 */
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 136, 0, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    padding: 16px 36px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid var(--primary);
+    transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Hero右侧视觉（抽象几何图形） */
+.hero-visual {
+    flex: 1;
+    position: relative;
+    height: 400px;
+}
+
+.hero-visual .shape {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-visual .shape-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(0, 136, 0, 0.1) 100%);
+    top: 50px;
+    left: 50px;
+    animation-delay: 0s;
+}
+
+.hero-visual .shape-2 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(0, 136, 0, 0.2) 0%, rgba(0, 136, 0, 0.05) 100%);
+    top: 0;
+    right: 50px;
+    animation-delay: 2s;
+}
+
+.hero-visual .shape-3 {
+    width: 150px;
+    height: 150px;
+    background: var(--primary);
+    bottom: 50px;
+    left: 100px;
+    animation-delay: 4s;
+    opacity: 0.8;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* ==== 5. 数据亮点条 ==== */
+.stats-bar {
+    background: var(--bg-light);
+    padding: 48px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+}
+
+.stat-item {
     text-align: center;
-    padding: 20px;
-    border-radius: var(--radius);
-    background-color: var(--bg-light);
-    transition: var(--transition);
+    padding: 24px;
 }
 
-.service-item:hover {
-    background-color: var(--bg-color);
-    box-shadow: var(--shadow);
-}
-
-.service-item img {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 15px;
-}
-
-.service-item h3 {
+.stat-number {
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1;
     margin-bottom: 8px;
 }
 
-.service-item p {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    margin-bottom: 0;
+.stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
 }
 
-/* ==== 6. CTA 行动号召区 ==== */
-.cta {
-    background-color: var(--bg-light);
+/* ==== 6. 服务卡片区 ==== */
+.services-section {
+    padding: 100px 0;
+    background: var(--bg-white);
+}
+
+.section-header {
     text-align: center;
+    margin-bottom: 60px;
 }
 
-.cta h2 {
-    margin-bottom: 20px;
-}
-
-.cta p {
-    margin-bottom: 30px;
-    font-size: 1.25rem;
-}
-
-/* ==== 7. 站点页脚 ==== */
-.site-footer {
-    background-color: #004400;      /* 深绿色背景，与主色协调 */
-    color: white;
-    padding: 60px 0 20px;
-}
-
-.footer-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-}
-
-/* 页脚 Logo 反白处理 */
-.footer-logo img {
-    height: 60px;
-    filter: brightness(0) invert(1);
-}
-
-.footer-contact p {
-    margin-bottom: 10px;
-    opacity: 0.9;
-}
-
-.footer-contact .slogan {
-    margin-top: 15px;
-    font-size: 1.1rem;
+.section-header h2 {
+    font-size: 36px;
     font-weight: 600;
-    color: var(--secondary-color);
-    opacity: 1;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
 }
 
-.footer-links {
+.section-header p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.service-card {
+    background: var(--bg-white);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+}
+
+.service-icon {
+    width: 72px;
+    height: 72px;
+    background: var(--primary-light);
+    border-radius: 20px;
     display: flex;
-    gap: 60px;
-    margin-bottom: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    transition: all 0.3s ease;
 }
 
-.footer-links h4 {
-    margin-bottom: 20px;
+.service-card:hover .service-icon {
+    background: var(--primary);
 }
 
-.footer-links a {
+.service-icon svg {
+    width: 36px;
+    height: 36px;
+    fill: var(--primary);
+    transition: fill 0.3s ease;
+}
+
+.service-card:hover .service-icon svg {
+    fill: white;
+}
+
+.service-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.service-card p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.service-price {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.service-card .btn-link {
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s ease;
+}
+
+.service-card .btn-link:hover {
+    gap: 10px;
+}
+
+/* ==== 7. 优势展示区（深色背景）==== */
+.advantages-section {
+    padding: 100px 0;
+    background: var(--primary);
+    color: white;
+}
+
+.advantages-section .section-header h2 {
+    color: white;
+}
+
+.advantages-section .section-header p {
     color: rgba(255, 255, 255, 0.8);
 }
 
-.footer-links a:hover {
-    color: white;
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
 }
 
-.footer-links li {
-    margin-bottom: 10px;
+.advantage-item {
+    text-align: center;
+}
+
+.advantage-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.advantage-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: white;
+}
+
+.advantage-item h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.advantage-item p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+}
+
+/* ==== 8. 用户评价区 ==== */
+.testimonials-section {
+    padding: 100px 0;
+    background: var(--bg-light);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.testimonial-card {
+    background: var(--bg-white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.testimonial-stars {
+    color: #fbbf24;
+    font-size: 16px;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+}
+
+.testimonial-content {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.testimonial-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.testimonial-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.testimonial-info p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* ==== 9. CTA横幅 ==== */
+.cta-section {
+    padding: 100px 0;
+    background: var(--bg-white);
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.cta-section p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==== 10. 页脚（极简风格）==== */
+.site-footer {
+    background: var(--bg-dark);
+    color: var(--text-muted);
+    padding: 60px 0 24px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+}
+
+.footer-brand p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-top: 16px;
+    color: #888;
+}
+
+.footer-column h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column li {
+    margin-bottom: 12px;
+}
+
+.footer-column a {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+    color: var(--primary);
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #888;
+}
+
+.footer-contact-item svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--primary);
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .footer-bottom {
+    border-top: 1px solid #333;
+    padding-top: 24px;
     text-align: center;
-    opacity: 0.7;
-    font-size: 0.9rem;
+    font-size: 13px;
+    color: #666;
 }
 
-/* ==== 8. 响应式：平板/手机（≤768px）==== */
+/* ==== 11. 响应式：移动端（≤768px）==== */
 @media (max-width: 768px) {
-    /* 头部改为换行布局 */
+    /* 头部 */
     .site-header .container {
-        flex-wrap: wrap;
-        height: auto;
-        padding: 15px 20px;
+        height: 60px;
+    }
+
+    .main-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 24px;
+        z-index: 999;
+    }
+
+    .main-nav.active {
+        display: block;
     }
 
     .main-nav ul {
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .main-nav a {
+        display: block;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 17px;
+    }
+
+    .main-nav a::after {
+        display: none;
+    }
+
+    .header-contact {
+        display: none;
+    }
+
+    /* 汉堡菜单按钮 */
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 28px;
+        height: 28px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .menu-toggle span {
+        display: block;
         width: 100%;
-        margin-top: 15px;
+        height: 2px;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: all 0.3s ease;
     }
 
-    /* 网格降为 2 列 */
-    .features-grid,
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
     }
 
-    /* 页脚信息垂直排列 */
-    .footer-info {
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Hero */
+    .hero {
+        padding: 60px 0 80px;
+    }
+
+    .hero .container {
         flex-direction: column;
-        gap: 30px;
+        gap: 48px;
     }
 
-    .footer-links {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    /* 品牌故事区移动端垂直排列 */
-    .brand-story .container {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .story-content h2 {
+    .hero-content {
         text-align: center;
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero-visual {
+        flex: none;
+        width: 100%;
+        height: 280px;
+    }
+
+    .hero-visual .shape-1 {
+        width: 200px;
+        height: 200px;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hero-visual .shape-2 {
+        width: 140px;
+        height: 140px;
+        top: 20px;
+        right: 20px;
+    }
+
+    .hero-visual .shape-3 {
+        width: 100px;
+        height: 100px;
+        bottom: 40px;
+        left: 20px;
+    }
+
+    /* 数据条 */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .stat-number {
+        font-size: 32px;
+    }
+
+    /* 服务卡片 */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        padding: 32px 24px;
+    }
+
+    /* 优势 */
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    /* 评价 */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 页脚 */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+/* 小屏手机适配（≤480px） */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero .tagline {
+        font-size: 16px;
+    }
+
+    .btn-primary,
+    .btn-outline {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stat-number {
+        font-size: 28px;
+    }
+
+    .section-header h2 {
+        font-size: 28px;
+    }
+
+    .service-card h3 {
+        font-size: 18px;
     }
 }

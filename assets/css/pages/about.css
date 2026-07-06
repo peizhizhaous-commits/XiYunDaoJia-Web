@@ -1,42 +1,135 @@
-/* about.css */
+/**
+ * ================================================================
+ *  about.css — 关于我们页样式（极简现代风格）
+ * ================================================================
+ */
 
-.about-intro { padding: 60px 0; background: #fff; }
-.about-intro .container { display: flex; align-items: center; gap: 60px; max-width: 1100px; }
+/* 公司简介区 */
+.about-section {
+    padding: 80px 0;
+    background: var(--bg-white);
+}
 
-.intro-content { flex: 1; }
-.intro-content h2 { text-align: left; margin-bottom: 20px; }
-.intro-content p { color: #666; line-height: 1.8; margin-bottom: 12px; }
+.intro-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
 
-.intro-image { flex: 1; }
-.intro-image img { border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.intro-content h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
 
-/* 企业文化 */
-.company-values { padding: 60px 0; background: #f8f9fa; }
-.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1100px; margin: 0 auto; }
+.intro-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+/* 企业文化区 */
+.values-section {
+    padding: 80px 0;
+    background: var(--bg-light);
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
 
 .value-item {
-    text-align: center; padding: 40px 30px; background: white;
-    border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.3s;
+    background: var(--bg-white);
+    border-radius: var(--radius);
+    padding: 36px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
 }
-.value-item:hover { transform: translateY(-3px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-.value-item h3 { color: #008800; font-size: 22px; margin-bottom: 12px; }
-.value-item p { color: #666; font-size: 15px; line-height: 1.6; margin: 0; }
 
-/* 团队风采 */
-.team-section { padding: 60px 0; background: #fff; }
-.section-desc { text-align: center; color: #999; margin-bottom: 40px; }
-.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1100px; margin: 0 auto; }
+.value-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+}
+
+.value-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.value-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: var(--primary);
+}
+
+.value-item h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.value-item p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* 团队风采区 */
+.team-section {
+    padding: 80px 0;
+    background: var(--bg-white);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
 
 .team-card {
-    text-align: center; padding: 30px 20px; background: #f8f9fa;
-    border-radius: 12px; transition: all 0.3s;
+    text-align: center;
 }
-.team-card:hover { transform: translateY(-3px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-.team-card img { width: 80px; height: 80px; margin: 0 auto 16px; }
-.team-card h4 { font-size: 18px; margin-bottom: 8px; color: #333; }
-.team-card p { color: #666; font-size: 14px; margin: 0; }
 
+.team-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    border: 4px solid var(--primary-light);
+}
+
+.team-card h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.team-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* 响应式 */
 @media (max-width: 768px) {
-    .about-intro .container { flex-direction: column; gap: 30px; }
-    .values-grid, .team-grid { grid-template-columns: 1fr; }
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
 }

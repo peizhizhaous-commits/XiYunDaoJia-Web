@@ -1,202 +1,285 @@
 <!--
   页面：首页 (index.html)
   角色：喜云到家品牌官网入口页面，展示品牌形象、核心优势、服务概览和行动号召
-  路由：/index.html（项目根入口）
-  页面结构：导航区 → Hero区 → 优势特色区 → 服务预览区 → CTA行动号召区 → 页脚区
+  设计：极简现代风格 - 呼吸感留白 + 卡片化服务 + 微动效引导
 -->
 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="喜云到家 - 您身边值得信赖的生活伙伴，家更干净，心更轻松">
     <title>喜云到家 - 家更干净，心更轻松</title>
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/pages/home.css">
 </head>
 <body>
-    <!-- ======================================== -->
-    <!-- 导航区：全局顶部导航栏，包含 Logo、主导航菜单、联系电话 -->
-    <!-- ======================================== -->
+    <!-- 导航区 -->
     <header class="site-header">
         <div class="container">
             <div class="logo">
-                    <img src="assets/images/logo/logo.jpg" alt="喜云到家">
+                <a href="index.html"><img src="assets/images/logo/logo.jpg" alt="喜云到家"></a>
             </div>
+            <button class="menu-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html" class="active">首页</a></li>
-                    <li><a href="pages/about.html">关于我们</a></li>
-                    <li><a href="pages/services.html">服务项目</a></li>
+                    <li><a href="pages/business.html">业务范围</a></li>
                     <li><a href="pages/cases.html">案例展示</a></li>
-                    <li><a href="pages/news.html">新闻资讯</a></li>
-                    <li><a href="pages/contact.html">联系我们</a></li>
+                    <li><a href="pages/community.html">交流社区</a></li>
+                    <li><a href="pages/about.html">关于我们</a></li>
+                    <li><a href="pages/documents.html">文档资料</a></li>
+                    <li><a href="pages/contact.html" class="btn btn-primary nav-btn">我要下单</a></li>
                 </ul>
             </nav>
             <div class="header-contact">
-                <span class="phone">400-xxx-xxxx</span>
+                <a href="tel:400-xxx-xxxx" class="phone">400-xxx-xxxx</a>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- ======================================== -->
-        <!-- Hero区：首页首屏大图横幅，展示品牌名称、Slogan 和主要行动按钮 -->
-        <!-- ======================================== -->
+        <!-- Hero区 -->
         <section class="hero">
             <div class="container">
-                <h1>喜云到家</h1>
-                <p class="tagline">家更干净，心更轻松</p>
-                <a href="pages/services.html" class="btn btn-primary">了解服务</a>
+                <div class="hero-content">
+                    <h1>家更干净<br>心更轻松</h1>
+                    <p class="tagline">专业家政 · 细致服务 · 值得信赖<br>让每一个家庭享受洁净与舒适</p>
+                    <div class="hero-actions">
+                        <a href="pages/contact.html" class="btn btn-primary">预约服务 →</a>
+                        <a href="pages/business.html" class="btn btn-outline">了解更多</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
             </div>
         </section>
 
-        <!-- ======================================== -->
-        <!-- 优势特色区：四宫格展示品牌核心竞争力（专业服务、品质保障、便捷预约、值得信赖） -->
-        <!-- ======================================== -->
-        <section class="features">
+        <!-- 数据亮点条 -->
+        <section class="stats-bar">
             <div class="container">
-                <h2>我们的优势</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <img src="assets/images/icons/service.svg" alt="专业服务">
-                        <h3>专业服务</h3>
-                        <p>高标准服务体系，持证上岗</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">10万+</div>
+                        <div class="stat-label">累计服务家庭</div>
                     </div>
-                    <div class="feature-card">
-                        <img src="assets/images/icons/quality.svg" alt="品质保障">
-                        <h3>品质保障</h3>
-                        <p>至诚至信，匠心笃行</p>
+                    <div class="stat-item">
+                        <div class="stat-number">99.8%</div>
+                        <div class="stat-label">客户好评率</div>
                     </div>
-                    <div class="feature-card">
-                        <img src="assets/images/icons/convenient.svg" alt="便捷预约">
-                        <h3>便捷预约</h3>
-                        <p>在线预约，快速响应</p>
+                    <div class="stat-item">
+                        <div class="stat-number">30分钟</div>
+                        <div class="stat-label">极速响应</div>
                     </div>
-                    <div class="feature-card">
-                        <img src="assets/images/icons/trust.svg" alt="值得信赖">
-                        <h3>值得信赖</h3>
-                        <p>百万用户的共同选择</p>
+                    <div class="stat-item">
+                        <div class="stat-number">全城覆盖</div>
+                        <div class="stat-label">服务网络</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ======================================== -->
-        <!-- 品牌故事区：展示喜云到家品牌理念和使命 -->
-        <!-- ======================================== -->
-        <section class="brand-story">
+        <!-- 服务卡片区 -->
+        <section class="services-section">
             <div class="container">
-                <div class="story-content">
-                    <h2>关于喜云到家</h2>
-                    <p class="story-lead">我们坚信，洁净之家，是心灵最好的栖息与疗愈。</p>
-                    <p>作为智净优邸旗下专注家庭深度保洁与到家服务的品牌，喜云到家以"专业、真诚、靠谱"为核心，致力于让每一个家庭更干净、更安心，让每一份劳动被看见、被尊重。</p>
-                    <p>我们以"洁净为基，温暖为伴，主动为先"为信念，力求让每一次服务都成为您安心的理由。把琐碎家务托付于人，不是偷懒，而是对时光与自我的尊重。</p>
-                    <a href="pages/about.html" class="btn btn-secondary">了解更多</a>
+                <div class="section-header">
+                    <h2>我们的服务</h2>
+                    <p>专业团队，品质保障，为您提供全方位到家服务</p>
                 </div>
-                <div class="story-image">
-                    <img src="assets/images/about/company.svg" alt="喜云到家">
-                </div>
-            </div>
-        </section>
-
-        <!-- ======================================== -->
-        <!-- 服务预览区：展示四大核心服务分类（家政清洁、家电维修、搬家服务、管道疏通），引导用户查看详情 -->
-        <!-- ======================================== -->
-        <section class="services-preview">
-            <div class="container">
-                <h2>服务项目</h2>
                 <div class="services-grid">
-                    <div class="service-item">
-                        <img src="assets/images/services/cleaning.svg" alt="家政清洁">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+                        </div>
                         <h3>家政清洁</h3>
-                        <p>日常保洁、深度清洁、开荒保洁</p>
+                        <p>专业清洁团队，提供日常保洁、深度清洁服务</p>
+                        <div class="service-price">¥99起</div>
+                        <a href="pages/services.html?category=cleaning" class="btn-link">了解详情 →</a>
                     </div>
-                    <div class="service-item">
-                        <img src="assets/images/services/repair.svg" alt="家电维修">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M22 9V7h-2V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v2H2v2h2v2H2v2h2v2H2v2h2v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2v-2h-2V9h2zm-4 10H6V5h12v14z"/></svg>
+                        </div>
                         <h3>家电维修</h3>
-                        <p>空调维修、洗衣机维修、各类家电</p>
+                        <p>空调、洗衣机等家电专业维修服务</p>
+                        <div class="service-price">¥59起</div>
+                        <a href="pages/services.html?category=repair" class="btn-link">了解详情 →</a>
                     </div>
-                    <div class="service-item">
-                        <img src="assets/images/services/moving.svg" alt="搬家服务">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        </div>
                         <h3>搬家服务</h3>
-                        <p>家庭搬家、企业搬迁、打包整理</p>
+                        <p>一站式搬家服务，专业打包搬运</p>
+                        <div class="service-price">¥199起</div>
+                        <a href="pages/services.html?category=moving" class="btn-link">了解详情 →</a>
                     </div>
-                    <div class="service-item">
-                        <img src="assets/images/services/pipeline.svg" alt="管道疏通">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
                         <h3>管道疏通</h3>
-                        <p>下水道疏通、马桶维修、管道清洗</p>
+                        <p>快速解决各类管道堵塞问题</p>
+                        <div class="service-price">¥79起</div>
+                        <a href="pages/services.html?category=pipeline" class="btn-link">了解详情 →</a>
                     </div>
                 </div>
-                <a href="pages/services.html" class="btn btn-secondary">查看全部服务</a>
             </div>
         </section>
 
-        <!-- ======================================== -->
-        <!-- CTA行动号召区：引导用户立即预约服务，跳转至联系我们页面 -->
-        <!-- ======================================== -->
-        <section class="cta">
+        <!-- 优势展示区 -->
+        <section class="advantages-section">
             <div class="container">
-                <h2>立即预约服务</h2>
-                <p>专业团队，让家更干净，心更轻松</p>
-                <a href="pages/contact.html" class="btn btn-primary">联系我们</a>
+                <div class="section-header">
+                    <h2>为什么选择我们</h2>
+                    <p>专业、品质、便捷，让您放心托付</p>
+                </div>
+                <div class="advantages-grid">
+                    <div class="advantage-item">
+                        <div class="advantage-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                        </div>
+                        <h3>专业认证</h3>
+                        <p>所有服务人员持证上岗，经过专业技能培训与考核</p>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="advantage-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <h3>透明定价</h3>
+                        <p>明码标价，无隐形消费，服务前确认价格</p>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="advantage-icon">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        </div>
+                        <h3>极速响应</h3>
+                        <p>在线预约，30分钟内响应，快速上门服务</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 用户评价区 -->
+        <section class="testimonials-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>用户好评</h2>
+                    <p>真实用户评价，口碑验证</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-content">"师傅很专业，清洁得很彻底，家里焕然一新！以后就认准喜云到家了。"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">张</div>
+                            <div class="testimonial-info">
+                                <h4>张女士</h4>
+                                <p>朝阳区 · 深度清洁</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-content">"空调维修很快上门，价格透明，修好后还帮忙清洗了滤网，服务超赞！"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">李</div>
+                            <div class="testimonial-info">
+                                <h4>李先生</h4>
+                                <p>海淀区 · 空调维修</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-content">"搬家打包很细心，大件家具都保护得很好，全程省心，推荐给朋友了。"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">王</div>
+                            <div class="testimonial-info">
+                                <h4>王先生</h4>
+                                <p>西城区 · 家庭搬家</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA横幅 -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>需要专业到家服务？</h2>
+                <p>一键预约，让家更干净，心更轻松</p>
+                <a href="pages/contact.html" class="btn btn-primary">立即预约 →</a>
             </div>
         </section>
     </main>
 
-    <!-- ======================================== -->
-    <!-- 页脚区：公司信息、快速链接、服务项目导航、版权声明 -->
-    <!-- ======================================== -->
+    <!-- 页脚 -->
     <footer class="site-footer">
         <div class="container">
-            <div class="footer-info">
-                <div class="footer-logo">
-                <img src="assets/images/logo/logo.jpg" alt="喜云到家">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>喜云到家</h3>
+                    <p>喜云到家是智净优邸旗下专注家庭深度保洁与到家服务的品牌，致力于让每一个家庭更干净、更安心。</p>
                 </div>
-                <div class="footer-contact">
-                    <p>服务热线：400-xxx-xxxx</p>
-                    <p>地址：XX市XX区XX路XX号</p>
-                    <p>邮箱：service@xiyun.com</p>
-                    <p class="slogan">家更干净，心更轻松</p>
-                </div>
-            </div>
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>快速链接</h4>
-                    <ul>
-                        <li><a href="pages/about.html">关于我们</a></li>
-                        <li><a href="pages/services.html">服务项目</a></li>
-                        <li><a href="pages/contact.html">联系我们</a></li>
-                    </ul>
-                </div>
-                <div class="link-group">
+                <div class="footer-column">
                     <h4>服务项目</h4>
                     <ul>
-                        <li><a href="pages/services.html">家政清洁</a></li>
-                        <li><a href="pages/services.html">家电维修</a></li>
-                        <li><a href="pages/services.html">搬家服务</a></li>
+                        <li><a href="pages/services.html?category=cleaning">家政清洁</a></li>
+                        <li><a href="pages/services.html?category=repair">家电维修</a></li>
+                        <li><a href="pages/services.html?category=moving">搬家服务</a></li>
+                        <li><a href="pages/services.html?category=pipeline">管道疏通</a></li>
                     </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="pages/about.html">公司介绍</a></li>
+                        <li><a href="pages/cases.html">客户案例</a></li>
+                        <li><a href="pages/community.html">新闻动态</a></li>
+                        <li><a href="pages/documents.html">文档资料</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>联系方式</h4>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span>400-xxx-xxxx</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <span>服务时间：周一至周日 8:00-20:00</span>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 喜云到家 版权所有</p>
+                <p>© 2025 喜云到家 版权所有</p>
             </div>
         </div>
     </footer>
 
     <script src="assets/js/common.js"></script>
     <script src="assets/js/nav.js"></script>
-    <script src="assets/js/api.js"></script>
-    <script src="assets/js/dataloader.js"></script>
-    <script src="assets/js/pages/home.js"></script>
     <script>
-      // 从 Strapi API 加载数据
-      document.addEventListener('DOMContentLoaded', () => {
-        DataLoader.initHomePage();
-      });
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.site-header');
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
 </html>

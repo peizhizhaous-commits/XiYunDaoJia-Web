@@ -1,0 +1,526 @@
+<!--
+  页面：交流社区 (community.html)
+  角色：客户问答、新闻资讯、行业资讯综合社区
+  路由：/pages/community.html
+  页面结构：导航区 → Hero区 → Tab切换 → 内容列表 → 页脚区
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="喜云到家交流社区 - 了解最新动态，查看客户问答，获取行业资讯">
+    <title>交流社区 - 喜云到家</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/news.css">
+    <style>
+        /* 社区专属样式 */
+        .community-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+        .community-tabs .tab-btn {
+            padding: 12px 32px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            background: white;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .community-tabs .tab-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        .community-tabs .tab-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .qa-item {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s;
+        }
+        .qa-item:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .qa-question {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .qa-question .q-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .qa-question .q-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        .qa-answer {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding-left: 0;
+        }
+        .qa-answer .a-tag {
+            background: #FF9955;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .qa-answer .a-text {
+            color: #555;
+            line-height: 1.9;
+            font-size: 15px;
+        }
+        .news-card {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+        }
+        .news-card:hover {
+            transform: translateY(-3px);
+        }
+        .news-card .news-img {
+            width: 160px;
+            height: 120px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f0f0f0;
+        }
+        .news-card .news-info {
+            flex: 1;
+        }
+        .news-card .news-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .news-card .news-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .news-card .news-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .news-card .news-date {
+            color: #999;
+            font-size: 12px;
+        }
+        /* 社区页面布局优化 */
+        .hero {
+            padding: 60px 0;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .hero .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* 内容区域优化 */
+        .community-section {
+            padding: 48px 0 60px;
+            background: #f8f9fa;
+            min-height: calc(100vh - 300px);
+        }
+        .community-section .container {
+            max-width: 1100px;
+        }
+
+        /* 问答列表容器 */
+        .tab-content {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        /* 问答卡片优化 */
+        .qa-item {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 36px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .qa-item:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .qa-question {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .qa-question .q-tag {
+            background: var(--primary-color);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qa-question .q-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.5;
+        }
+        .qa-answer {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding-left: 0;
+        }
+        .qa-answer .a-tag {
+            background: var(--secondary-color);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qa-answer .a-text {
+            color: #555;
+            line-height: 1.9;
+            font-size: 15px;
+            flex: 1;
+        }
+
+        /* 新闻卡片优化 */
+        .news-card {
+            display: flex;
+            gap: 24px;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .news-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .news-card .news-img {
+            width: 180px;
+            height: 130px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f0f0f0;
+        }
+        .news-card .news-info {
+            flex: 1;
+        }
+        .news-card .news-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .news-card .news-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .news-card .news-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        .news-card .news-date {
+            color: #999;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 0;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .community-section {
+                padding: 32px 0 48px;
+            }
+            .qa-item {
+                padding: 24px 20px;
+            }
+            .qa-question .q-text {
+                font-size: 16px;
+            }
+            .qa-answer .a-text {
+                font-size: 14px;
+            }
+            .news-card {
+                flex-direction: column;
+            }
+            .news-card .news-img {
+                width: 100%;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航区 -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/images/logo/logo.jpg" alt="喜云到家"></a>
+            </div>
+            <button class="menu-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="business.html">业务范围</a></li>
+                    <li><a href="cases.html">案例展示</a></li>
+                    <li><a href="community.html" class="active">交流社区</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="documents.html">文档资料</a></li>
+                    <li><a href="contact.html" class="btn btn-primary nav-btn">我要下单</a></li>
+                </ul>
+            </nav>
+            <div class="header-contact">
+                <a href="tel:400-xxx-xxxx" class="phone">400-xxx-xxxx</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero区 -->
+        <section class="hero">
+            <div class="container">
+                <h1>交流社区</h1>
+                <p class="tagline">了解最新动态，获取专业解答</p>
+            </div>
+        </section>
+
+        <!-- 社区内容 -->
+        <section class="community-section">
+            <div class="container">
+                <!-- Tab切换 -->
+                <div class="community-tabs">
+                    <button class="tab-btn active" data-tab="qa">客户问答</button>
+                    <button class="tab-btn" data-tab="news">新闻资讯</button>
+                    <button class="tab-btn" data-tab="industry">行业资讯</button>
+                </div>
+
+                <!-- 客户问答 -->
+                <div class="tab-content active" id="tab-qa">
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <span class="q-tag">问</span>
+                            <span class="q-text">日常保洁和深度清洁有什么区别？</span>
+                        </div>
+                        <div class="qa-answer">
+                            <span class="a-tag">答</span>
+                            <span class="a-text">日常保洁主要针对客厅、卧室、厨房、卫生间等区域进行常规清洁，适合定期维护。深度清洁则是全方位无死角清洁，包括重油污处理、角落除尘、消毒杀菌等，适合换季或长期未清洁的家庭。</span>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <span class="q-tag">问</span>
+                            <span class="q-text">服务人员有健康证吗？安全有保障吗？</span>
+                        </div>
+                        <div class="qa-answer">
+                            <span class="a-tag">答</span>
+                            <span class="a-text">所有服务人员均经过专业培训并持证上岗，持有健康证和技能证书。我们还为每位服务人员购买了意外保险，服务全程有保障，让您安心托付。</span>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <span class="q-tag">问</span>
+                            <span class="q-text">预约后多久能上门服务？</span>
+                        </div>
+                        <div class="qa-answer">
+                            <span class="a-tag">答</span>
+                            <span class="a-text">一般情况下，预约成功后24小时内会有客服与您确认具体时间。紧急需求可选择加急服务，最快2小时上门（视区域和服务类型而定）。</span>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <span class="q-tag">问</span>
+                            <span class="q-text">服务完成后不满意怎么办？</span>
+                        </div>
+                        <div class="qa-answer">
+                            <span class="a-tag">答</span>
+                            <span class="a-text">我们承诺服务不满意可免费返工。服务完成后请当面验收，如有不满意的地方，我们会立即安排返工，直到您满意为止。</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新闻资讯 -->
+                <div class="tab-content" id="tab-news">
+                    <div class="news-list" id="news-list">
+                        <!-- 动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 行业资讯 -->
+                <div class="tab-content" id="tab-industry">
+                    <div class="news-list" id="industry-list">
+                        <!-- 动态加载 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-info">
+                <div class="footer-brand">
+                    <h3>喜云到家</h3>
+                    <p class="slogan">家更干净，心更轻松</p>
+                </div>
+                <div class="footer-contact">
+                    <p>服务热线：<a href="tel:400-xxx-xxxx">400-xxx-xxxx</a></p>
+                    <p>服务时间：周一至周日 8:00-20:00</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="business.html">业务范围</a></li>
+                    <li><a href="cases.html">案例展示</a></li>
+                    <li><a href="community.html">交流社区</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="documents.html">文档资料</a></li>
+                    <li><a href="contact.html">我要下单</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 喜云到家 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script>
+        // Tab切换
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+            });
+        });
+
+        // 加载新闻数据
+        async function loadNews() {
+            try {
+                const res = await fetch('/api/articles');
+                const data = await res.json();
+                const newsList = document.getElementById('news-list');
+                const industryList = document.getElementById('industry-list');
+
+                data.data.forEach(article => {
+                    const card = `
+                        <div class="news-card">
+                            <img src="${article.image_url || '../assets/images/news/default.svg'}" alt="${article.title}" class="news-img">
+                            <div class="news-info">
+                                <span class="news-category">${article.category}</span>
+                                <h3 class="news-title">${article.title}</h3>
+                                <p class="news-desc">${article.summary}</p>
+                                <span class="news-date">${article.date}</span>
+                            </div>
+                        </div>
+                    `;
+                    if (article.category === '行业资讯') {
+                        industryList.innerHTML += card;
+                    } else {
+                        newsList.innerHTML += card;
+                    }
+                });
+
+                if (!newsList.innerHTML) {
+                    newsList.innerHTML = '<p style="text-align:center;color:#999;padding:40px;">暂无新闻资讯</p>';
+                }
+                if (!industryList.innerHTML) {
+                    industryList.innerHTML = '<p style="text-align:center;color:#999;padding:40px;">暂无行业资讯</p>';
+                }
+            } catch (e) {
+                console.error('加载新闻失败:', e);
+            }
+        }
+        loadNews();
+    </script>
+</body>
+</html>

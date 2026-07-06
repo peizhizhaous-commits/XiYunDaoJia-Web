@@ -1,55 +1,53 @@
 /**
  * ================================================================
- *  base.css — 全局基础样式（CSS Variables、Reset、通用工具类）
+ *  base.css — 全局基础样式（极简现代风格）
  * ================================================================
- * 【角色】定义设计系统的基础层：品牌色变量、浏览器 reset、排版基础、.container / .btn 等通用类
- * 【职责】
- *   1. 声明 CSS 自定义属性（品牌色、间距、阴影、圆角、过渡）
- *   2. 统一浏览器默认样式（box-sizing、margin/padding reset）
- *   3. 设定全局排版（字体、标题层级、段落间距）
- *   4. 提供 .container 居中容器和 .btn 按钮基类
- * 【被谁引用】所有 HTML 页面（<link> 标签引入，应在其他 CSS 之前加载）
- * 【依赖】无外部依赖，CSS Variables 由本文件声明
  */
 
 /* ==== 1. 设计 Token（CSS 自定义属性）==== */
 :root {
-    --primary-color: #008800;       /* 品牌主色（绿） */
-    --primary-dark: #006600;        /* 主色深色变体（hover/按压态） */
-    --secondary-color: #FF9955;     /* 辅助色（橙，用于强调） */
-    --text-color: #333333;          /* 正文文字色 */
-    --text-light: #666666;          /* 次要文字色 */
-    --bg-color: #ffffff;            /* 页面背景色 */
-    --bg-light: #f5f7fa;            /* 浅灰背景（区块底色） */
-    --border-color: #e0e0e0;        /* 边框色 */
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);   /* 通用阴影 */
-    --radius: 8px;                  /* 统一圆角 */
-    --transition: all 0.3s ease;    /* 统一过渡动画 */
+    --primary: #008800;
+    --primary-dark: #006600;
+    --primary-light: #e6f5e6;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+    --bg-white: #ffffff;
+    --bg-light: #f8f9fa;
+    --bg-dark: #1a1a1a;
+    --border: #e5e5e5;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+    --radius: 16px;
+    --radius-sm: 8px;
 }
 
 /* ==== 2. Reset — 浏览器默认样式重置 ==== */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;         /* 统一盒模型为 border-box */
+    box-sizing: border-box;
 }
 
 html {
-    font-size: 16px;                /* 基准字号（1rem = 16px） */
-    scroll-behavior: smooth;        /* 锚点平滑滚动 */
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+    font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-white);
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-    color: var(--primary-color);
+    color: var(--primary);
     text-decoration: none;
-    transition: var(--transition);
+    transition: color 0.2s ease;
 }
 
 a:hover {
@@ -59,77 +57,116 @@ a:hover {
 img {
     max-width: 100%;
     height: auto;
-    display: block;                 /* 消除图片底部间隙 */
-}
-
-ul {
-    list-style: none;               /* 全局去掉列表圆点 */
 }
 
 /* ==== 3. 排版基础 ==== */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     line-height: 1.3;
-    margin-bottom: 0.5em;
+    color: var(--text-primary);
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
+h1 { font-size: 48px; letter-spacing: -0.02em; }
+h2 { font-size: 36px; letter-spacing: -0.02em; }
+h3 { font-size: 24px; }
+h4 { font-size: 20px; }
 
 p {
-    margin-bottom: 1em;
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
 /* ==== 4. 通用工具类 ==== */
-
-/* 居中容器：max-width 1200px + 两侧 20px padding */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
-/* 按钮基类 — 需配合 .btn-primary / .btn-secondary 使用 */
+/* 按钮基类 */
 .btn {
-    display: inline-block;
-    padding: 12px 24px;
-    border-radius: var(--radius);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 12px;
     font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-    transition: var(--transition);
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
     border: none;
+    cursor: pointer;
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background: var(--primary);
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-dark);
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 136, 0, 0.3);
     color: white;
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
 }
 
-.btn-secondary:hover {
-    background-color: var(--primary-color);
+.btn-outline:hover {
+    background: var(--primary);
     color: white;
 }
 
-/* ==== 5. 区块通用样式 ==== */
+/* 区块通用样式 */
 section {
     padding: 80px 0;
 }
 
-section h2 {
+.section-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    margin-bottom: 16px;
+}
+
+.section-header p {
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==== 5. 响应式字体大小 ==== */
+@media (max-width: 768px) {
+    h1 { font-size: 32px; }
+    h2 { font-size: 28px; }
+    h3 { font-size: 20px; }
+    h4 { font-size: 18px; }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    .section-header {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 28px; }
+    h2 { font-size: 24px; }
+
+    .btn {
+        width: 100%;
+    }
 }

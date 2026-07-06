@@ -1,0 +1,406 @@
+<!--
+  页面：文档资料 (documents.html)
+  角色：展示公司文档、合同模板、服务协议等PDF资料
+  路由：/pages/documents.html
+  页面结构：导航区 → Hero区 → 文档分类 → 文档列表 → 页脚区
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="喜云到家文档资料 - 查看服务协议、合同模板、公司资质等文档">
+    <title>文档资料 - 喜云到家</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        /* 文档页面样式 */
+        .docs-section {
+            padding: 48px 0 60px;
+            background: #f8f9fa;
+            min-height: calc(100vh - 300px);
+        }
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .doc-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .doc-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .doc-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .doc-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        .doc-icon.word {
+            background: linear-gradient(135deg, #2980b9, #2471a3);
+        }
+        .doc-icon.excel {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+        .doc-icon.ppt {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+        .doc-card h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .doc-card p {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .doc-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+        .doc-meta .size {
+            color: #999;
+            font-size: 12px;
+        }
+        .doc-meta .btn-view {
+            padding: 6px 16px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .doc-meta .btn-view:hover {
+            background: var(--primary-dark);
+        }
+
+        /* PDF预览模态框 */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            padding: 20px;
+        }
+        .pdf-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+        .pdf-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 20px;
+        }
+        .pdf-modal-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .pdf-modal-close {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pdf-modal-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .pdf-modal-body {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .pdf-modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .pdf-modal-actions {
+            display: flex;
+            gap: 12px;
+            padding: 16px 0;
+        }
+        .pdf-modal-actions a {
+            padding: 10px 24px;
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .pdf-modal-actions a:hover {
+            background: #f0f0f0;
+        }
+        .pdf-modal-actions .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        .pdf-modal-actions .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+            .pdf-modal {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航区 -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/images/logo/logo.jpg" alt="喜云到家"></a>
+            </div>
+            <button class="menu-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="business.html">业务范围</a></li>
+                    <li><a href="cases.html">案例展示</a></li>
+                    <li><a href="community.html">交流社区</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="contact.html" class="btn btn-primary nav-btn">我要下单</a></li>
+                </ul>
+            </nav>
+            <div class="header-contact">
+                <a href="tel:400-xxx-xxxx" class="phone">400-xxx-xxxx</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero区 -->
+        <section class="hero">
+            <div class="container">
+                <h1>文档资料</h1>
+                <p class="tagline">服务协议、合同模板、公司资质等文档下载</p>
+            </div>
+        </section>
+
+        <!-- 文档列表 -->
+        <section class="docs-section">
+            <div class="container">
+                <div class="docs-grid" id="docsList">
+                    <!-- 动态加载文档列表 -->
+                </div>
+                <div id="emptyState" style="display:none; text-align:center; padding:60px 20px; color:#999;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#ddd" style="margin-bottom:16px;">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                    <p>暂无文档资料</p>
+                    <p style="font-size:13px; margin-top:8px;">请稍后再来查看</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PDF预览模态框 -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-header">
+            <span class="pdf-modal-title" id="pdfTitle">文档预览</span>
+            <button class="pdf-modal-close" onclick="closePdfModal()">&times;</button>
+        </div>
+        <div class="pdf-modal-body">
+            <iframe id="pdfFrame" src=""></iframe>
+        </div>
+        <div class="pdf-modal-actions">
+            <a id="pdfDownload" href="" download>下载文档</a>
+            <a href="#" onclick="closePdfModal(); return false;">关闭预览</a>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-info">
+                <div class="footer-brand">
+                    <h3>喜云到家</h3>
+                    <p class="slogan">家更干净，心更轻松</p>
+                </div>
+                <div class="footer-contact">
+                    <p>服务热线：<a href="tel:400-xxx-xxxx">400-xxx-xxxx</a></p>
+                    <p>服务时间：周一至周日 8:00-20:00</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="business.html">业务范围</a></li>
+                    <li><a href="cases.html">案例展示</a></li>
+                    <li><a href="community.html">交流社区</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="documents.html">文档资料</a></li>
+                    <li><a href="contact.html">我要下单</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 喜云到家 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script>
+        // 预设文档列表（可后续通过API扩展）
+        const documents = [
+            {
+                id: 1,
+                title: '喜云到家服务协议',
+                description: '标准服务协议模板，明确双方权责',
+                file: '/assets/docs/服务协议模板.pdf',
+                type: 'pdf',
+                size: '2.3MB'
+            },
+            {
+                id: 2,
+                title: '家政服务合同范本',
+                description: '家政清洁服务合同模板',
+                file: '/assets/docs/家政服务合同.pdf',
+                type: 'pdf',
+                size: '1.8MB'
+            },
+            {
+                id: 3,
+                title: '公司资质证书',
+                description: '营业执照、资质认证等',
+                file: '/assets/docs/公司资质.pdf',
+                type: 'pdf',
+                size: '5.2MB'
+            },
+            {
+                id: 4,
+                title: '服务价格清单',
+                description: '各类服务项目收费标准',
+                file: '/assets/docs/价格清单.pdf',
+                type: 'pdf',
+                size: '856KB'
+            },
+            {
+                id: 5,
+                title: '客户权益保障说明',
+                description: '售后服务、投诉处理流程',
+                file: '/assets/docs/客户权益保障.pdf',
+                type: 'pdf',
+                size: '1.2MB'
+            },
+            {
+                id: 6,
+                title: '员工培训手册',
+                description: '服务人员行为规范与标准',
+                file: '/assets/docs/员工培训手册.pdf',
+                type: 'pdf',
+                size: '3.5MB'
+            }
+        ];
+
+        // 渲染文档列表
+        function renderDocs() {
+            const container = document.getElementById('docsList');
+            const emptyState = document.getElementById('emptyState');
+
+            if (documents.length === 0) {
+                container.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            container.innerHTML = documents.map(doc => `
+                <div class="doc-card" onclick="openPdf('${doc.file}', '${doc.title}')">
+                    <div class="doc-icon ${doc.type}">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                    </div>
+                    <h3>${doc.title}</h3>
+                    <p>${doc.description}</p>
+                    <div class="doc-meta">
+                        <span class="size">${doc.size}</span>
+                        <a href="${doc.file}" download class="btn-view" onclick="event.stopPropagation()">下载</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 打开PDF预览
+        function openPdf(url, title) {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            const titleEl = document.getElementById('pdfTitle');
+            const downloadBtn = document.getElementById('pdfDownload');
+
+            titleEl.textContent = title;
+            frame.src = url;
+            downloadBtn.href = url;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭PDF预览
+        function closePdfModal() {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+
+            modal.classList.remove('active');
+            frame.src = '';
+            document.body.style.overflow = '';
+        }
+
+        // ESC键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePdfModal();
+        });
+
+        // 初始化
+        renderDocs();
+    </script>
+</body>
+</html>
