@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF9955" stop-opacity="0.05"/><stop offset="100%" stop-color="#FF9955" stop-opacity="0.15"/></linearGradient></defs>
+  <rect width="400" height="300" fill="url(#g)" rx="16"/>
+  <rect x="16" y="16" width="368" height="268" fill="white" rx="12" opacity="0.9"/>
+  <circle cx="200" cy="110" r="48" fill="#FF9955" opacity="0.1"/>
+  <text x="200" y="125" text-anchor="middle" font-size="48">🚿</text>
+  <text x="200" y="195" text-anchor="middle" font-family="sans-serif" font-size="26" font-weight="bold" fill="#333">管道疏通</text>
+  <text x="200" y="230" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#999">高效·彻底·环保</text>
+  <rect x="160" y="250" width="80" height="3" rx="1.5" fill="#FF9955" opacity="0.4"/>
+</svg>

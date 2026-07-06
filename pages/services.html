@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务项目 - 喜云到家</title>
+    <meta name="description" content="喜云到家 - 您身边值得信赖的生活伙伴，家更干净，心更轻松">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/services.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="logo"><a href="../index.html"><img src="../assets/images/logo/logo.jpg" alt="喜云到家"></a></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="services.html" class="active">服务项目</a></li>
+                    <li><a href="cases.html">案例展示</a></li>
+                    <li><a href="news.html">新闻资讯</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+            </nav>
+            <div class="header-contact"><span class="phone">400-xxx-xxxx</span></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>服务项目</h1>
+                <div class="breadcrumb">
+                    <a href="../index.html">首页</a><span>/</span><span>服务项目</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="services-section">
+            <div class="container">
+                <div class="services-filter">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="cleaning">家政清洁</button>
+                    <button class="filter-btn" data-filter="repair">家电维修</button>
+                    <button class="filter-btn" data-filter="moving">搬家服务</button>
+                    <button class="filter-btn" data-filter="pipeline">管道疏通</button>
+                </div>
+
+                <div class="services-list" id="servicesList">
+                    <div class="service-card" data-category="cleaning">
+                        <div class="service-img"><img src="../assets/images/services/cleaning.svg" alt="日常保洁"></div>
+                        <div class="service-info">
+                            <div class="service-tag cleaning">家政清洁</div>
+                            <h3>日常保洁</h3>
+                            <p>专业清洁团队上门服务，包含客厅、卧室、厨房、卫生间全区域清洁，让家时刻保持整洁舒适。</p>
+                            <div class="service-meta">
+                                <span class="price">¥99起/次</span>
+                                <span class="duration">约2小时</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>全屋除尘擦拭</li><li>地面清洁拖洗</li><li>厨卫深度清洁</li><li>垃圾归整清运</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="cleaning">
+                        <div class="service-img"><img src="../assets/images/services/deep-clean.svg" alt="深度清洁"></div>
+                        <div class="service-info">
+                            <div class="service-tag cleaning">家政清洁</div>
+                            <h3>深度清洁</h3>
+                            <p>针对长期未清洁或装修后房屋，采用专业设备和环保清洁剂，彻底清除顽固污渍和卫生死角。</p>
+                            <div class="service-meta">
+                                <span class="price">¥199起/次</span>
+                                <span class="duration">约4小时</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>顽固污渍处理</li><li>死角深度清洁</li><li>油烟机拆洗</li><li>卫浴除垢杀菌</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="cleaning">
+                        <div class="service-img"><img src="../assets/images/services/cleaning.svg" alt="开荒保洁"></div>
+                        <div class="service-info">
+                            <div class="service-tag cleaning">家政清洁</div>
+                            <h3>开荒保洁</h3>
+                            <p>新房装修或旧房翻新后的首次全面清洁，清除建筑垃圾、灰尘、漆点等装修残留。</p>
+                            <div class="service-meta">
+                                <span class="price">¥299起/次</span>
+                                <span class="duration">约6小时</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>建筑垃圾清理</li><li>玻璃窗清洁</li><li>地面除胶抛光</li><li>全屋消毒净化</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="repair">
+                        <div class="service-img"><img src="../assets/images/services/air-conditioner.svg" alt="空调维修"></div>
+                        <div class="service-info">
+                            <div class="service-tag repair">家电维修</div>
+                            <h3>空调维修</h3>
+                            <p>专业技师上门，提供空调维修、清洗、加氟、移机等一站式服务，支持各品牌型号。</p>
+                            <div class="service-meta">
+                                <span class="price">¥80起/次</span>
+                                <span class="duration">约1小时</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>故障检测维修</li><li>深度清洗保养</li><li>制冷剂加注</li><li>整机拆装移机</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="repair">
+                        <div class="service-img"><img src="../assets/images/services/washing-machine.svg" alt="洗衣机维修"></div>
+                        <div class="service-info">
+                            <div class="service-tag repair">家电维修</div>
+                            <h3>洗衣机维修</h3>
+                            <p>各品牌洗衣机专业维修，快速诊断故障，原厂配件更换，保修期内免费上门。</p>
+                            <div class="service-meta">
+                                <span class="price">¥100起/次</span>
+                                <span class="duration">约1小时</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>不脱水/不进水</li><li>异响/漏水维修</li><li>电脑板更换</li><li>内桶清洗保养</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="repair">
+                        <div class="service-img"><img src="../assets/images/services/air-conditioner.svg" alt="热水器维修"></div>
+                        <div class="service-info">
+                            <div class="service-tag repair">家电维修</div>
+                            <h3>热水器维修</h3>
+                            <p>电热水器、燃气热水器专业维修，解决不加热、漏水、打不着火等常见问题。</p>
+                            <div class="service-meta">
+                                <span class="price">¥120起/次</span>
+                                <span class="duration">约1小时</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>不加热维修</li><li>漏水管道修复</li><li>点火系统检修</li><li>安全检测服务</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="moving">
+                        <div class="service-img"><img src="../assets/images/services/home-moving.svg" alt="家庭搬家"></div>
+                        <div class="service-info">
+                            <div class="service-tag moving">搬家服务</div>
+                            <h3>家庭搬家</h3>
+                            <p>一站式搬家服务，专业打包、安全搬运、准时送达，让您省心省力开启新生活。</p>
+                            <div class="service-meta">
+                                <span class="price">¥300起/次</span>
+                                <span class="duration">按距离</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>专业打包整理</li><li>家具安全搬运</li><li>大件拆装服务</li><li>物品归位摆放</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="moving">
+                        <div class="service-img"><img src="../assets/images/services/home-moving.svg" alt="企业搬迁"></div>
+                        <div class="service-info">
+                            <div class="service-tag moving">搬家服务</div>
+                            <h3>企业搬迁</h3>
+                            <p>办公设备、文件档案专业搬迁，提供拆装、打包、运输、归位全流程服务。</p>
+                            <div class="service-meta">
+                                <span class="price">¥800起/次</span>
+                                <span class="duration">按量</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>办公家具拆装</li><li>IT设备专业搬运</li><li>文件档案整理</li><li>新址归位布置</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="pipeline">
+                        <div class="service-img"><img src="../assets/images/services/drain.svg" alt="下水道疏通"></div>
+                        <div class="service-info">
+                            <div class="service-tag pipeline">管道疏通</div>
+                            <h3>下水道疏通</h3>
+                            <p>专业设备快速疏通各类管道堵塞，厨房、卫生间、阳台下水管道一站式解决。</p>
+                            <div class="service-meta">
+                                <span class="price">¥120起/次</span>
+                                <span class="duration">约30分钟</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>厨房油污疏通</li><li>卫生间毛发清理</li><li>主管道疏通</li><li>管道检测修复</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card" data-category="pipeline">
+                        <div class="service-img"><img src="../assets/images/services/drain.svg" alt="马桶维修"></div>
+                        <div class="service-info">
+                            <div class="service-tag pipeline">管道疏通</div>
+                            <h3>马桶维修</h3>
+                            <p>马桶堵塞、漏水、水箱故障等专业维修，快速恢复正常使用。</p>
+                            <div class="service-meta">
+                                <span class="price">¥100起/次</span>
+                                <span class="duration">约30分钟</span>
+                            </div>
+                            <ul class="service-features">
+                                <li>堵塞疏通处理</li><li>漏水配件更换</li><li>水箱调试维修</li><li>马桶安装移位</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-cta">
+                    <div class="cta-content">
+                        <h3>没有找到您需要的服务？</h3>
+                        <p>我们提供定制化服务方案，满足您的个性化需求</p>
+                        <a href="contact.html" class="btn btn-primary">立即咨询</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-info">
+                <div class="footer-logo"><img src="../assets/images/logo/logo.jpg" alt="喜云到家"></div>
+                <div class="footer-contact">
+                    <p>服务热线：400-xxx-xxxx</p>
+                    <p>地址：XX市XX区XX路XX号</p>
+                    <p>邮箱：service@xiyun.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 喜云到家 版权所有</p></div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/pages/services.js"></script>
+    <script>
+        // 筛选功能
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.service-card').forEach(card => {
+                    card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

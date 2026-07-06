@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "页面管理",
+    "description": "管理网站各个页面的内容"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "metaDescription": {
+      "type": "text"
+    },
+    "heroTitle": {
+      "type": "string"
+    },
+    "heroTagline": {
+      "type": "string"
+    },
+    "heroButtonText": {
+      "type": "string"
+    },
+    "heroButtonLink": {
+      "type": "string"
+    },
+    "brandStoryTitle": {
+      "type": "string"
+    },
+    "brandStoryLead": {
+      "type": "text"
+    },
+    "brandStoryContent": {
+      "type": "richtext"
+    },
+    "ctaTitle": {
+      "type": "string"
+    },
+    "ctaContent": {
+      "type": "text"
+    },
+    "ctaButtonText": {
+      "type": "string"
+    },
+    "ctaButtonLink": {
+      "type": "string"
+    },
+    "features": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::feature.feature",
+      "mappedBy": "page"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service",
+      "mappedBy": "page"
+    }
+  }
+}

@@ -1,0 +1,215 @@
+<!--
+  页面：联系我们 (contact.html)
+  角色：提供喜云到家联系方式和在线留言功能，是用户转化的关键落地页
+  路由：/pages/contact.html
+  页面结构：导航区 → 页面标题区(面包屑) → 联系方式+在线表单区 → 地图区 → 页脚区
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 喜云到家</title>
+    <meta name="description" content="喜云到家 - 您身边值得信赖的生活伙伴，让家更干净，让心更轻松">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/contact.css">
+</head>
+<body>
+    <!-- ======================================== -->
+    <!-- 导航区：全局顶部导航栏，当前页面"联系我们"高亮 -->
+    <!-- ======================================== -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/images/logo/logo.jpg" alt="喜云到家"></a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="services.html">服务项目</a></li>
+                    <li><a href="cases.html">案例展示</a></li>
+                    <li><a href="news.html">新闻资讯</a></li>
+                    <li><a href="contact.html" class="active">联系我们</a></li>
+                </ul>
+            </nav>
+            <div class="header-contact">
+                <span class="phone">189-8729-7831</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ======================================== -->
+        <!-- 页面标题区：展示当前页面名称和面包屑导航（首页 > 联系我们） -->
+        <!-- ======================================== -->
+        <section class="page-header">
+            <div class="container">
+                <h1>联系我们</h1>
+                <div class="breadcrumb">
+                    <a href="../index.html">首页</a>
+                    <span>/</span>
+                    <span>联系我们</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 联系方式+表单区：左侧展示电话/邮箱/地址/工作时间，右侧在线留言表单 -->
+        <!-- ======================================== -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <!-- 联系方式信息：服务热线、电子邮箱、公司地址、工作时间 -->
+                    <div class="contact-info">
+                        <h2>联系方式</h2>
+                        <div class="info-item">
+                            <img src="../assets/images/icons/phone.svg" alt="电话">
+                            <div>
+                                <h4>服务热线</h4>
+                                <p>400-xxx-xxxx</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <img src="../assets/images/icons/email.svg" alt="邮箱">
+                            <div>
+                                <h4>电子邮箱</h4>
+                                <p>service@xiyun.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <img src="../assets/images/icons/address.svg" alt="地址">
+                            <div>
+                                <h4>公司地址</h4>
+                                <p>昆明市官渡区巫家坝社区中海寰宇天下</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <img src="../assets/images/icons/time.svg" alt="工作时间">
+                            <div>
+                                <h4>工作时间</h4>
+                                <p>周一至周日 8:00-20:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 在线留言表单：家政服务预约专属表单 -->
+                    <div class="contact-form">
+                        <h2>服务预约</h2>
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">您的姓名 <span class="required">*</span></label>
+                                    <input type="text" id="name" name="name" required placeholder="请输入您的姓名">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">联系电话 <span class="required">*</span></label>
+                                    <input type="tel" id="phone" name="phone" required placeholder="请输入您的电话">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">电子邮箱</label>
+                                    <input type="email" id="email" name="email" placeholder="选填">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">服务地址 <span class="required">*</span></label>
+                                <input type="text" id="address" name="address" required placeholder="请输入详细服务地址（小区名称、楼栋号、门牌号）">
+                            </div>
+                            <div class="form-row two-col">
+                                <div class="form-group">
+                                    <label for="service">服务项目 <span class="required">*</span></label>
+                                    <select id="service" name="service" required>
+                                        <option value="">请选择服务项目</option>
+                                        <option value="cleaning-daily">日常保洁</option>
+                                        <option value="cleaning-deep">深度清洁</option>
+                                        <option value="cleaning-renovation">开荒保洁</option>
+                                        <option value="repair-aircon">空调维修</option>
+                                        <option value="repair-washer">洗衣机维修</option>
+                                        <option value="repair-waterheater">热水器维修</option>
+                                        <option value="moving-home">家庭搬家</option>
+                                        <option value="moving-office">企业搬迁</option>
+                                        <option value="pipeline-drain">下水道疏通</option>
+                                        <option value="pipeline-toilet">马桶维修</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">房屋面积</label>
+                                    <select id="area" name="area">
+                                        <option value="">请选择面积</option>
+                                        <option value="50">50㎡以下</option>
+                                        <option value="50-80">50-80㎡</option>
+                                        <option value="80-120">80-120㎡</option>
+                                        <option value="120-150">120-150㎡</option>
+                                        <option value="150">150㎡以上</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bookingTime">期望上门时间 <span class="required">*</span></label>
+                                <input type="datetime-local" id="bookingTime" name="bookingTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">需求描述 <span class="required">*</span></label>
+                                <textarea id="message" name="message" required placeholder="请描述您的具体需求，如：房屋状况、故障现象、特殊要求等..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">预约服务</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 地图区：展示公司地理位置（地图占位符，后续接入真实地图） -->
+        <!-- ======================================== -->
+        <section class="map-section">
+            <div class="container">
+                <h2>公司位置</h2>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <p>地图加载中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================================== -->
+    <!-- 页脚区：公司 Logo、联系方式、版权声明 -->
+    <!-- ======================================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-info">
+                <div class="footer-logo">
+                    <img src="../assets/images/logo/logo.jpg" alt="喜云到家">
+                </div>
+                <div class="footer-contact">
+                    <p>服务热线：400-xxx-xxxx</p>
+                    <p>地址：XX市XX区XX路XX号</p>
+                    <p>邮箱：service@xiyun.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 喜云到家 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/dataloader.js"></script>
+    <script src="../assets/js/pages/contact.js"></script>
+    <script>
+      // 从 Strapi API 加载数据
+      document.addEventListener('DOMContentLoaded', () => {
+        API.getCompanyInfo().then(info => {
+          if (info) DataLoader.fillCompanyInfo(info);
+        });
+      });
+    </script>
+</body>
+</html>

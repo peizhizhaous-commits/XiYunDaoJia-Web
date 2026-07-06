@@ -1,0 +1,176 @@
+/**
+ * ================================================================
+ *  components.css — 可复用组件样式（卡片、徽章、表单、页面标题、面包屑、分页、加载动画）
+ * ================================================================
+ * 【角色】定义全站通用 UI 组件样式，每个组件独立、可按需在任意页面使用
+ * 【职责】
+ *   1. .card 卡片组件（带图片 + 文本的通用卡片）
+ *   2. .badge 徽章（状态标签）
+ *   3. .form-group 表单控件（input / textarea / label）
+ *   4. .page-header + .breadcrumb 内页标题与面包屑导航
+ *   5. .pagination 分页器
+ *   6. .loading 加载动画（CSS spinner）
+ * 【被谁引用】所有 HTML 页面（在 base.css + layout.css 之后加载）
+ * 【依赖】base.css（CSS Variables: --primary-color, --bg-color, --shadow, --radius 等）
+ */
+
+/* ==== 1. 卡片组件 ==== */
+.card {
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;               /* 确保图片圆角裁剪 */
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);  /* hover 加深阴影 */
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;              /* 图片等比例裁剪，填满固定高度 */
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* ==== 2. 徽章 ==== */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;            /* 胶囊形状 */
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.badge-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.badge-success {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* ==== 3. 表单 ==== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+/* focus 态：蓝色边框 + 浅蓝光晕 */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 136, 0, 0.1);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;               /* 仅允许垂直拉伸 */
+}
+
+/* ==== 4. 内页标题 + 面包屑 ==== */
+.page-header {
+    background-color: var(--bg-light);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.page-header h1 {
+    margin-bottom: 15px;
+}
+
+.breadcrumb {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.breadcrumb a {
+    color: var(--text-light);
+}
+
+.breadcrumb span {
+    color: var(--text-color);       /* 当前页为正文色 */
+}
+
+/* ==== 5. 分页器 ==== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.pagination a,
+.pagination span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.pagination a:hover,
+.pagination span.active {           /* 当前页高亮 */
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* ==== 6. 加载动画 ==== */
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+/* 纯 CSS 旋转 spinner — 通过 ::after 伪元素绘制 */
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-color);  /* 顶部颜色突出，形成旋转感 */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

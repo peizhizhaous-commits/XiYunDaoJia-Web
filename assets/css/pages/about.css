@@ -1,0 +1,42 @@
+/* about.css */
+
+.about-intro { padding: 60px 0; background: #fff; }
+.about-intro .container { display: flex; align-items: center; gap: 60px; max-width: 1100px; }
+
+.intro-content { flex: 1; }
+.intro-content h2 { text-align: left; margin-bottom: 20px; }
+.intro-content p { color: #666; line-height: 1.8; margin-bottom: 12px; }
+
+.intro-image { flex: 1; }
+.intro-image img { border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+/* 企业文化 */
+.company-values { padding: 60px 0; background: #f8f9fa; }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1100px; margin: 0 auto; }
+
+.value-item {
+    text-align: center; padding: 40px 30px; background: white;
+    border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.3s;
+}
+.value-item:hover { transform: translateY(-3px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.value-item h3 { color: #008800; font-size: 22px; margin-bottom: 12px; }
+.value-item p { color: #666; font-size: 15px; line-height: 1.6; margin: 0; }
+
+/* 团队风采 */
+.team-section { padding: 60px 0; background: #fff; }
+.section-desc { text-align: center; color: #999; margin-bottom: 40px; }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1100px; margin: 0 auto; }
+
+.team-card {
+    text-align: center; padding: 30px 20px; background: #f8f9fa;
+    border-radius: 12px; transition: all 0.3s;
+}
+.team-card:hover { transform: translateY(-3px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.team-card img { width: 80px; height: 80px; margin: 0 auto 16px; }
+.team-card h4 { font-size: 18px; margin-bottom: 8px; color: #333; }
+.team-card p { color: #666; font-size: 14px; margin: 0; }
+
+@media (max-width: 768px) {
+    .about-intro .container { flex-direction: column; gap: 30px; }
+    .values-grid, .team-grid { grid-template-columns: 1fr; }
+}

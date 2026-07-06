@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>喜云到家 - 管理后台</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f7fa; color: #333; }
+    
+    .layout { display: flex; min-height: 100vh; }
+    
+    /* Sidebar */
+    .sidebar { width: 220px; background: #008800; color: white; padding: 20px 0; position: fixed; height: 100vh; overflow-y: auto; }
+    .sidebar h2 { padding: 0 20px 20px; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.2); margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 12px 20px; color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.2s; font-size: 14px; }
+    .sidebar a:hover, .sidebar a.active { background: rgba(255,255,255,0.15); color: white; }
+    .sidebar a .icon { margin-right: 8px; }
+    
+    /* Main */
+    .main { flex: 1; margin-left: 220px; padding: 24px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .header h1 { font-size: 22px; color: #333; }
+    .header .actions { display: flex; gap: 10px; }
+    
+    /* Cards */
+    .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .card h3 { font-size: 16px; margin-bottom: 12px; color: #555; }
+    
+    /* Table */
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+    th { background: #f8f9fa; font-weight: 600; color: #555; }
+    tr:hover { background: #f8f9fa; }
+    
+    /* Buttons */
+    .btn { padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    .btn-primary { background: #008800; color: white; }
+    .btn-primary:hover { background: #006600; }
+    .btn-danger { background: #e74c3c; color: white; }
+    .btn-danger:hover { background: #c0392b; }
+    .btn-sm { padding: 5px 10px; font-size: 12px; }
+    .btn-outline { background: transparent; border: 1px solid #ddd; color: #666; }
+    .btn-outline:hover { border-color: #008800; color: #008800; }
+    
+    /* Forms */
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; transition: border 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #008800; outline: none; }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: white; border-radius: 12px; padding: 24px; width: 560px; max-height: 80vh; overflow-y: auto; }
+    .modal h2 { font-size: 18px; margin-bottom: 16px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+    
+    /* Status badges */
+    .badge { padding: 3px 8px; border-radius: 10px; font-size: 12px; }
+    .badge-pending { background: #fff3cd; color: #856404; }
+    .badge-processed { background: #d4edda; color: #155724; }
+    .badge-replied { background: #cce5ff; color: #004085; }
+    
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: white; border-radius: 8px; padding: 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .stat-card .num { font-size: 28px; font-weight: 700; color: #008800; }
+    .stat-card .label { font-size: 13px; color: #999; margin-top: 4px; }
+    
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>喜云到家</h2>
+      <a href="#" onclick="showSection('dashboard')" class="active" id="nav-dashboard"><span class="icon">📊</span> 数据概览</a>
+      <a href="#" onclick="showSection('company')" id="nav-company"><span class="icon">🏢</span> 公司信息</a>
+      <a href="#" onclick="showSection('services')" id="nav-services"><span class="icon">🔧</span> 服务项目</a>
+      <a href="#" onclick="showSection('cases')" id="nav-cases"><span class="icon">📋</span> 案例展示</a>
+      <a href="#" onclick="showSection('articles')" id="nav-articles"><span class="icon">📰</span> 新闻资讯</a>
+      <a href="#" onclick="showSection('features')" id="nav-features"><span class="icon">⭐</span> 优势特色</a>
+      <a href="#" onclick="showSection('contacts')" id="nav-contacts"><span class="icon">💬</span> 联系留言</a>
+      <a href="/" target="_blank"><span class="icon">🌐</span> 查看前台</a>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main">
+      <!-- Dashboard -->
+      <div id="sec-dashboard">
+        <div class="header"><h1>数据概览</h1></div>
+        <div class="stats">
+          <div class="stat-card"><div class="num" id="stat-services">-</div><div class="label">服务项目</div></div>
+          <div class="stat-card"><div class="num" id="stat-cases">-</div><div class="label">案例展示</div></div>
+          <div class="stat-card"><div class="num" id="stat-articles">-</div><div class="label">新闻资讯</div></div>
+          <div class="stat-card"><div class="num" id="stat-contacts">-</div><div class="label">联系留言</div></div>
+        </div>
+        <div class="card"><h3>快捷操作</h3>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="showSection('services');openModal('service')">+ 新增服务</button>
+            <button class="btn btn-primary" onclick="showSection('cases');openModal('case')">+ 新增案例</button>
+            <button class="btn btn-primary" onclick="showSection('articles');openModal('article')">+ 新增新闻</button>
+            <button class="btn btn-outline" onclick="showSection('company')">编辑公司信息</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Company Info -->
+      <div id="sec-company" class="hidden">
+        <div class="header"><h1>公司信息</h1></div>
+        <div class="card">
+          <form id="companyForm" onsubmit="saveCompany(event)">
+            <div class="form-row">
+              <div class="form-group"><label>公司名称</label><input name="company_name" id="ci-name"></div>
+              <div class="form-group"><label>品牌标语</label><input name="slogan" id="ci-slogan"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>服务热线</label><input name="phone" id="ci-phone"></div>
+              <div class="form-group"><label>电子邮箱</label><input name="email" id="ci-email"></div>
+            </div>
+            <div class="form-group"><label>公司地址</label><input name="address" id="ci-address"></div>
+            <div class="form-group"><label>工作时间</label><input name="work_hours" id="ci-hours"></div>
+            <hr style="margin:16px 0;border:none;border-top:1px solid #eee;">
+            <div class="form-group"><label>关于标题</label><input name="about_title" id="ci-about-title"></div>
+            <div class="form-group"><label>关于引导语</label><input name="about_lead" id="ci-about-lead"></div>
+            <div class="form-group"><label>关于内容</label><textarea name="about_content" id="ci-about-content" rows="4"></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label>企业使命</label><input name="mission" id="ci-mission"></div>
+              <div class="form-group"><label>企业愿景</label><input name="vision" id="ci-vision"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>核心价值观</label><input name="values" id="ci-values"></div>
+              <div class="form-group"><label>版权信息</label><input name="copyright" id="ci-copyright"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">保存修改</button>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Services -->
+      <div id="sec-services" class="hidden">
+        <div class="header"><h1>服务项目</h1><div class="actions"><button class="btn btn-primary" onclick="openModal('service')">+ 新增服务</button></div></div>
+        <div class="card"><table><thead><tr><th>ID</th><th>名称</th><th>价格</th><th>分类</th><th>操作</th></tr></thead><tbody id="servicesTable"></tbody></table></div>
+      </div>
+      
+      <!-- Cases -->
+      <div id="sec-cases" class="hidden">
+        <div class="header"><h1>案例展示</h1><div class="actions"><button class="btn btn-primary" onclick="openModal('case')">+ 新增案例</button></div></div>
+        <div class="card"><table><thead><tr><th>ID</th><th>标题</th><th>日期</th><th>操作</th></tr></thead><tbody id="casesTable"></tbody></table></div>
+      </div>
+      
+      <!-- Articles -->
+      <div id="sec-articles" class="hidden">
+        <div class="header"><h1>新闻资讯</h1><div class="actions"><button class="btn btn-primary" onclick="openModal('article')">+ 新增新闻</button></div></div>
+        <div class="card"><table><thead><tr><th>ID</th><th>标题</th><th>分类</th><th>日期</th><th>操作</th></tr></thead><tbody id="articlesTable"></tbody></table></div>
+      </div>
+      
+      <!-- Features -->
+      <div id="sec-features" class="hidden">
+        <div class="header"><h1>优势特色</h1><div class="actions"><button class="btn btn-primary" onclick="openModal('feature')">+ 新增特色</button></div></div>
+        <div class="card"><table><thead><tr><th>ID</th><th>标题</th><th>描述</th><th>排序</th><th>操作</th></tr></thead><tbody id="featuresTable"></tbody></table></div>
+      </div>
+      
+      <!-- Contacts -->
+      <div id="sec-contacts" class="hidden">
+        <div class="header"><h1>联系留言</h1></div>
+        <div class="card"><table><thead><tr><th>姓名</th><th>电话</th><th>服务</th><th>留言</th><th>状态</th><th>操作</th></tr></thead><tbody id="contactsTable"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h2 id="modalTitle">新增</h2>
+      <div id="modalBody"></div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeModal()">取消</button>
+        <button class="btn btn-primary" id="modalSave" onclick="saveModal()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSection = 'dashboard';
+    let editingType = null;
+    let editingId = null;
+    
+    function showSection(name) {
+      document.querySelectorAll('[id^="sec-"]').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.sidebar a').forEach(el => el.classList.remove('active'));
+      document.getElementById('sec-' + name).classList.remove('hidden');
+      document.getElementById('nav-' + name)?.classList.add('active');
+      currentSection = name;
+      loadSection(name);
+    }
+    
+    async function loadSection(name) {
+      switch(name) {
+        case 'dashboard': await loadDashboard(); break;
+        case 'company': await loadCompany(); break;
+        case 'services': await loadServices(); break;
+        case 'cases': await loadCases(); break;
+        case 'articles': await loadArticles(); break;
+        case 'features': await loadFeatures(); break;
+        case 'contacts': await loadContacts(); break;
+      }
+    }
+    
+    async function api(url, opts = {}) {
+      const res = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...opts });
+      return res.json();
+    }
+    
+    // Dashboard
+    async function loadDashboard() {
+      const [s, c, a, co] = await Promise.all([api('/api/services'), api('/api/cases'), api('/api/articles'), api('/api/contacts')]);
+      document.getElementById('stat-services').textContent = s.data?.length || 0;
+      document.getElementById('stat-cases').textContent = c.data?.length || 0;
+      document.getElementById('stat-articles').textContent = a.data?.length || 0;
+      document.getElementById('stat-contacts').textContent = co.data?.length || 0;
+    }
+    
+    // Company
+    async function loadCompany() {
+      const { data } = await api('/api/company-info');
+      if (!data) return;
+      Object.keys(data).forEach(k => {
+        const el = document.getElementById('ci-' + k.replace(/_/g, '-'));
+        if (el) el.value = data[k] || '';
+      });
+    }
+    
+    async function saveCompany(e) {
+      e.preventDefault();
+      const form = new FormData(e.target);
+      const data = Object.fromEntries(form);
+      await api('/api/company-info', { method: 'PUT', body: JSON.stringify(data) });
+      alert('保存成功！');
+    }
+    
+    // Services
+    async function loadServices() {
+      const { data } = await api('/api/services');
+      const cat = { cleaning: '家政清洁', repair: '家电维修', moving: '搬家服务', pipeline: '管道疏通' };
+      document.getElementById('servicesTable').innerHTML = data.map(s => `
+        <tr>
+          <td>${s.id}</td><td>${s.title}</td><td>${s.price}</td><td>${cat[s.category] || s.category}</td>
+          <td><button class="btn btn-sm btn-outline" onclick="editItem('service',${s.id})">编辑</button> <button class="btn btn-sm btn-danger" onclick="deleteItem('services',${s.id})">删除</button></td>
+        </tr>`).join('');
+    }
+    
+    // Cases
+    async function loadCases() {
+      const { data } = await api('/api/cases');
+      document.getElementById('casesTable').innerHTML = data.map(c => `
+        <tr>
+          <td>${c.id}</td><td>${c.title}</td><td>${c.date}</td>
+          <td><button class="btn btn-sm btn-outline" onclick="editItem('case',${c.id})">编辑</button> <button class="btn btn-sm btn-danger" onclick="deleteItem('cases',${c.id})">删除</button></td>
+        </tr>`).join('');
+    }
+    
+    // Articles
+    async function loadArticles() {
+      const { data } = await api('/api/articles');
+      document.getElementById('articlesTable').innerHTML = data.map(a => `
+        <tr>
+          <td>${a.id}</td><td>${a.title}</td><td>${a.category}</td><td>${a.date}</td>
+          <td><button class="btn btn-sm btn-outline" onclick="editItem('article',${a.id})">编辑</button> <button class="btn btn-sm btn-danger" onclick="deleteItem('articles',${a.id})">删除</button></td>
+        </tr>`).join('');
+    }
+    
+    // Features
+    async function loadFeatures() {
+      const { data } = await api('/api/features');
+      document.getElementById('featuresTable').innerHTML = data.map(f => `
+        <tr>
+          <td>${f.id}</td><td>${f.title}</td><td>${f.description}</td><td>${f.sort_order}</td>
+          <td><button class="btn btn-sm btn-outline" onclick="editItem('feature',${f.id})">编辑</button> <button class="btn btn-sm btn-danger" onclick="deleteItem('features',${f.id})">删除</button></td>
+        </tr>`).join('');
+    }
+    
+    // Contacts
+    async function loadContacts() {
+      const { data } = await api('/api/contacts');
+      const st = { pending: '待处理', processed: '已处理', replied: '已回复' };
+      document.getElementById('contactsTable').innerHTML = data.map(c => `
+        <tr>
+          <td>${c.name}</td><td>${c.phone}</td><td>${c.service}</td><td>${(c.message||'').substring(0,30)}</td>
+          <td><span class="badge badge-${c.status}">${st[c.status]||c.status}</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline" onclick="updateContact(${c.id},'processed')">处理</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteItem('contacts',${c.id})">删除</button>
+          </td>
+        </tr>`).join('');
+    }
+    
+    async function updateContact(id, status) {
+      await api('/api/contacts/' + id, { method: 'PUT', body: JSON.stringify({ status }) });
+      loadContacts();
+    }
+    
+    // Modal
+    // Upload helper
+    async function uploadFile(file) {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const data = await res.json();
+      return data.url;
+    }
+
+    function openModal(type, data = null) {
+      editingType = type;
+      editingId = data?.id || null;
+      const imgPreview = data?.image_url ? `<div style="margin:8px 0"><img src="${data.image_url}" style="max-height:80px;border-radius:6px"></div>` : '';
+      const forms = {
+        service: `<div class="form-row"><div class="form-group"><label>服务名称</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>价格</label><input id="m-price" value="${data?.price||''}"></div></div><div class="form-row"><div class="form-group"><label>分类</label><select id="m-category"><option value="cleaning" ${data?.category==='cleaning'?'selected':''}>家政清洁</option><option value="repair" ${data?.category==='repair'?'selected':''}>家电维修</option><option value="moving" ${data?.category==='moving'?'selected':''}>搬家服务</option><option value="pipeline" ${data?.category==='pipeline'?'selected':''}>管道疏通</option></select></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div></div><div class="form-group"><label>描述</label><textarea id="m-desc">${data?.description||''}</textarea></div><div class="form-group"><label>子项</label><input id="m-sub" value="${data?.sub_items||''}"></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
+        case: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>描述</label><textarea id="m-desc">${data?.description||''}</textarea></div><div class="form-row"><div class="form-group"><label>日期</label><input type="date" id="m-date" value="${data?.date||''}"></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
+        article: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-row"><div class="form-group"><label>分类</label><input id="m-category" value="${data?.category||''}"></div><div class="form-group"><label>日期</label><input type="date" id="m-date" value="${data?.date||''}"></div></div><div class="form-group"><label>摘要</label><textarea id="m-summary">${data?.summary||''}</textarea></div><div class="form-group"><label>内容</label><textarea id="m-content" rows="6">${data?.content||''}</textarea></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
+        feature: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>描述</label><input id="m-desc" value="${data?.description||''}"></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div><div class="form-group"><label>图标</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`
+      };
+      document.getElementById('modalTitle').textContent = (editingId ? '编辑' : '新增') + { service:'服务', case:'案例', article:'新闻', feature:'特色' }[type];
+      document.getElementById('modalBody').innerHTML = forms[type];
+      document.getElementById('modal').classList.add('active');
+    }
+    
+    function closeModal() { document.getElementById('modal').classList.remove('active'); editingType = null; editingId = null; }
+    
+    async function editItem(type, id) {
+      const map = { service: 'services', case: 'cases', article: 'articles', feature: 'features' };
+      const { data } = await api('/api/' + map[type]);
+      const item = data.find(i => i.id === id);
+      if (item) openModal(type, item);
+    }
+    
+    async function saveModal() {
+      const get = id => document.getElementById(id)?.value || '';
+      let body = {};
+      
+      // Handle image upload
+      const imageInput = document.getElementById('m-image');
+      let imageUrl = editingId ? (await getExistingImage()) : '';
+      if (imageInput && imageInput.files.length > 0) {
+        imageUrl = await uploadFile(imageInput.files[0]);
+      }
+      
+      if (editingType === 'service') {
+        body = { title: get('m-title'), price: get('m-price'), category: get('m-category'), description: get('m-desc'), sub_items: get('m-sub'), sort_order: parseInt(get('m-sort')) || 0, image_url: imageUrl };
+      } else if (editingType === 'case') {
+        body = { title: get('m-title'), description: get('m-desc'), date: get('m-date'), sort_order: parseInt(get('m-sort')) || 0, image_url: imageUrl };
+      } else if (editingType === 'article') {
+        body = { title: get('m-title'), category: get('m-category'), date: get('m-date'), summary: get('m-summary'), content: get('m-content'), image_url: imageUrl };
+      } else if (editingType === 'feature') {
+        body = { title: get('m-title'), description: get('m-desc'), sort_order: parseInt(get('m-sort')) || 0, icon_url: imageUrl };
+      }
+      
+      if (!body.title) { alert('请填写标题'); return; }
+      
+      const map = { service: 'services', case: 'cases', article: 'articles', feature: 'features' };
+      const url = editingId ? `/api/${map[editingType]}/${editingId}` : `/api/${map[editingType]}`;
+      const method = editingId ? 'PUT' : 'POST';
+      
+      await api(url, { method, body: JSON.stringify(body) });
+      closeModal();
+      loadSection(currentSection);
+    }
+    
+    async function getExistingImage() {
+      const map = { service: 'services', case: 'cases', article: 'articles', feature: 'features' };
+      if (!editingId) return '';
+      const { data } = await api(`/api/${map[editingType]}`);
+      const item = data?.find(i => i.id === editingId);
+      return item?.image_url || item?.icon_url || '';
+    }
+    
+    async function deleteItem(resource, id) {
+      if (!confirm('确定删除？')) return;
+      await api(`/api/${resource}/${id}`, { method: 'DELETE' });
+      loadSection(currentSection);
+    }
+    
+    // Init
+    loadDashboard();
+  </script>
+</body>
+</html>

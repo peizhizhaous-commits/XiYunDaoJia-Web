@@ -1,0 +1,281 @@
+/**
+ * ================================================================
+ *  layout.css — 页面布局样式（页头、导航、Hero、区块布局、页脚、响应式）
+ * ================================================================
+ * 【角色】定义全站通用布局结构：sticky 页头、主导航、Hero 横幅、features/services 网格、CTA 区、页脚及移动端断点
+ * 【职责】
+ *   1. 站点头部（.site-header）：sticky 定位、logo、导航栏、联系电话
+ *   2. Hero 横幅区（.hero）：全宽渐变背景、居中文字
+ *   3. 网格布局：.features-grid（4列）、.services-grid（4列）
+ *   4. CTA 行动号召区
+ *   5. 站点页脚（.site-footer）：深色背景、多栏信息
+ *   6. 响应式断点（@media max-width: 768px）
+ * 【被谁引用】所有 HTML 页面（在 base.css 之后加载）
+ * 【依赖】base.css（CSS Variables: --primary-color, --shadow, --radius, --bg-light 等）
+ */
+
+/* ==== 1. 站点头部（Sticky 顶栏）==== */
+.site-header {
+    background-color: var(--bg-color);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;                  /* 确保导航在最上层 */
+}
+
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+/* Logo */
+.logo img {
+    height: 50px;
+}
+
+/* ==== 2. 主导航 ==== */
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav a {
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 8px 0;
+    position: relative;             /* 为 ::after 下划线定位 */
+}
+
+/* 导航下划线动画（hover / active 时从左侧滑入） */
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 100%;
+}
+
+/* 头部联系电话 */
+.header-contact .phone {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* ==== 3. Hero 横幅区 ==== */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color), #00aa00);
+    color: white;
+    text-align: center;
+    padding: 120px 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero .tagline {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* ==== 4. 特色功能区（4 列网格）==== */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 30px;
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);    /* hover 上浮效果 */
+}
+
+.feature-card img {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+}
+
+/* ==== 5. 服务列表区（4 列网格）==== */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.service-item {
+    text-align: center;
+    padding: 20px;
+    border-radius: var(--radius);
+    background-color: var(--bg-light);
+    transition: var(--transition);
+}
+
+.service-item:hover {
+    background-color: var(--bg-color);
+    box-shadow: var(--shadow);
+}
+
+.service-item img {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+}
+
+.service-item h3 {
+    margin-bottom: 8px;
+}
+
+.service-item p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* ==== 6. CTA 行动号召区 ==== */
+.cta {
+    background-color: var(--bg-light);
+    text-align: center;
+}
+
+.cta h2 {
+    margin-bottom: 20px;
+}
+
+.cta p {
+    margin-bottom: 30px;
+    font-size: 1.25rem;
+}
+
+/* ==== 7. 站点页脚 ==== */
+.site-footer {
+    background-color: #004400;      /* 深绿色背景，与主色协调 */
+    color: white;
+    padding: 60px 0 20px;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+/* 页脚 Logo 反白处理 */
+.footer-logo img {
+    height: 60px;
+    filter: brightness(0) invert(1);
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.footer-contact .slogan {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    opacity: 1;
+}
+
+.footer-links {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-links h4 {
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* ==== 8. 响应式：平板/手机（≤768px）==== */
+@media (max-width: 768px) {
+    /* 头部改为换行布局 */
+    .site-header .container {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 15px 20px;
+    }
+
+    .main-nav ul {
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* 网格降为 2 列 */
+    .features-grid,
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 页脚信息垂直排列 */
+    .footer-info {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    /* 品牌故事区移动端垂直排列 */
+    .brand-story .container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .story-content h2 {
+        text-align: center;
+    }
+}

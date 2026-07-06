@@ -1,0 +1,202 @@
+<!--
+  页面：首页 (index.html)
+  角色：喜云到家品牌官网入口页面，展示品牌形象、核心优势、服务概览和行动号召
+  路由：/index.html（项目根入口）
+  页面结构：导航区 → Hero区 → 优势特色区 → 服务预览区 → CTA行动号召区 → 页脚区
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="喜云到家 - 您身边值得信赖的生活伙伴，家更干净，心更轻松">
+    <title>喜云到家 - 家更干净，心更轻松</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/pages/home.css">
+</head>
+<body>
+    <!-- ======================================== -->
+    <!-- 导航区：全局顶部导航栏，包含 Logo、主导航菜单、联系电话 -->
+    <!-- ======================================== -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                    <img src="assets/images/logo/logo.jpg" alt="喜云到家">
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">首页</a></li>
+                    <li><a href="pages/about.html">关于我们</a></li>
+                    <li><a href="pages/services.html">服务项目</a></li>
+                    <li><a href="pages/cases.html">案例展示</a></li>
+                    <li><a href="pages/news.html">新闻资讯</a></li>
+                    <li><a href="pages/contact.html">联系我们</a></li>
+                </ul>
+            </nav>
+            <div class="header-contact">
+                <span class="phone">400-xxx-xxxx</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ======================================== -->
+        <!-- Hero区：首页首屏大图横幅，展示品牌名称、Slogan 和主要行动按钮 -->
+        <!-- ======================================== -->
+        <section class="hero">
+            <div class="container">
+                <h1>喜云到家</h1>
+                <p class="tagline">家更干净，心更轻松</p>
+                <a href="pages/services.html" class="btn btn-primary">了解服务</a>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 优势特色区：四宫格展示品牌核心竞争力（专业服务、品质保障、便捷预约、值得信赖） -->
+        <!-- ======================================== -->
+        <section class="features">
+            <div class="container">
+                <h2>我们的优势</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <img src="assets/images/icons/service.svg" alt="专业服务">
+                        <h3>专业服务</h3>
+                        <p>高标准服务体系，持证上岗</p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="assets/images/icons/quality.svg" alt="品质保障">
+                        <h3>品质保障</h3>
+                        <p>至诚至信，匠心笃行</p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="assets/images/icons/convenient.svg" alt="便捷预约">
+                        <h3>便捷预约</h3>
+                        <p>在线预约，快速响应</p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="assets/images/icons/trust.svg" alt="值得信赖">
+                        <h3>值得信赖</h3>
+                        <p>百万用户的共同选择</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 品牌故事区：展示喜云到家品牌理念和使命 -->
+        <!-- ======================================== -->
+        <section class="brand-story">
+            <div class="container">
+                <div class="story-content">
+                    <h2>关于喜云到家</h2>
+                    <p class="story-lead">我们坚信，洁净之家，是心灵最好的栖息与疗愈。</p>
+                    <p>作为智净优邸旗下专注家庭深度保洁与到家服务的品牌，喜云到家以"专业、真诚、靠谱"为核心，致力于让每一个家庭更干净、更安心，让每一份劳动被看见、被尊重。</p>
+                    <p>我们以"洁净为基，温暖为伴，主动为先"为信念，力求让每一次服务都成为您安心的理由。把琐碎家务托付于人，不是偷懒，而是对时光与自我的尊重。</p>
+                    <a href="pages/about.html" class="btn btn-secondary">了解更多</a>
+                </div>
+                <div class="story-image">
+                    <img src="assets/images/about/company.svg" alt="喜云到家">
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 服务预览区：展示四大核心服务分类（家政清洁、家电维修、搬家服务、管道疏通），引导用户查看详情 -->
+        <!-- ======================================== -->
+        <section class="services-preview">
+            <div class="container">
+                <h2>服务项目</h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <img src="assets/images/services/cleaning.svg" alt="家政清洁">
+                        <h3>家政清洁</h3>
+                        <p>日常保洁、深度清洁、开荒保洁</p>
+                    </div>
+                    <div class="service-item">
+                        <img src="assets/images/services/repair.svg" alt="家电维修">
+                        <h3>家电维修</h3>
+                        <p>空调维修、洗衣机维修、各类家电</p>
+                    </div>
+                    <div class="service-item">
+                        <img src="assets/images/services/moving.svg" alt="搬家服务">
+                        <h3>搬家服务</h3>
+                        <p>家庭搬家、企业搬迁、打包整理</p>
+                    </div>
+                    <div class="service-item">
+                        <img src="assets/images/services/pipeline.svg" alt="管道疏通">
+                        <h3>管道疏通</h3>
+                        <p>下水道疏通、马桶维修、管道清洗</p>
+                    </div>
+                </div>
+                <a href="pages/services.html" class="btn btn-secondary">查看全部服务</a>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- CTA行动号召区：引导用户立即预约服务，跳转至联系我们页面 -->
+        <!-- ======================================== -->
+        <section class="cta">
+            <div class="container">
+                <h2>立即预约服务</h2>
+                <p>专业团队，让家更干净，心更轻松</p>
+                <a href="pages/contact.html" class="btn btn-primary">联系我们</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================================== -->
+    <!-- 页脚区：公司信息、快速链接、服务项目导航、版权声明 -->
+    <!-- ======================================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-info">
+                <div class="footer-logo">
+                <img src="assets/images/logo/logo.jpg" alt="喜云到家">
+                </div>
+                <div class="footer-contact">
+                    <p>服务热线：400-xxx-xxxx</p>
+                    <p>地址：XX市XX区XX路XX号</p>
+                    <p>邮箱：service@xiyun.com</p>
+                    <p class="slogan">家更干净，心更轻松</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="pages/about.html">关于我们</a></li>
+                        <li><a href="pages/services.html">服务项目</a></li>
+                        <li><a href="pages/contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>服务项目</h4>
+                    <ul>
+                        <li><a href="pages/services.html">家政清洁</a></li>
+                        <li><a href="pages/services.html">家电维修</a></li>
+                        <li><a href="pages/services.html">搬家服务</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 喜云到家 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/nav.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/dataloader.js"></script>
+    <script src="assets/js/pages/home.js"></script>
+    <script>
+      // 从 Strapi API 加载数据
+      document.addEventListener('DOMContentLoaded', () => {
+        DataLoader.initHomePage();
+      });
+    </script>
+</body>
+</html>

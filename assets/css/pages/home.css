@@ -1,0 +1,72 @@
+/**
+ * ================================================================
+ *  home.css — 首页专属样式覆盖
+ * ================================================================
+ * 【角色】对首页特定区块的样式微调，覆盖 layout.css 中的默认值
+ * 【职责】
+ *   1. .hero — 调整渐变配色（蓝到浅蓝，区别于全局默认蓝到深蓝）
+ *   2. .hero .container — 首页 Hero 内 flex 居中布局 + 最小高度
+ *   3. .features / .services-preview — 设置区域背景色
+ * 【被谁引用】仅 index.html（首页）
+ * 【依赖】base.css（CSS Variables）、layout.css（.hero 基类）
+ */
+
+/* ==== 首页 Hero — 蓝紫渐变，更亮眼的品牌展示 ==== */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color), #00aa00);
+    color: white;
+}
+
+/* 内容垂直居中，保证最小可视高度 */
+.hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+/* ==== 区块背景 ==== */
+.features {
+    background-color: var(--bg-color);      /* 白色背景 */
+}
+
+.services-preview {
+    background-color: var(--bg-light);      /* 浅灰背景，与 features 区形成对比 */
+}
+
+/* ==== 品牌故事区 ==== */
+.brand-story {
+    background-color: var(--bg-color);
+}
+
+.brand-story .container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.story-content {
+    flex: 1;
+}
+
+.story-content h2 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.story-lead {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.story-image {
+    flex: 1;
+}
+
+.story-image img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
