@@ -263,6 +263,14 @@
     <script src="../assets/js/common.js"></script>
     <script src="../assets/js/nav.js"></script>
     <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/dataloader.js"></script>
     <script src="../assets/js/pages/services.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category') || 'all';
+        DataLoader.initServicesPage(category);
+      });
+    </script>
 </body>
 </html>

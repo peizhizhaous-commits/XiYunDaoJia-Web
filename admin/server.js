@@ -118,7 +118,10 @@ db.exec(`
     name TEXT NOT NULL,
     phone TEXT NOT NULL,
     email TEXT DEFAULT '',
+    address TEXT DEFAULT '',
     service TEXT DEFAULT '',
+    area TEXT DEFAULT '',
+    booking_time TEXT DEFAULT '',
     message TEXT DEFAULT '',
     status TEXT DEFAULT 'pending',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -369,9 +372,9 @@ app.get('/api/contacts', (req, res) => {
 
 // 提交留言（前台用户使用）
 app.post('/api/contacts', (req, res) => {
-  const { name, phone, email, service, message } = req.body;
-  const result = db.prepare('INSERT INTO contacts (name, phone, email, service, message) VALUES (?, ?, ?, ?, ?)')
-    .run(name, phone, email || '', service || '', message);
+  const { name, phone, email, address, service, area, bookingTime, message } = req.body;
+  const result = db.prepare('INSERT INTO contacts (name, phone, email, address, service, area, booking_time, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
+    .run(name, phone, email || '', address || '', service || '', area || '', bookingTime || '', message);
   res.json({ id: result.lastInsertRowid, success: true });
 });
 

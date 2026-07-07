@@ -81,38 +81,33 @@ const DataLoader = {
    * @param {Object} info - 公司信息对象
    */
   fillCompanyInfo(info) {
-    // 更新导航栏右侧电话号码
+    const phone = info.phone || '400-xxx-xxxx';
+
     document.querySelectorAll('.header-contact .phone').forEach(el => {
-      el.textContent = info.phone || '400-xxx-xxxx';
+      el.textContent = phone;
     });
 
-    // 更新页脚联系信息（根据文本内容匹配对应的 p 标签）
     document.querySelectorAll('.footer-contact p').forEach(el => {
       if (el.textContent.includes('服务热线')) {
-        el.textContent = `服务热线：${info.phone || '400-xxx-xxxx'}`;
+        el.innerHTML = `服务热线：<a href="tel:${phone.replace(/-/g, '')}">${phone}</a>`;
       } else if (el.textContent.includes('地址')) {
-        el.textContent = `地址：${info.address || 'XX市XX区XX路XX号'}`;
-      } else if (el.textContent.includes('邮箱')) {
-        el.textContent = `邮箱：${info.email || 'service@xiyun.com'}`;
+        el.textContent = `服务时间：${info.work_hours || '周一至周日 8:00-20:00'}`;
       }
     });
 
-    // 更新页脚品牌标语
-    const sloganEl = document.querySelector('.footer-contact .slogan');
+    const sloganEl = document.querySelector('.footer-brand .slogan');
     if (sloganEl && info.slogan) {
       sloganEl.textContent = info.slogan;
     }
 
-    // 更新页脚版权信息
     document.querySelectorAll('.footer-bottom p').forEach(el => {
       if (el.textContent.includes('©')) {
         el.textContent = `© ${info.copyright || '2025 喜云到家 版权所有'}`;
       }
     });
 
-    // 如果后台上传了 Logo，替换所有 Logo 图片
     if (info.logo?.url) {
-      const logoUrl = API.getMediaUrl(info.logo);
+      const logoUrl = API.getMediaUrl({ url: info.logo.url });
       document.querySelectorAll('.logo img, .footer-logo img').forEach(el => {
         el.src = logoUrl;
       });
@@ -125,13 +120,11 @@ const DataLoader = {
    */
   fillFeatures(features) {
     const grid = document.querySelector('.features-grid');
-    if (!grid) return; // 如果页面没有 .features-grid 则跳过
+    if (!grid) return;
 
-    // 生成 HTML 并设置到网格容器
     grid.innerHTML = features
       .map(f => {
-        // 图片逻辑：优先使用后台上传的图标，否则使用 SVG 占位图
-        const iconUrl = f.icon?.url ? API.getMediaUrl(f.icon) : 'assets/images/icons/service.svg';
+        const iconUrl = f.icon_url ? API.getMediaUrl({ url: f.icon_url }) : 'assets/images/icons/service.svg';
         return `
         <div class="feature-card">
           <img src="${iconUrl}" alt="${f.title}">
@@ -151,18 +144,16 @@ const DataLoader = {
     const grid = document.querySelector('.services-grid');
     if (!grid) return;
 
-    // 生成服务预览卡片 HTML
     grid.innerHTML = services
       .map(s => {
-        // 图片逻辑：优先使用上传图片，否则根据分类使用对应 SVG 占位图
-        const imgUrl = s.image?.url
-          ? API.getMediaUrl(s.image)
+        const imgUrl = s.image_url
+          ? API.getMediaUrl({ url: s.image_url })
           : `assets/images/services/${s.category}.svg`;
         return `
         <div class="service-item">
           <img src="${imgUrl}" alt="${s.title}">
           <h3>${s.title}</h3>
-          <p>${s.subItems || s.description || ''}</p>
+          <p>${s.sub_items || s.description || ''}</p>
         </div>
       `;
       })
@@ -179,9 +170,8 @@ const DataLoader = {
 
     list.innerHTML = services
       .map(s => {
-        // 图片逻辑：优先使用上传图片，否则根据分类使用对应 SVG 占位图
-        const imgUrl = s.image?.url
-          ? API.getMediaUrl(s.image)
+        const imgUrl = s.image_url
+          ? API.getMediaUrl({ url: s.image_url })
           : `assets/images/services/${s.category}.svg`;
         return `
         <div class="service-card" data-category="${s.category}">
@@ -207,9 +197,8 @@ const DataLoader = {
 
     grid.innerHTML = cases
       .map(c => {
-        // 图片逻辑：优先使用上传图片，否则使用默认 SVG 占位图
-        const imgUrl = c.image?.url
-          ? API.getMediaUrl(c.image)
+        const imgUrl = c.image_url
+          ? API.getMediaUrl({ url: c.image_url })
           : 'assets/images/cases/case1.svg';
         return `
         <div class="case-card">
@@ -237,9 +226,8 @@ const DataLoader = {
 
     list.innerHTML = news
       .map(n => {
-        // 图片逻辑：优先使用上传图片，否则使用默认 SVG 占位图
-        const imgUrl = n.image?.url
-          ? API.getMediaUrl(n.image)
+        const imgUrl = n.image_url
+          ? API.getMediaUrl({ url: n.image_url })
           : 'assets/images/news/news1.svg';
         return `
         <article class="news-item">
