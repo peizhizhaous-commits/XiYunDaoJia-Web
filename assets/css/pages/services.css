@@ -1,307 +1,404 @@
-/**
- * ================================================================
- *  services.css — 服务项目页样式（极简现代风格）
- * ================================================================
- */
-
-/* 服务筛选区 */
-.services-section {
-    padding: 80px 0;
-    background: var(--bg-white);
-}
-
-.services-filter {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 48px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.filter-btn {
-    padding: 10px 24px;
-    border: 1px solid var(--border);
-    background: var(--bg-white);
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: all 0.2s ease;
-}
-
-.filter-btn:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.filter-btn.active {
-    background: var(--primary);
+/* 服务介绍页样式（精美动画版） */
+.page-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
-    border-color: var(--primary);
-}
-
-/* 服务卡片列表 */
-.services-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.service-card {
-    display: flex;
-    background: var(--bg-white);
-    border-radius: var(--radius);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border);
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    top: -100px;
+    right: 10%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.page-header::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    bottom: -50px;
+    left: 5%;
+    animation: float 6s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.page-header h1 {
+    color: white;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.page-header .tagline {
+    color: rgba(255,255,255,0.9);
+    font-size: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 分类标签栏 */
+.services-nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    position: relative;
+    z-index: 100;
     transition: all 0.3s ease;
 }
 
-.service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: transparent;
+.services-nav.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: var(--shadow-md);
+    animation: slideDown 0.3s ease;
 }
 
-.service-img {
-    width: 280px;
-    min-height: 200px;
-    flex-shrink: 0;
-    overflow: hidden;
-    background: var(--primary-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.service-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.service-info {
-    flex: 1;
-    padding: 28px;
-}
-
-.service-tag {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 12px;
-}
-
-.service-tag.cleaning {
-    background: var(--primary-light);
-    color: var(--primary);
-}
-
-.service-tag.repair {
-    background: #fff3e0;
-    color: #e65100;
-}
-
-.service-tag.moving {
-    background: #e3f2fd;
-    color: #1565c0;
-}
-
-.service-tag.pipeline {
-    background: #fce4ec;
-    color: #c62828;
-}
-
-.service-info h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-}
-
-.service-info p {
-    color: var(--text-secondary);
-    font-size: 15px;
-    line-height: 1.7;
-    margin-bottom: 16px;
-}
-
-.service-meta {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 16px;
-}
-
-.service-meta .price {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--primary);
-}
-
-.service-meta .duration {
-    font-size: 14px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.service-features {
+.category-tabs {
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 16px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
 
-.service-features li {
-    padding: 6px 12px;
-    background: var(--bg-light);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
+.category-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.category-tab {
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
     color: var(--text-secondary);
-}
-
-.service-features li::before {
-    content: '✓ ';
-    color: var(--primary);
-    font-weight: 600;
-}
-
-/* CTA区 */
-.service-cta {
-    margin-top: 48px;
-    padding: 48px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    border-radius: var(--radius);
-    text-align: center;
-    color: white;
-}
-
-.service-cta h3 {
-    font-size: 24px;
-    margin-bottom: 12px;
-    color: white;
-}
-
-.service-cta p {
-    opacity: 0.9;
-    margin-bottom: 24px;
-    color: white;
-}
-
-.service-cta .btn {
-    background: white;
-    color: var(--primary);
-}
-
-.service-cta .btn:hover {
     background: var(--bg-light);
-    color: var(--primary-dark);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* 业务范围页 - 分类卡片 */
-.service-categories {
+.category-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.category-tab:hover::before {
+    left: 100%;
+}
+
+.category-tab:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.category-tab.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 136, 0, 0.3);
+}
+
+/* 服务内容区 */
+.services-content {
+    padding: 60px 0;
+    background: var(--bg-light);
+}
+
+.category-section {
+    margin-bottom: 60px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.category-section:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-header {
+    margin-bottom: 32px;
+}
+
+.category-header h2 {
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    position: relative;
+    display: inline-block;
+}
+
+.category-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.category-desc {
+    color: var(--text-secondary);
+    font-size: 16px;
+    max-width: 800px;
+    margin-top: 16px;
+}
+
+/* 服务卡片网格 */
+.services-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
 }
 
-.category-card {
-    background: var(--bg-white);
-    border-radius: var(--radius);
-    padding: 36px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.category-card:hover {
+/* 服务卡片 */
+.service-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+}
+
+.service-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
     border-color: transparent;
 }
 
-.category-icon {
-    width: 72px;
-    height: 72px;
-    background: var(--primary-light);
-    border-radius: 20px;
+.card-main {
+    padding: 24px;
+}
+
+.card-main h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.service-card:hover .card-main h3 {
+    color: var(--primary);
+}
+
+.card-highlight {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.card-meta {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin-bottom: 16px;
 }
 
-.category-icon img {
-    width: 36px;
-    height: 36px;
-}
-
-.category-card h3 {
+.card-meta .price {
     font-size: 20px;
     font-weight: 600;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .card-meta .price {
+    transform: scale(1.05);
+}
+
+.card-meta .tags {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.card-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-detail {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-detail:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+/* 手风琴详情 */
+.card-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    background: var(--bg-light);
+}
+
+.service-card.active .card-detail {
+    border-top: 1px solid var(--border);
+}
+
+.detail-content {
+    padding: 24px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.detail-content h4 {
+    font-size: 16px;
     margin-bottom: 12px;
     color: var(--text-primary);
 }
 
-.category-card > p {
-    color: var(--text-secondary);
-    font-size: 15px;
-    margin-bottom: 20px;
-}
-
-.category-list {
+.detail-content ul {
     list-style: none;
-    padding: 0;
-    margin: 0 0 24px 0;
+    margin-bottom: 16px;
 }
 
-.category-list li {
-    padding: 10px 0;
+.detail-content li {
+    padding: 8px 0;
+    padding-left: 24px;
+    position: relative;
     color: var(--text-secondary);
     font-size: 14px;
-    border-bottom: 1px solid var(--border);
+    transition: all 0.2s ease;
 }
 
-.category-list li:last-child {
-    border-bottom: none;
-}
-
-.category-list li::before {
-    content: '✓ ';
+.detail-content li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
     color: var(--primary);
     font-weight: 600;
+    transition: transform 0.2s ease;
 }
 
-/* 响应式 */
+.detail-content li:hover {
+    padding-left: 28px;
+    color: var(--text-primary);
+}
+
+.detail-content li:hover::before {
+    transform: scale(1.2);
+}
+
+.detail-note {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+/* CTA区 */
+.service-cta {
+    background: white;
+    padding: 60px 0;
+}
+
+.cta-content {
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.cta-content h3 {
+    margin-bottom: 12px;
+}
+
+.cta-content p {
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+}
+
+/* 移动端适配 */
 @media (max-width: 768px) {
-    .service-card {
+    .page-header {
+        padding: 60px 0;
+    }
+    
+    .category-tabs {
+        padding: 12px 0;
+    }
+    
+    .category-tab {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .card-main {
+        padding: 20px;
+    }
+    
+    .card-actions {
         flex-direction: column;
+        align-items: stretch;
     }
-
-    .service-img {
+    
+    .btn-detail, .btn-sm {
         width: 100%;
-        height: 200px;
-    }
-
-    .service-info {
-        padding: 24px;
-    }
-
-    .services-filter {
-        justify-content: center;
-    }
-
-    .service-categories {
-        grid-template-columns: 1fr;
-    }
-
-    .category-card {
-        padding: 28px;
+        text-align: center;
     }
 }
