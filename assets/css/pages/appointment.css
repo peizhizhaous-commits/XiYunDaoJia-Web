@@ -1,0 +1,357 @@
+/* 预约页样式（精美动画版） */
+.page-header {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    top: -80px;
+    right: 15%;
+    animation: float 7s ease-in-out infinite;
+}
+
+.page-header::after {
+    content: '';
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    bottom: -40px;
+    left: 10%;
+    animation: float 5s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.page-header h1 {
+    color: white;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.page-header .tagline {
+    color: rgba(255,255,255,0.9);
+    font-size: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 预约布局 */
+.appointment-section {
+    padding: 60px 0;
+    background: var(--bg-light);
+}
+
+.appointment-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 40px;
+    align-items: start;
+}
+
+/* 表单 */
+.appointment-form-wrapper {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.appointment-form {
+    max-width: 100%;
+}
+
+.form-group {
+    margin-bottom: 24px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+.form-group:nth-child(4) { animation-delay: 0.4s; }
+.form-group:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.form-group:focus-within label {
+    color: var(--primary);
+}
+
+.required {
+    color: var(--accent);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 136, 0, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 153, 85, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 153, 85, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 153, 85, 0); }
+}
+
+.btn-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-block:hover::before {
+    left: 100%;
+}
+
+.form-note {
+    text-align: center;
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 14px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* 信任区 */
+.appointment-trust {
+    position: sticky;
+    top: 100px;
+}
+
+.trust-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.trust-card:nth-child(1) { animation-delay: 0.1s; }
+.trust-card:nth-child(2) { animation-delay: 0.2s; }
+.trust-card:nth-child(3) { animation-delay: 0.3s; }
+
+.trust-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: transparent;
+}
+
+.trust-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--primary-light);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.trust-card:hover .trust-icon {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+.trust-icon svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--primary);
+    transition: fill 0.3s ease;
+}
+
+.trust-card:hover .trust-icon svg {
+    fill: white;
+}
+
+.trust-card h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.trust-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* 服务流程 */
+.process-steps {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
+    animation: fadeInUp 0.6s ease-out;
+    animation-delay: 0.4s;
+}
+
+.process-steps h4 {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.process-steps .step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.process-steps .step:last-child {
+    border-bottom: none;
+}
+
+.process-steps .step:hover {
+    padding-left: 8px;
+}
+
+.process-steps .step-num {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.process-steps .step:hover .step-num {
+    transform: scale(1.1);
+}
+
+.process-steps .step-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.process-steps .step:hover .step-text {
+    color: var(--text-primary);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 60px 0;
+    }
+    
+    .appointment-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .appointment-trust {
+        position: static;
+    }
+    
+    .appointment-form-wrapper {
+        padding: 24px;
+    }
+    
+    .trust-card {
+        padding: 20px;
+    }
+}

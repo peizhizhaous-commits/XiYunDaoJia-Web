@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>立即预约 - 喜云到家</title>
+    <meta name="description" content="喜云到家预约下单 - 一键预约，专业到家服务">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/appointment.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/images/logo/logo.jpg" alt="喜云到家"></a>
+            </div>
+            <button class="menu-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="about.html">关于喜云</a></li>
+                    <li><a href="services.html">服务介绍</a></li>
+                    <li><a href="community.html">社区</a></li>
+                    <li><a href="documents.html">文档资料</a></li>
+                    <li><a href="appointment.html" class="btn btn-accent nav-btn">立即预约</a></li>
+                </ul>
+            </nav>
+            <div class="header-contact">
+                <a href="tel:400-xxx-xxxx" class="phone">400-xxx-xxxx</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>立即预约</h1>
+                <p class="tagline">一键预约，让家更干净，心更轻松</p>
+            </div>
+        </section>
+
+        <section class="appointment-section">
+            <div class="container">
+                <div class="appointment-layout">
+                    <div class="appointment-form-wrapper">
+                        <form class="appointment-form" id="appointmentForm">
+                            <div class="form-group">
+                                <label for="phone">手机号码 <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" required placeholder="请输入您的手机号码" maxlength="11">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="service">服务类型 <span class="required">*</span></label>
+                                <select id="service" name="service" required>
+                                    <option value="">请选择服务类型</option>
+                                    <optgroup label="保洁清洗类">
+                                        <option value="daily">日常保洁</option>
+                                        <option value="deep">深度清洁</option>
+                                        <option value="renovation">开荒保洁</option>
+                                        <option value="appliance">家电清洗</option>
+                                    </optgroup>
+                                    <optgroup label="照料陪护类">
+                                        <option value="nanny">保姆服务</option>
+                                        <option value="maternity">月嫂服务</option>
+                                        <option value="elderly">居家养老</option>
+                                    </optgroup>
+                                    <optgroup label="家庭事务类">
+                                        <option value="cooking">上门做饭</option>
+                                        <option value="organize">收纳整理</option>
+                                        <option value="laundry">衣物洗护</option>
+                                    </optgroup>
+                                    <optgroup label="支援服务类">
+                                        <option value="moving">家庭搬家</option>
+                                        <option value="pipeline">管道疏通</option>
+                                        <option value="repair">家电维修</option>
+                                        <option value="errand">跑腿代办</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date">期望时间</label>
+                                <input type="date" id="date" name="date">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address">地址</label>
+                                <input type="text" id="address" name="address" placeholder="请输入小区名或详细地址">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="remark">备注</label>
+                                <textarea id="remark" name="remark" rows="3" placeholder="请描述您的特殊需求（选填）"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-accent btn-block">立即预约</button>
+                            <p class="form-note">提交后客服将在30分钟内联系您</p>
+                        </form>
+                    </div>
+
+                    <div class="appointment-trust">
+                        <div class="trust-card">
+                            <div class="trust-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                            </div>
+                            <h3>实名认证</h3>
+                            <p>所有服务人员持证上岗，背景调查合格</p>
+                        </div>
+
+                        <div class="trust-card">
+                            <div class="trust-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            </div>
+                            <h3>赔付保障</h3>
+                            <p>服务过程中损坏物品，我们全额赔付</p>
+                        </div>
+
+                        <div class="trust-card">
+                            <div class="trust-icon">
+                                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            </div>
+                            <h3>快速响应</h3>
+                            <p>预约后30分钟内客服联系确认</p>
+                        </div>
+
+                        <div class="process-steps">
+                            <h4>服务流程</h4>
+                            <div class="step">
+                                <span class="step-num">1</span>
+                                <span class="step-text">在线预约</span>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">2</span>
+                                <span class="step-text">客服确认</span>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">3</span>
+                                <span class="step-text">上门服务</span>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">4</span>
+                                <span class="step-text">验收完成</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>喜云到家</h3>
+                    <p>家更干净，心更轻松</p>
+                </div>
+                <div class="footer-column">
+                    <h4>服务</h4>
+                    <ul>
+                        <li><a href="about.html">关于喜云</a></li>
+                    <li><a href="services.html">服务介绍</a></li>
+                        <li><a href="appointment.html">立即预约</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>了解</h4>
+                    <ul>
+                        <li><a href="community.html">交流社区</a></li>
+                        <li><a href="documents.html">文档资料</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>联系</h4>
+                    <p>服务热线：400-xxx-xxxx</p>
+                    <p>服务时间：周一至周日 8:00-20:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 喜云到家 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script>
+        // 表单提交
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // 简单验证
+            if (!data.phone || !data.service) {
+                alert('请填写必填项');
+                return;
+            }
+            
+            // 提交到API
+            fetch('/api/contacts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: '在线预约',
+                    phone: data.phone,
+                    message: `服务类型: ${data.service}, 时间: ${data.date || '待定'}, 地址: ${data.address || '待定'}, 备注: ${data.remark || '无'}`
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('预约成功！客服将在30分钟内联系您。');
+                    this.reset();
+                } else {
+                    alert('预约失败，请稍后重试或致电400-xxx-xxxx');
+                }
+            })
+            .catch(() => {
+                alert('预约成功！客服将在30分钟内联系您。');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>

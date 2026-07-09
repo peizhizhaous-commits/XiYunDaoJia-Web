@@ -1,0 +1,369 @@
+/* 文档资料页样式（Tab版） */
+.docs-hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 40px 0 0;
+}
+
+.docs-hero .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.docs-hero-content {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.docs-hero h1 {
+    color: white;
+    margin-bottom: 8px;
+    font-size: 32px;
+}
+
+.docs-hero .tagline {
+    color: rgba(255,255,255,0.9);
+    font-size: 16px;
+}
+
+/* Tab导航 */
+.docs-tabs {
+    display: flex;
+    gap: 8px;
+    background: white;
+    padding: 16px 24px;
+    border-radius: 16px 16px 0 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.docs-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.doc-tab {
+    padding: 12px 24px;
+    border: 2px solid var(--border);
+    border-radius: 30px;
+    background: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.doc-tab:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.doc-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* 内容区 */
+.docs-content {
+    background: white;
+    border-radius: 0 0 16px 16px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.doc-panel {
+    display: none;
+}
+
+.doc-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.doc-panel h2 {
+    font-size: 28px;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+}
+
+/* 文档块 */
+.doc-block {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+}
+
+.doc-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.doc-block h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.doc-block > p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+/* 流程步骤 */
+.process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.process-steps .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.process-steps .step:hover {
+    background: var(--primary-light);
+    transform: translateX(8px);
+}
+
+.process-steps .step-num {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.process-steps .step-info h4 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.process-steps .step-info p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* 检查列表 */
+.check-list {
+    list-style: none;
+}
+
+.check-list li {
+    padding: 12px 0;
+    padding-left: 28px;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+}
+
+.check-list li:last-child {
+    border-bottom: none;
+}
+
+.check-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* 工具网格 */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.tool-item {
+    padding: 24px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.tool-item:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+}
+
+.tool-item strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.tool-item p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* 指南步骤 */
+.guide-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.guide-step {
+    text-align: center;
+    padding: 24px 16px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.guide-step:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+}
+
+.guide-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 auto 16px;
+}
+
+.guide-step h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.guide-step p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 下载区 */
+.downloads-desc {
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.download-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.download-card:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.download-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.download-icon.pdf {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.download-icon.img {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.download-icon svg {
+    width: 26px;
+    height: 26px;
+    fill: white;
+}
+
+.download-info {
+    flex: 1;
+}
+
+.download-info h4 {
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.download-info p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.file-size {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.btn-download {
+    padding: 8px 16px;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-download:hover {
+    background: var(--primary-dark);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .docs-content {
+        padding: 24px;
+    }
+    
+    .tools-grid,
+    .guide-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .downloads-grid {
+        grid-template-columns: 1fr;
+    }
+}

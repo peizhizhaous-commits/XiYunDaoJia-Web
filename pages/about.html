@@ -1,26 +1,16 @@
-<!--
-  页面：关于我们 (about.html)
-  角色：展示喜云到家品牌故事、企业文化、团队风采，建立用户信任
-  路由：/pages/about.html
-  页面结构：导航区 → 页面标题区(面包屑) → 公司简介区 → 企业文化区 → 团队风采区 → 页脚区
--->
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>关于我们 - 喜云到家</title>
-    <meta name="description" content="喜云到家 - 您身边值得信赖的生活伙伴，家更干净，心更轻松">
+    <title>关于喜云 - 喜云到家</title>
+    <meta name="description" content="关于喜云到家 - 品牌故事、企业文化、服务理念">
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/pages/about.css">
 </head>
 <body>
-    <!-- ======================================== -->
-    <!-- 导航区：全局顶部导航栏，当前页面"关于我们"高亮 -->
-    <!-- ======================================== -->
     <header class="site-header">
         <div class="container">
             <div class="logo">
@@ -34,12 +24,11 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="../index.html">首页</a></li>
-                    <li><a href="business.html">业务范围</a></li>
-                    <li><a href="cases.html">案例展示</a></li>
-                    <li><a href="community.html">交流社区</a></li>
-                    <li><a href="about.html" class="active">关于我们</a></li>
+                    <li><a href="about.html" class="active">关于喜云</a></li>
+                    <li><a href="services.html">服务介绍</a></li>
+                    <li><a href="community.html">社区</a></li>
                     <li><a href="documents.html">文档资料</a></li>
-                    <li><a href="contact.html" class="btn btn-primary nav-btn">我要下单</a></li>
+                    <li><a href="appointment.html" class="btn btn-accent nav-btn">立即预约</a></li>
                 </ul>
             </nav>
             <div class="header-contact">
@@ -49,113 +38,153 @@
     </header>
 
     <main>
-        <!-- ======================================== -->
-        <!-- 页面标题区：展示当前页面名称和面包屑导航（首页 > 关于我们） -->
-        <!-- ======================================== -->
         <section class="page-header">
             <div class="container">
-                <h1>关于我们</h1>
-                <div class="breadcrumb">
-                    <a href="../index.html">首页</a>
-                    <span>/</span>
-                    <span>关于我们</span>
+                <h1>关于喜云</h1>
+                <p class="tagline">家更干净，心更轻松</p>
+            </div>
+        </section>
+
+        <section class="brand-story">
+            <div class="container">
+                <div class="story-grid">
+                    <div class="story-content">
+                        <h2>品牌故事</h2>
+                        <p class="story-lead">喜云到家是智净优邸旗下专注家庭深度保洁与到家服务的品牌。</p>
+                        <p>我们致力于让每一个家庭享受洁净与舒适，通过专业化的服务团队、标准化的服务流程、透明化的价格体系，为客户创造省心、放心、舒心的服务体验。</p>
+                        <p>从日常保洁到深度清洁，从家电清洗到居家养老，我们覆盖家庭生活的方方面面，用专业和温暖守护每一个家。</p>
+                    </div>
+                    <div class="story-image">
+                        <div class="image-placeholder">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ======================================== -->
-        <!-- 公司简介区：图文并茂介绍公司发展历程、服务规模和市场覆盖 -->
-        <!-- ======================================== -->
-        <section class="about-intro">
+        <section class="mission-section">
             <div class="container">
-                <div class="intro-content">
-                    <h2>公司简介</h2>
-                    <p>喜云到家是智净优邸旗下专注家庭深度保洁与到家服务的品牌。我们坚信，洁净之家，是心灵最好的栖息与疗愈。</p>
-                    <p>作为新时代生活方式服务商，我们以家政为入口，围绕真实生活场景，构建一站式高品质服务矩阵。所有服务人员均经过高标准服务体系与专业风控培训，恪守"至诚至信、匠心笃行"的服务理念。</p>
-                    <p>从一扇窗的透亮，到一个家的温暖。从一次服务的安心，到长久托付的信任——喜云到家，愿做您身边值得信赖的生活伙伴。</p>
-                </div>
-                <div class="intro-image">
-                    <img src="../assets/images/about/company.svg" alt="公司介绍">
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <h3>使命</h3>
+                        <p>让每一个家庭享受洁净与舒适</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                        </div>
+                        <h3>愿景</h3>
+                        <p>成为最值得信赖的到家服务平台</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <h3>价值观</h3>
+                        <p>专业、诚信、温暖、创新</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ======================================== -->
-        <!-- 企业文化区：三栏展示品牌使命、愿景和核心价值观 -->
-        <!-- ======================================== -->
-        <section class="company-values">
+        <section class="values-section">
             <div class="container">
-                <h2>企业文化</h2>
+                <div class="section-header">
+                    <h2>我们的优势</h2>
+                    <p>为什么选择喜云到家</p>
+                </div>
                 <div class="values-grid">
                     <div class="value-item">
-                        <h3>使命</h3>
-                        <p>每一份劳动都有价值，每一个家庭都更安心</p>
+                        <div class="value-num">01</div>
+                        <h3>标准化流程</h3>
+                        <p>6区48道工序，每一步都有标准，确保服务质量稳定可靠</p>
                     </div>
                     <div class="value-item">
-                        <h3>愿景</h3>
-                        <p>做您身边值得信赖的生活伙伴</p>
+                        <div class="value-num">02</div>
+                        <h3>实名认证</h3>
+                        <p>所有服务人员持证上岗，经过专业培训与背景调查</p>
                     </div>
                     <div class="value-item">
-                        <h3>价值观</h3>
-                        <p>至诚至信，匠心笃行</p>
+                        <div class="value-num">03</div>
+                        <h3>赔付保障</h3>
+                        <p>服务过程中造成损坏，我们全额赔付，让您安心托付</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-num">04</div>
+                        <h3>透明定价</h3>
+                        <p>明码标价，无隐形消费，服务前确认价格</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ======================================== -->
-        <!-- 团队风采区：三栏卡片展示服务团队、技术团队、客服团队 -->
-        <!-- ======================================== -->
         <section class="team-section">
             <div class="container">
-                <h2>团队风采</h2>
-                <p class="section-desc">我们拥有一支专业、热情的服务团队</p>
-                <div class="team-grid">
-                    <div class="team-card">
-                        <img src="../assets/images/about/team1.svg" alt="团队成员">
-                        <h4>服务团队</h4>
-                        <p>专业培训，持证上岗</p>
+                <div class="section-header">
+                    <h2>专业团队</h3>
+                    <p>用心服务每一位客户</p>
+                </div>
+                <div class="team-stats">
+                    <div class="team-stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">专业服务人员</div>
                     </div>
-                    <div class="team-card">
-                        <img src="../assets/images/about/team2.svg" alt="团队成员">
-                        <h4>技术团队</h4>
-                        <p>创新驱动，持续优化</p>
+                    <div class="team-stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">持证上岗率</div>
                     </div>
-                    <div class="team-card">
-                        <img src="../assets/images/about/team3.svg" alt="团队成员">
-                        <h4>客服团队</h4>
-                        <p>用心服务，客户至上</p>
+                    <div class="team-stat">
+                        <div class="stat-number">48+</div>
+                        <div class="stat-label">标准化工序</div>
+                    </div>
+                    <div class="team-stat">
+                        <div class="stat-number">24h</div>
+                        <div class="stat-label">培训周期</div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>体验专业到家服务</h2>
+                <p>让家更干净，让心更轻松</p>
+                <a href="appointment.html" class="btn btn-accent">立即预约</a>
             </div>
         </section>
     </main>
 
-    <!-- ======================================== -->
-    <!-- 页脚区：公司 Logo、联系方式、版权声明 -->
-    <!-- ======================================== -->
     <footer class="site-footer">
         <div class="container">
-            <div class="footer-info">
+            <div class="footer-content">
                 <div class="footer-brand">
                     <h3>喜云到家</h3>
-                    <p class="slogan">家更干净，心更轻松</p>
+                    <p>家更干净，心更轻松</p>
                 </div>
-                <div class="footer-contact">
-                    <p>服务热线：<a href="tel:400-xxx-xxxx">400-xxx-xxxx</a></p>
+                <div class="footer-column">
+                    <h4>服务</h4>
+                    <ul>
+                        <li><a href="services.html">服务介绍</a></li>
+                        <li><a href="appointment.html">立即预约</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>了解</h4>
+                    <ul>
+                        <li><a href="about.html">关于喜云</a></li>
+                        <li><a href="community.html">交流社区</a></li>
+                        <li><a href="documents.html">文档资料</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>联系</h4>
+                    <p>服务热线：400-xxx-xxxx</p>
                     <p>服务时间：周一至周日 8:00-20:00</p>
                 </div>
-            </div>
-            <div class="footer-links">
-                <ul>
-                    <li><a href="../index.html">首页</a></li>
-                    <li><a href="business.html">业务范围</a></li>
-                    <li><a href="cases.html">案例展示</a></li>
-                    <li><a href="community.html">交流社区</a></li>
-                    <li><a href="about.html">关于我们</a></li>
-                    <li><a href="documents.html">文档资料</a></li>
-                    <li><a href="contact.html">我要下单</a></li>
-                </ul>
             </div>
             <div class="footer-bottom">
                 <p>© 2026 喜云到家 版权所有</p>
@@ -165,37 +194,5 @@
 
     <script src="../assets/js/common.js"></script>
     <script src="../assets/js/nav.js"></script>
-    <script src="../assets/js/api.js"></script>
-    <script src="../assets/js/dataloader.js"></script>
-    <script>
-      // 从 Strapi API 加载数据
-      document.addEventListener('DOMContentLoaded', async () => {
-        const info = await API.getCompanyInfo();
-        if (info) {
-          DataLoader.fillCompanyInfo(info);
-          
-          // 更新关于我们页面内容
-          const introContent = document.querySelector('.intro-content');
-          if (introContent && info.aboutContent) {
-            const h2 = introContent.querySelector('h2');
-            const paragraphs = introContent.querySelectorAll('p');
-            if (h2 && info.aboutTitle) h2.textContent = info.aboutTitle;
-            if (paragraphs[0] && info.aboutLead) paragraphs[0].textContent = info.aboutLead;
-            if (paragraphs[1] && info.aboutContent) paragraphs[1].textContent = info.aboutContent;
-          }
-          
-          // 更新企业文化
-          const valueItems = document.querySelectorAll('.value-item');
-          if (valueItems.length >= 3) {
-            const missionP = valueItems[0].querySelector('p');
-            const visionP = valueItems[1].querySelector('p');
-            const valuesP = valueItems[2].querySelector('p');
-            if (missionP && info.mission) missionP.textContent = info.mission;
-            if (visionP && info.vision) visionP.textContent = info.vision;
-            if (valuesP && info.values) valuesP.textContent = info.values;
-          }
-        }
-      });
-    </script>
 </body>
 </html>
