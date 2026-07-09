@@ -1,17 +1,29 @@
 /* 关于喜云页样式 */
-.page-header {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 60px 0;
-    text-align: center;
+.page-nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 100;
 }
-.page-header h1 {
-    color: white;
-    margin-bottom: 8px;
+
+.page-nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
 }
-.page-header .tagline {
-    color: rgba(255,255,255,0.9);
-    font-size: 16px;
+
+.page-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
 }
 
 /* 品牌故事 */
