@@ -64,6 +64,7 @@ db.exec(`
     about_title TEXT DEFAULT '',
     about_lead TEXT DEFAULT '',
     about_content TEXT DEFAULT '',
+    about_image TEXT DEFAULT '',
     mission TEXT DEFAULT '',
     vision TEXT DEFAULT '',
     core_values TEXT DEFAULT '',
@@ -145,6 +146,10 @@ db.exec(`
     cta_button_link TEXT DEFAULT ''
   );
 `);
+try {
+  db.exec(`ALTER TABLE company_info ADD COLUMN about_image TEXT DEFAULT '';`);
+} catch (e) {
+}
 
 // ============================================
 // 种子数据（从 seed-data.json 加载）
@@ -166,9 +171,9 @@ if (count === 0) {
   const seed = db.transaction(() => {
     // 插入公司信息
     const c = seedData.company_info;
-    db.prepare(`INSERT OR IGNORE INTO company_info (id, company_name, slogan, phone, email, address, work_hours, about_title, about_lead, about_content, mission, vision, core_values, copyright)
-      VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-      .run(c.company_name, c.slogan, c.phone, c.email, c.address, c.work_hours, c.about_title, c.about_lead, c.about_content, c.mission, c.vision, c.core_values, c.copyright);
+    db.prepare(`INSERT OR IGNORE INTO company_info (id, company_name, slogan, phone, email, address, work_hours, about_title, about_lead, about_content, about_image, mission, vision, core_values, copyright)
+      VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .run(c.company_name, c.slogan, c.phone, c.email, c.address, c.work_hours, c.about_title, c.about_lead, c.about_content, c.about_image || '', c.mission, c.vision, c.core_values, c.copyright);
 
     // 插入服务项目
     for (const s of seedData.services) {
@@ -218,9 +223,9 @@ app.get('/api/company-info', (req, res) => {
 // 更新公司信息
 app.put('/api/company-info', (req, res) => {
   // 从请求体中解构所有字段（values 重命名为 core_values 避免 SQL 保留字冲突）
-  const { company_name, slogan, phone, email, address, work_hours, about_title, about_lead, about_content, mission, vision, values: core_values, copyright } = req.body;
-  db.prepare(`UPDATE company_info SET company_name=?, slogan=?, phone=?, email=?, address=?, work_hours=?, about_title=?, about_lead=?, about_content=?, mission=?, vision=?, core_values=?, copyright=? WHERE id=1`)
-    .run(company_name, slogan, phone, email, address, work_hours, about_title, about_lead, about_content, mission, vision, core_values, copyright);
+  const { company_name, slogan, phone, email, address, work_hours, about_title, about_lead, about_content, about_image, mission, vision, values: core_values, copyright } = req.body;
+  db.prepare(`UPDATE company_info SET company_name=?, slogan=?, phone=?, email=?, address=?, work_hours=?, about_title=?, about_lead=?, about_content=?, about_image=?, mission=?, vision=?, core_values=?, copyright=? WHERE id=1`)
+    .run(company_name, slogan, phone, email, address, work_hours, about_title, about_lead, about_content, about_image || '', mission, vision, core_values, copyright);
   res.json({ success: true });
 });
 
@@ -437,6 +442,13 @@ app.post('/api/upload-doc', upload.single('file'), (req, res) => {
     originalName: originalName,
     size: req.file.size
   });
+});
+
+// ============================================
+// 管理后台页面路由
+// ============================================
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 // ============================================

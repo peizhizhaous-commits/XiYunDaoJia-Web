@@ -1,4 +1,20 @@
 /* 关于喜云页样式 */
+.page-header {
+    background: var(--primary);
+    padding: 44px 0;
+    text-align: center;
+    position: sticky;
+    top: 72px;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.page-header .tagline {
+    font-size: 28px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
 .page-nav {
     background: white;
     border-bottom: 1px solid var(--border);
@@ -53,10 +69,18 @@
     color: var(--text-secondary);
     line-height: 1.8;
     margin-bottom: 16px;
+    text-indent: 2em;
 }
 .story-image {
     display: flex;
     justify-content: center;
+}
+.story-img {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 16px;
 }
 .image-placeholder {
     width: 100%;
@@ -118,7 +142,9 @@
 }
 .mission-card p {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.8;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 /* 优势 */

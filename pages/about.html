@@ -40,8 +40,7 @@
     <main>
         <section class="page-header">
             <div class="container">
-                <h1>关于喜云</h1>
-                <p class="tagline">家更干净，心更轻松</p>
+                <p class="tagline">让家更干净，让心更轻松</p>
             </div>
         </section>
 
@@ -49,12 +48,15 @@
             <div class="container">
                 <div class="story-grid">
                     <div class="story-content">
-                        <h2>品牌故事</h2>
+                        <h2 class="about-title">品牌故事</h2>
                         <p class="story-lead">喜云到家是智净优邸旗下专注家庭深度保洁与到家服务的品牌。</p>
-                        <p>我们致力于让每一个家庭享受洁净与舒适，通过专业化的服务团队、标准化的服务流程、透明化的价格体系，为客户创造省心、放心、舒心的服务体验。</p>
-                        <p>从日常保洁到深度清洁，从家电清洗到居家养老，我们覆盖家庭生活的方方面面，用专业和温暖守护每一个家。</p>
+                        <div class="story-text">
+                            <p>我们致力于让每一个家庭享受洁净与舒适，通过专业化的服务团队、标准化的服务流程、透明化的价格体系，为客户创造省心、放心、舒心的服务体验。</p>
+                            <p>从日常保洁到深度清洁，从家电清洗到居家养老，我们覆盖家庭生活的方方面面，用专业和温暖守护每一个家。</p>
+                        </div>
                     </div>
                     <div class="story-image">
+                        <img src="../assets/images/uploads/placeholder.png" alt="喜云到家服务团队" class="story-img" style="display: none;">
                         <div class="image-placeholder">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
                         </div>
@@ -194,5 +196,12 @@
 
     <script src="../assets/js/common.js"></script>
     <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/dataloader.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        DataLoader.initAboutPage();
+      });
+    </script>
 </body>
 </html>
