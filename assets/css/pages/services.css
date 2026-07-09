@@ -1,16 +1,73 @@
 /* 服务介绍页样式（精美动画版） */
-/* 注意：page-nav 通用样式已在 layout.css 中定义 */
-
-.category-tabs {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+.page-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.page-nav.sticky {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+.page-header::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    top: -100px;
+    right: 10%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.page-header::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    bottom: -50px;
+    left: 5%;
+    animation: float 6s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.page-header h1 {
+    color: white;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.page-header .tagline {
+    color: rgba(255,255,255,0.9);
+    font-size: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 分类标签栏 */
+.services-nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    position: relative;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.services-nav.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: var(--shadow-md);
+    animation: slideDown 0.3s ease;
 }
 
 @keyframes slideDown {
@@ -24,26 +81,10 @@
     }
 }
 
-.page-nav-inner {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    padding: 16px 0;
-    height: 56px;
-    box-sizing: border-box;
-}
-
-.page-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: white;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
 .category-tabs {
     display: flex;
     gap: 8px;
+    padding: 16px 0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -54,12 +95,12 @@
 }
 
 .category-tab {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    color: white;
-    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-secondary);
+    background: var(--bg-light);
     text-decoration: none;
     white-space: nowrap;
     transition: all 0.3s ease;
@@ -83,14 +124,15 @@
 }
 
 .category-tab:hover {
-    background: white;
+    background: var(--primary-light);
     color: var(--primary);
+    transform: translateY(-2px);
 }
 
 .category-tab.active {
-    background: var(--accent);
+    background: var(--primary);
     color: white;
-    box-shadow: 0 4px 12px rgba(255, 153, 85, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 136, 0, 0.3);
 }
 
 /* 服务内容区 */
@@ -333,13 +375,17 @@
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+    .page-header {
+        padding: 60px 0;
+    }
+    
     .category-tabs {
-        padding: 4px 0;
+        padding: 12px 0;
     }
     
     .category-tab {
-        padding: 8px 16px;
-        font-size: 13px;
+        padding: 10px 20px;
+        font-size: 14px;
     }
     
     .card-main {

@@ -140,56 +140,6 @@
     opacity: 0.8;
 }
 
-/* ==== 3.5 页面导航栏（通用）==== */
-/* 统一的页面标题+Tab导航栏，比顶部导航矮一点 */
-.page-nav {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    z-index: 100;
-    transition: all 0.3s ease;
-}
-
-.page-nav.sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    box-shadow: var(--shadow-md);
-    animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.page-nav-inner {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    height: 56px;  /* 比顶部导航的72px矮一点 */
-}
-
-.page-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-primary);
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.page-subtitle {
-    font-size: 14px;
-    color: var(--text-secondary);
-}
-
 /* ==== 4. Hero 横幅区 ==== */
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -864,19 +814,6 @@
 
     .hero-stat .stat-num {
         font-size: 20px;
-    }
-
-    /* 页面导航栏移动端适配 */
-    .page-nav-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        height: auto;
-        padding: 12px 0;
-    }
-
-    .page-title {
-        font-size: 16px;
     }
 
     .trust-grid {
