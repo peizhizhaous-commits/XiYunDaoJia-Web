@@ -1,18 +1,5 @@
 /* 关于喜云页样式 */
-.page-header {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 60px 0;
-    text-align: center;
-}
-.page-header h1 {
-    color: white;
-    margin-bottom: 8px;
-}
-.page-header .tagline {
-    color: rgba(255,255,255,0.9);
-    font-size: 16px;
-}
+/* 注意：page-nav 通用样式已在 layout.css 中定义 */
 
 /* 品牌故事 */
 .brand-story {

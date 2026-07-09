@@ -1,38 +1,39 @@
 /* 文档资料页样式（Tab版） */
-.docs-hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 40px 0 0;
-}
+/* 注意：page-nav 通用样式已在 layout.css 中定义 */
 
-.docs-hero .container {
+/* Tab导航 */
+.docs-tabs {
     display: flex;
-    flex-direction: column;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 
-.docs-hero-content {
-    text-align: center;
-    margin-bottom: 32px;
+.page-nav.sticky {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.docs-hero h1 {
+.page-nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 16px 0;
+    height: 56px;
+    box-sizing: border-box;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 600;
     color: white;
-    margin-bottom: 8px;
-    font-size: 32px;
-}
-
-.docs-hero .tagline {
-    color: rgba(255,255,255,0.9);
-    font-size: 16px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* Tab导航 */
 .docs-tabs {
     display: flex;
     gap: 8px;
-    background: white;
-    padding: 16px 24px;
-    border-radius: 16px 16px 0 0;
     overflow-x: auto;
     scrollbar-width: none;
 }
@@ -42,34 +43,35 @@
 }
 
 .doc-tab {
-    padding: 12px 24px;
-    border: 2px solid var(--border);
+    padding: 10px 20px;
+    border: none;
     border-radius: 30px;
-    background: white;
+    background: rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: white;
     transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .doc-tab:hover {
-    border-color: var(--primary);
+    background: white;
     color: var(--primary);
 }
 
 .doc-tab.active {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: var(--accent);
     color: white;
+    box-shadow: 0 4px 12px rgba(255, 153, 85, 0.4);
 }
 
 /* 内容区 */
 .docs-content {
     background: white;
-    border-radius: 0 0 16px 16px;
+    border-radius: 16px;
     padding: 40px;
+    margin-top: 24px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
