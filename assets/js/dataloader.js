@@ -77,6 +77,67 @@ const DataLoader = {
   },
 
   /**
+   * 初始化关于页面
+   */
+  async initAboutPage() {
+    const companyInfo = await API.getCompanyInfo();
+
+    if (companyInfo) {
+      this.fillCompanyInfo(companyInfo);
+      this.fillAboutPage(companyInfo);
+    }
+  },
+
+  /**
+   * 填充关于页面内容
+   * @param {Object} info - 公司信息对象
+   */
+  fillAboutPage(info) {
+    const aboutTitle = document.querySelector('.about-title');
+    if (aboutTitle && info.about_title) {
+      aboutTitle.textContent = info.about_title;
+    }
+
+    const storyLead = document.querySelector('.story-lead');
+    if (storyLead && info.about_lead) {
+      storyLead.textContent = info.about_lead;
+    }
+
+    const storyContent = document.querySelector('.story-content .story-text');
+    if (storyContent && info.about_content) {
+      storyContent.innerHTML = info.about_content.replace(/\n/g, '<br>');
+    }
+
+    const storyImage = document.querySelector('.story-image img');
+    const imagePlaceholder = document.querySelector('.story-image .image-placeholder');
+    if (storyImage && imagePlaceholder && info.about_image) {
+      storyImage.src = info.about_image;
+      storyImage.style.display = 'block';
+      imagePlaceholder.style.display = 'none';
+    }
+
+    const missionText = document.querySelector('.mission-card:nth-child(1) p');
+    if (missionText && info.mission) {
+      missionText.innerHTML = info.mission.replace(/\n/g, '<br>');
+    }
+
+    const visionText = document.querySelector('.mission-card:nth-child(2) p');
+    if (visionText && info.vision) {
+      visionText.innerHTML = info.vision.replace(/\n/g, '<br>');
+    }
+
+    const valuesText = document.querySelector('.mission-card:nth-child(3) p');
+    if (valuesText && info.core_values) {
+      valuesText.innerHTML = info.core_values.replace(/\n/g, '<br>');
+    }
+
+    const sloganEl = document.querySelector('.page-header .tagline');
+    if (sloganEl && info.slogan) {
+      sloganEl.textContent = info.slogan;
+    }
+  },
+
+  /**
    * 填充公司信息到页面公共区域（导航栏、页脚）
    * @param {Object} info - 公司信息对象
    */

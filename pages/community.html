@@ -38,19 +38,15 @@
     </header>
 
     <main>
-        <section class="page-header">
+        <section class="page-nav" id="communityNav">
             <div class="container">
-                <h1>交流社区</h1>
-                <p class="tagline">专业问答 · 行业知识 · 品牌动态</p>
-            </div>
-        </section>
-
-        <section class="community-tabs-section" id="communityNav">
-            <div class="container">
-                <div class="community-tabs">
-                    <button class="tab-btn active" data-tab="qa">家政问答</button>
-                    <button class="tab-btn" data-tab="article">行业百科</button>
-                    <button class="tab-btn" data-tab="news">喜云动态</button>
+                <div class="page-nav-inner">
+                    <h1 class="page-title">交流社区</h1>
+                    <div class="community-tabs">
+                        <button class="tab-btn active" data-tab="qa">家政问答</button>
+                        <button class="tab-btn" data-tab="article">行业百科</button>
+                        <button class="tab-btn" data-tab="news">喜云动态</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -315,17 +311,7 @@
             }
         }
 
-        // Tab吸顶
-        const nav = document.getElementById('communityNav');
-        const navOffset = nav.offsetTop;
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY >= navOffset) {
-                nav.classList.add('sticky');
-            } else {
-                nav.classList.remove('sticky');
-            }
-        });
     </script>
 </body>
 </html>

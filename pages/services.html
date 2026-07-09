@@ -38,20 +38,16 @@
     </header>
 
     <main>
-        <section class="page-header">
+        <section class="page-nav" id="servicesNav">
             <div class="container">
-                <h1>服务介绍</h1>
-                <p class="tagline">四大核心产品体系，满足您的全方位需求</p>
-            </div>
-        </section>
-
-        <section class="services-nav" id="servicesNav">
-            <div class="container">
-                <div class="category-tabs">
-                    <a href="#cleaning" class="category-tab active" data-category="cleaning">保洁清洗类</a>
-                    <a href="#care" class="category-tab" data-category="care">照料陪护类</a>
-                    <a href="#household" class="category-tab" data-category="household">家庭事务类</a>
-                    <a href="#support" class="category-tab" data-category="support">支援服务类</a>
+                <div class="page-nav-inner">
+                    <h1 class="page-title">服务介绍</h1>
+                    <div class="category-tabs">
+                        <a href="#cleaning" class="category-tab active" data-category="cleaning">保洁清洗</a>
+                        <a href="#care" class="category-tab" data-category="care">照料陪护</a>
+                        <a href="#household" class="category-tab" data-category="household">家庭事务</a>
+                        <a href="#support" class="category-tab" data-category="support">支援服务</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -541,24 +537,14 @@
             }
         }
 
-        // 分类标签吸顶和滚动高亮
-        const nav = document.getElementById('servicesNav');
-        const navOffset = nav.offsetTop;
+        // 分类标签滚动高亮
         const sections = document.querySelectorAll('.category-section');
         const tabs = document.querySelectorAll('.category-tab');
 
         window.addEventListener('scroll', () => {
-            // 吸顶效果
-            if (window.scrollY >= navOffset) {
-                nav.classList.add('sticky');
-            } else {
-                nav.classList.remove('sticky');
-            }
-
-            // 滚动高亮
             let current = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
+                const sectionTop = section.offsetTop - 180;
                 if (window.scrollY >= sectionTop) {
                     current = section.getAttribute('id');
                 }
@@ -579,9 +565,8 @@
                 const targetId = tab.getAttribute('href');
                 const target = document.querySelector(targetId);
                 if (target) {
-                    const offset = nav.classList.contains('sticky') ? nav.offsetHeight : 0;
                     window.scrollTo({
-                        top: target.offsetTop - offset - 20,
+                        top: target.offsetTop - 140,
                         behavior: 'smooth'
                     });
                 }
