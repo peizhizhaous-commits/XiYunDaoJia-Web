@@ -65,9 +65,9 @@ db.exec(`
     about_lead TEXT DEFAULT '',
     about_content TEXT DEFAULT '',
     about_image TEXT DEFAULT '',
-    mission TEXT DEFAULT '',
-    vision TEXT DEFAULT '',
-    core_values TEXT DEFAULT '',
+    mission TEXT DEFAULT '让每份劳动都有价值 | 让每个家庭都更安心',
+    vision TEXT DEFAULT '家庭洁净的守护者，归家心情的治愈者',
+    core_values TEXT DEFAULT '至诚至信、匠心笃行',
     copyright TEXT DEFAULT '2025 喜云到家 版权所有'
   );
 
@@ -144,6 +144,16 @@ db.exec(`
     cta_content TEXT DEFAULT '',
     cta_button_text TEXT DEFAULT '',
     cta_button_link TEXT DEFAULT ''
+  );
+
+  CREATE TABLE IF NOT EXISTS faqs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question TEXT NOT NULL,
+    answer TEXT DEFAULT '',
+    status TEXT DEFAULT 'pending',
+    sort_order INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    answered_at DATETIME DEFAULT NULL
   );
 `);
 try {
@@ -305,9 +315,15 @@ app.delete('/api/cases/:id', (req, res) => {
 // 新闻资讯 API（CRUD 增删改查）
 // --------------------------------------------
 
-// 获取新闻列表
+// 获取新闻列表（支持按分类筛选）
 app.get('/api/articles', (req, res) => {
-  const articles = db.prepare('SELECT * FROM articles ORDER BY sort_order, date DESC').all();
+  const { category } = req.query;
+  let articles;
+  if (category && category !== 'all') {
+    articles = db.prepare('SELECT * FROM articles WHERE category = ? ORDER BY sort_order, date DESC').all(category);
+  } else {
+    articles = db.prepare('SELECT * FROM articles ORDER BY sort_order, date DESC').all();
+  }
   res.json({ data: articles });
 });
 
@@ -393,6 +409,51 @@ app.put('/api/contacts/:id', (req, res) => {
 // 删除留言
 app.delete('/api/contacts/:id', (req, res) => {
   db.prepare('DELETE FROM contacts WHERE id = ?').run(req.params.id);
+  res.json({ success: true });
+});
+
+// --------------------------------------------
+// FAQ 问答 API（CRUD 增删改查）
+// --------------------------------------------
+
+// 获取FAQ列表（前台只显示已回答的）
+app.get('/api/faqs', (req, res) => {
+  const { status } = req.query;
+  let faqs;
+  if (status && status !== 'all') {
+    faqs = db.prepare('SELECT * FROM faqs WHERE status = ? ORDER BY sort_order, created_at DESC').all(status);
+  } else {
+    faqs = db.prepare('SELECT * FROM faqs ORDER BY sort_order, created_at DESC').all();
+  }
+  res.json({ data: faqs });
+});
+
+// 获取已回答的FAQ（前台展示用）
+app.get('/api/faqs/answered', (req, res) => {
+  const faqs = db.prepare('SELECT * FROM faqs WHERE status = "answered" ORDER BY sort_order, created_at DESC').all();
+  res.json({ data: faqs });
+});
+
+// 新增FAQ（用户提问）
+app.post('/api/faqs', (req, res) => {
+  const { question, answer } = req.body;
+  const result = db.prepare('INSERT INTO faqs (question, answer, status) VALUES (?, ?, ?)')
+    .run(question, answer || '', answer ? 'answered' : 'pending');
+  res.json({ id: result.lastInsertRowid, success: true });
+});
+
+// 更新FAQ（后台回答）
+app.put('/api/faqs/:id', (req, res) => {
+  const { question, answer, status, sort_order } = req.body;
+  const answeredAt = status === 'answered' && !req.body.answered_at ? new Date().toISOString() : null;
+  db.prepare('UPDATE faqs SET question=?, answer=?, status=?, sort_order=?, answered_at=? WHERE id=?')
+    .run(question, answer || '', status || 'pending', sort_order || 0, answeredAt, req.params.id);
+  res.json({ success: true });
+});
+
+// 删除FAQ
+app.delete('/api/faqs/:id', (req, res) => {
+  db.prepare('DELETE FROM faqs WHERE id = ?').run(req.params.id);
   res.json({ success: true });
 });
 

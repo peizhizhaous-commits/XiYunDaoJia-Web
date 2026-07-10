@@ -86,6 +86,7 @@
       <a href="#" onclick="showSection('cases')" id="nav-cases"><span class="icon">📋</span> 案例展示</a>
       <a href="#" onclick="showSection('articles')" id="nav-articles"><span class="icon">📰</span> 新闻资讯</a>
       <a href="#" onclick="showSection('features')" id="nav-features"><span class="icon">⭐</span> 优势特色</a>
+      <a href="#" onclick="showSection('faqs')" id="nav-faqs"><span class="icon">❓</span> 问答管理</a>
       <a href="#" onclick="showSection('contacts')" id="nav-contacts"><span class="icon">💬</span> 联系留言</a>
       <a href="/" target="_blank"><span class="icon">🌐</span> 查看前台</a>
     </div>
@@ -99,6 +100,7 @@
           <div class="stat-card"><div class="num" id="stat-services">-</div><div class="label">服务项目</div></div>
           <div class="stat-card"><div class="num" id="stat-cases">-</div><div class="label">案例展示</div></div>
           <div class="stat-card"><div class="num" id="stat-articles">-</div><div class="label">新闻资讯</div></div>
+          <div class="stat-card"><div class="num" id="stat-faqs">-</div><div class="label">问答数量</div></div>
           <div class="stat-card"><div class="num" id="stat-contacts">-</div><div class="label">联系留言</div></div>
         </div>
         <div class="card"><h3>快捷操作</h3>
@@ -130,7 +132,7 @@
             <div class="form-group"><label>关于标题</label><input name="about_title" id="ci-about-title"></div>
             <div class="form-group"><label>关于引导语</label><input name="about_lead" id="ci-about-lead"></div>
             <div class="form-group"><label>关于内容</label><textarea name="about_content" id="ci-about-content" rows="4"></textarea></div>
-            <div class="form-group"><label>关于页面图片</label><input type="file" name="about_image" id="ci-about-image" accept="image/*"></div>
+            <div class="form-group"><label>关于页面图片</label><div id="ci-about-image-preview"></div><input type="file" name="about_image" id="ci-about-image" accept="image/*"></div>
             <div class="form-row">
               <div class="form-group"><label>企业使命</label><input name="mission" id="ci-mission"></div>
               <div class="form-group"><label>企业愿景</label><input name="vision" id="ci-vision"></div>
@@ -168,6 +170,12 @@
         <div class="card"><table><thead><tr><th>ID</th><th>标题</th><th>描述</th><th>排序</th><th>操作</th></tr></thead><tbody id="featuresTable"></tbody></table></div>
       </div>
       
+      <!-- FAQs -->
+      <div id="sec-faqs" class="hidden">
+        <div class="header"><h1>问答管理</h1><div class="actions"><button class="btn btn-primary" onclick="openModal('faq')">+ 新增问答</button></div></div>
+        <div class="card"><table><thead><tr><th>ID</th><th>问题</th><th>状态</th><th>提问时间</th><th>操作</th></tr></thead><tbody id="faqsTable"></tbody></table></div>
+      </div>
+
       <!-- Contacts -->
       <div id="sec-contacts" class="hidden">
         <div class="header"><h1>联系留言</h1></div>
@@ -210,6 +218,7 @@
         case 'cases': await loadCases(); break;
         case 'articles': await loadArticles(); break;
         case 'features': await loadFeatures(); break;
+        case 'faqs': await loadFAQs(); break;
         case 'contacts': await loadContacts(); break;
       }
     }
@@ -221,10 +230,11 @@
     
     // Dashboard
     async function loadDashboard() {
-      const [s, c, a, co] = await Promise.all([api('/api/services'), api('/api/cases'), api('/api/articles'), api('/api/contacts')]);
+      const [s, c, a, f, co] = await Promise.all([api('/api/services'), api('/api/cases'), api('/api/articles'), api('/api/faqs'), api('/api/contacts')]);
       document.getElementById('stat-services').textContent = s.data?.length || 0;
       document.getElementById('stat-cases').textContent = c.data?.length || 0;
       document.getElementById('stat-articles').textContent = a.data?.length || 0;
+      document.getElementById('stat-faqs').textContent = f.data?.length || 0;
       document.getElementById('stat-contacts').textContent = co.data?.length || 0;
     }
     
@@ -236,13 +246,17 @@
         const el = document.getElementById('ci-' + k.replace(/_/g, '-'));
         if (el) el.value = data[k] || '';
       });
+      if (data.about_image) {
+        document.getElementById('ci-about-image-preview').innerHTML = `<img src="${data.about_image}" style="max-height:100px;border-radius:6px;margin:8px 0;">`;
+      }
     }
     
     async function saveCompany(e) {
       e.preventDefault();
       const form = new FormData(e.target);
       const imageInput = document.getElementById('ci-about-image');
-      let aboutImage = '';
+      const { data: currentData } = await api('/api/company-info');
+      let aboutImage = currentData?.about_image || '';
       
       if (imageInput.files[0]) {
         aboutImage = await uploadFile(imageInput.files[0]);
@@ -253,12 +267,13 @@
       
       await api('/api/company-info', { method: 'PUT', body: JSON.stringify(data) });
       alert('保存成功！');
+      loadCompany();
     }
     
     // Services
     async function loadServices() {
       const { data } = await api('/api/services');
-      const cat = { cleaning: '家政清洁', repair: '家电维修', moving: '搬家服务', pipeline: '管道疏通' };
+      const cat = { cleaning: '保洁清洗类', care: '照料陪护类', household: '家庭事务类', support: '支援服务类' };
       document.getElementById('servicesTable').innerHTML = data.map(s => `
         <tr>
           <td>${s.id}</td><td>${s.title}</td><td>${s.price}</td><td>${cat[s.category] || s.category}</td>
@@ -293,6 +308,19 @@
         <tr>
           <td>${f.id}</td><td>${f.title}</td><td>${f.description}</td><td>${f.sort_order}</td>
           <td><button class="btn btn-sm btn-outline" onclick="editItem('feature',${f.id})">编辑</button> <button class="btn btn-sm btn-danger" onclick="deleteItem('features',${f.id})">删除</button></td>
+        </tr>`).join('');
+    }
+    
+    // FAQs
+    async function loadFAQs() {
+      const { data } = await api('/api/faqs');
+      const st = { pending: '待回答', answered: '已回答' };
+      document.getElementById('faqsTable').innerHTML = data.map(f => `
+        <tr>
+          <td>${f.id}</td><td>${(f.question||'').substring(0,40)}${f.question?.length>40?'...':''}</td>
+          <td><span class="badge badge-${f.status}">${st[f.status]||f.status}</span></td>
+          <td>${f.created_at?.replace('T',' ').substring(0,16)||''}</td>
+          <td><button class="btn btn-sm btn-outline" onclick="editFAQ(${f.id})">${f.status==='pending'?'回答':'编辑'}</button> <button class="btn btn-sm btn-danger" onclick="deleteItem('faqs',${f.id})">删除</button></td>
         </tr>`).join('');
     }
     
@@ -331,12 +359,13 @@
       editingId = data?.id || null;
       const imgPreview = data?.image_url ? `<div style="margin:8px 0"><img src="${data.image_url}" style="max-height:80px;border-radius:6px"></div>` : '';
       const forms = {
-        service: `<div class="form-row"><div class="form-group"><label>服务名称</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>价格</label><input id="m-price" value="${data?.price||''}"></div></div><div class="form-row"><div class="form-group"><label>分类</label><select id="m-category"><option value="cleaning" ${data?.category==='cleaning'?'selected':''}>家政清洁</option><option value="repair" ${data?.category==='repair'?'selected':''}>家电维修</option><option value="moving" ${data?.category==='moving'?'selected':''}>搬家服务</option><option value="pipeline" ${data?.category==='pipeline'?'selected':''}>管道疏通</option></select></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div></div><div class="form-group"><label>描述</label><textarea id="m-desc">${data?.description||''}</textarea></div><div class="form-group"><label>子项</label><input id="m-sub" value="${data?.sub_items||''}"></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
+        service: `<div class="form-row"><div class="form-group"><label>服务名称</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>价格</label><input id="m-price" value="${data?.price||''}"></div></div><div class="form-row"><div class="form-group"><label>分类</label><select id="m-category"><option value="cleaning" ${data?.category==='cleaning'?'selected':''}>保洁清洗类</option><option value="care" ${data?.category==='care'?'selected':''}>照料陪护类</option><option value="household" ${data?.category==='household'?'selected':''}>家庭事务类</option><option value="support" ${data?.category==='support'?'selected':''}>支援服务类</option></select></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div></div><div class="form-group"><label>描述</label><textarea id="m-desc">${data?.description||''}</textarea></div><div class="form-group"><label>子项</label><input id="m-sub" value="${data?.sub_items||''}"></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
         case: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>描述</label><textarea id="m-desc">${data?.description||''}</textarea></div><div class="form-row"><div class="form-group"><label>日期</label><input type="date" id="m-date" value="${data?.date||''}"></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
-        article: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-row"><div class="form-group"><label>分类</label><input id="m-category" value="${data?.category||''}"></div><div class="form-group"><label>日期</label><input type="date" id="m-date" value="${data?.date||''}"></div></div><div class="form-group"><label>摘要</label><textarea id="m-summary">${data?.summary||''}</textarea></div><div class="form-group"><label>内容</label><textarea id="m-content" rows="6">${data?.content||''}</textarea></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
-        feature: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>描述</label><input id="m-desc" value="${data?.description||''}"></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div><div class="form-group"><label>图标</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`
+        article: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-row"><div class="form-group"><label>分类</label><select id="m-category"><option value="行业百科" ${data?.category==='行业百科'?'selected':''}>行业百科</option><option value="喜云动态" ${data?.category==='喜云动态'?'selected':''}>喜云动态</option><option value="知识科普" ${data?.category==='知识科普'?'selected':''}>知识科普</option><option value="服务标准" ${data?.category==='服务标准'?'selected':''}>服务标准</option></select></div><div class="form-group"><label>日期</label><input type="date" id="m-date" value="${data?.date||''}"></div></div><div class="form-group"><label>摘要</label><textarea id="m-summary">${data?.summary||''}</textarea></div><div class="form-group"><label>内容</label><textarea id="m-content" rows="6">${data?.content||''}</textarea></div><div class="form-group"><label>图片</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
+        feature: `<div class="form-group"><label>标题</label><input id="m-title" value="${data?.title||''}"></div><div class="form-group"><label>描述</label><input id="m-desc" value="${data?.description||''}"></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div><div class="form-group"><label>图标</label>${imgPreview}<input type="file" id="m-image" accept="image/*"></div>`,
+        faq: `<div class="form-group"><label>问题</label><input id="m-question" value="${data?.question||''}"></div><div class="form-group"><label>回答</label><textarea id="m-answer" rows="4">${data?.answer||''}</textarea></div><div class="form-row"><div class="form-group"><label>状态</label><select id="m-status"><option value="pending" ${data?.status==='pending'?'selected':''}>待回答</option><option value="answered" ${data?.status==='answered'?'selected':''}>已回答</option></select></div><div class="form-group"><label>排序</label><input type="number" id="m-sort" value="${data?.sort_order||0}"></div></div>`
       };
-      document.getElementById('modalTitle').textContent = (editingId ? '编辑' : '新增') + { service:'服务', case:'案例', article:'新闻', feature:'特色' }[type];
+      document.getElementById('modalTitle').textContent = (editingId ? '编辑' : '新增') + { service:'服务', case:'案例', article:'新闻', feature:'特色', faq:'问答' }[type];
       document.getElementById('modalBody').innerHTML = forms[type];
       document.getElementById('modal').classList.add('active');
     }
@@ -348,6 +377,12 @@
       const { data } = await api('/api/' + map[type]);
       const item = data.find(i => i.id === id);
       if (item) openModal(type, item);
+    }
+    
+    async function editFAQ(id) {
+      const { data } = await api('/api/faqs');
+      const item = data.find(i => i.id === id);
+      if (item) openModal('faq', item);
     }
     
     async function saveModal() {
@@ -369,11 +404,14 @@
         body = { title: get('m-title'), category: get('m-category'), date: get('m-date'), summary: get('m-summary'), content: get('m-content'), image_url: imageUrl };
       } else if (editingType === 'feature') {
         body = { title: get('m-title'), description: get('m-desc'), sort_order: parseInt(get('m-sort')) || 0, icon_url: imageUrl };
+      } else if (editingType === 'faq') {
+        body = { question: get('m-question'), answer: get('m-answer'), status: get('m-status'), sort_order: parseInt(get('m-sort')) || 0 };
       }
       
-      if (!body.title) { alert('请填写标题'); return; }
+      if (editingType !== 'faq' && !body.title) { alert('请填写标题'); return; }
+      if (editingType === 'faq' && !body.question) { alert('请填写问题'); return; }
       
-      const map = { service: 'services', case: 'cases', article: 'articles', feature: 'features' };
+      const map = { service: 'services', case: 'cases', article: 'articles', feature: 'features', faq: 'faqs' };
       const url = editingId ? `/api/${map[editingType]}/${editingId}` : `/api/${map[editingType]}`;
       const method = editingId ? 'PUT' : 'POST';
       
