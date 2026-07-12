@@ -26,7 +26,7 @@
                     <li><a href="../index.html">首页</a></li>
                     <li><a href="about.html">关于喜云</a></li>
                     <li><a href="services.html" class="active">服务介绍</a></li>
-                    <li><a href="community.html">社区</a></li>
+                    <li><a href="community.html">交流社区</a></li>
                     <li><a href="documents.html">文档资料</a></li>
                     <li><a href="appointment.html" class="btn btn-accent nav-btn">立即预约</a></li>
                 </ul>
@@ -530,6 +530,8 @@
 
     <script src="../assets/js/common.js"></script>
     <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/dataloader.js"></script>
     <script>
         // 手风琴展开/收起
         function toggleDetail(btn) {
@@ -589,6 +591,114 @@
                 }
             });
         });
+
+        async function initServicesPage() {
+            try {
+                const [companyInfo, services] = await Promise.all([
+                    API.getCompanyInfo(),
+                    API.getServices()
+                ]);
+
+                if (companyInfo) {
+                    DataLoader.fillCompanyInfo(companyInfo);
+                }
+
+                if (services && services.length > 0) {
+                    renderServicesByCategory(services);
+                }
+            } catch (e) {
+                console.error('初始化服务页面失败:', e);
+            }
+        }
+
+        function renderServicesByCategory(services) {
+            const categories = {
+                cleaning: document.querySelector('#cleaning .services-grid'),
+                care: document.querySelector('#care .services-grid'),
+                household: document.querySelector('#household .services-grid'),
+                support: document.querySelector('#support .services-grid')
+            };
+
+            Object.keys(categories).forEach(category => {
+                const grid = categories[category];
+                if (!grid) return;
+
+                const categoryServices = services.filter(s => s.category === category);
+
+                if (categoryServices.length === 0) {
+                    return;
+                }
+
+                grid.innerHTML = categoryServices.map(s => {
+                    let imgUrl;
+                    if (s.image_url) {
+                        imgUrl = API.getMediaUrl({ url: s.image_url });
+                    } else {
+                        const serviceImages = {
+                            cleaning: {
+                                '日常保洁': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20home%20cleaning%20service%20woman%20cleaning%20room%2C%20modern%20minimalist%20interior&image_size=landscape_16_9',
+                                '深度清洁': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=deep%20cleaning%20service%20professional%20cleaners%20with%20equipment%2C%20detailed%20cleaning&image_size=landscape_16_9',
+                                '油烟机清洗': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=kitchen%20range%20hood%20cleaning%20professional%20service%2C%20appliance%20cleaning&image_size=landscape_16_9',
+                                '冰箱清洗': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=refrigerator%20cleaning%20service%2C%20professional%20cleaning%20appliance&image_size=landscape_16_9'
+                            },
+                            care: {
+                                '保姆服务': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20nanny%20babysitter%20service%2C%20caring%20for%20children%2C%20family%20home&image_size=landscape_16_9',
+                                '月嫂服务': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20maternity%20nurse%20service%2C%20newborn%20care%2C%20postpartum%20support&image_size=landscape_16_9',
+                                '居家养老': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=elderly%20home%20care%20service%2C%20professional%20caregiver%2C%20senior%20support&image_size=landscape_16_9'
+                            },
+                            household: {
+                                '家庭管家': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20household%20butler%20service%2C%20elegant%20home%20management&image_size=landscape_16_9',
+                                '搬家服务': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20moving%20service%2C%20furniture%20transport%2C%20packing%20boxes&image_size=landscape_16_9',
+                                '家电维修': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20appliance%20repair%20service%2C%20technician%20fixing%20equipment&image_size=landscape_16_9',
+                                '软装清洗': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20soft%20furniture%20cleaning%20service%2C%20carpet%20sofa%20cleaning&image_size=landscape_16_9'
+                            },
+                            support: {
+                                '钟点工': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=hourly%20cleaning%20service%2C%20professional%20part%20time%20cleaner&image_size=landscape_16_9',
+                                '临时保洁': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=temporary%20cleaning%20service%2C%20one%20time%20cleaning%2C%20event%20cleanup&image_size=landscape_16_9',
+                                '开荒保洁': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=post%20construction%20cleaning%20service%2C%20new%20building%20cleanup&image_size=landscape_16_9',
+                                '物业保洁': 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=property%20management%20cleaning%20service%2C%20commercial%20cleaning&image_size=landscape_16_9'
+                            }
+                        };
+                        imgUrl = serviceImages[category] && serviceImages[category][s.title] 
+                            ? serviceImages[category][s.title]
+                            : `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(s.title + ' service, professional home service, clean modern style')}&image_size=landscape_16_9`;
+                    }
+                    
+                    const subItems = s.sub_items ? s.sub_items.split(/[,，、]/).filter(i => i.trim()) : [];
+                    
+                    return `
+                        <div class="service-card" data-service="${s.title.toLowerCase().replace(/\s+/g, '-')}">
+                            <div class="card-image">
+                                <img src="${imgUrl}" alt="${s.title}" loading="lazy">
+                            </div>
+                            <div class="card-main">
+                                <h3>${s.title}</h3>
+                                <p class="card-highlight">${s.description || ''}</p>
+                                <div class="card-meta">
+                                    <span class="price">${s.price || ''}</span>
+                                    <span class="tags">${subItems.slice(0, 3).join(' · ') || ''}</span>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="btn-detail" onclick="toggleDetail(this)">查看详情</button>
+                                    <a href="appointment.html" class="btn btn-accent btn-sm">立即预约</a>
+                                </div>
+                            </div>
+                            <div class="card-detail">
+                                <div class="detail-content">
+                                    <h4>服务包含</h4>
+                                    <ul>
+                                        ${subItems.map(item => `<li>${item.trim()}</li>`).join('')}
+                                    </ul>
+                                    <p class="detail-note">${s.description || ''}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initServicesPage);
     </script>
 </body>
 </html>

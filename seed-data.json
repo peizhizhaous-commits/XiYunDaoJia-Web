@@ -249,6 +249,62 @@
       "sort_order": 6
     }
   ],
+  "downloads": [
+    {
+      "title": "服务协议模板",
+      "description": "标准服务协议，明确双方权责",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=service%20agreement%20document%20icon%2C%20PDF%20file%20symbol%2C%20professional%20business%20contract&image_size=square",
+      "file_name": "服务协议模板.pdf",
+      "file_size": "2.3MB",
+      "file_type": "PDF",
+      "sort_order": 1
+    },
+    {
+      "title": "价格清单",
+      "description": "各类服务项目收费标准",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=price%20list%20document%20icon%2C%20business%20pricing%20sheet%2C%20professional%20style&image_size=square",
+      "file_name": "价格清单.pdf",
+      "file_size": "856KB",
+      "file_type": "PDF",
+      "sort_order": 2
+    },
+    {
+      "title": "客户权益保障",
+      "description": "售后服务、投诉处理流程",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=customer%20rights%20protection%20document%20icon%2C%20shield%20symbol%2C%20professional%20style&image_size=square",
+      "file_name": "客户权益保障.pdf",
+      "file_size": "1.2MB",
+      "file_type": "PDF",
+      "sort_order": 3
+    },
+    {
+      "title": "服务价格对比图",
+      "description": "各类服务价格对比一览",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=price%20comparison%20chart%2C%20cleaning%20service%20pricing%2C%20professional%20infographic&image_size=landscape_16_9",
+      "file_name": "服务价格对比图.jpg",
+      "file_size": "1.5MB",
+      "file_type": "JPG",
+      "sort_order": 4
+    },
+    {
+      "title": "四大核心产品",
+      "description": "产品体系介绍图",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=four%20core%20products%20infographic%2C%20cleaning%20services%20portfolio%2C%20professional%20design&image_size=landscape_16_9",
+      "file_name": "四大核心产品.jpg",
+      "file_size": "2.1MB",
+      "file_type": "JPG",
+      "sort_order": 5
+    },
+    {
+      "title": "品牌宣传图",
+      "description": "品牌介绍与服务展示",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cleaning%20service%20brand%20promotion%20image%2C%20professional%20clean%20home%2C%20service%20team&image_size=portrait_4_3",
+      "file_name": "品牌宣传图.jpg",
+      "file_size": "3.2MB",
+      "file_type": "JPG",
+      "sort_order": 6
+    }
+  ],
   "pages": {
     "home": {
       "title": "首页",
