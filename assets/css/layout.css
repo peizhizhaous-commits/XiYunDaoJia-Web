@@ -56,12 +56,12 @@
 }
 
 .logo img {
-    height: 40px;
+    height: 52px;
     transition: height 0.3s ease;
 }
 
 .site-header.scrolled .logo img {
-    height: 36px;
+    height: 46px;
 }
 
 /* ==== 3. 主导航 ==== */
@@ -709,7 +709,7 @@
     }
 
     .main-nav {
-        display: none;
+        display: flex;
         position: fixed;
         top: 60px;
         left: 0;
@@ -721,10 +721,17 @@
         padding: 24px;
         z-index: 999;
         overflow-y: auto;
+        flex-direction: column;
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     }
 
     .main-nav.active {
-        display: block;
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
     }
 
     .main-nav ul {
@@ -778,6 +785,24 @@
 
     .menu-toggle.active span:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* 菜单遮罩层 */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0);
+        z-index: 998;
+        pointer-events: none;
+        transition: background 0.35s ease;
+    }
+
+    .menu-overlay.active {
+        background: rgba(0, 0, 0, 0.5);
+        pointer-events: auto;
     }
 
     .hero {
