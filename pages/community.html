@@ -26,13 +26,13 @@
                     <li><a href="../index.html">首页</a></li>
                     <li><a href="about.html">关于喜云</a></li>
                     <li><a href="services.html">服务介绍</a></li>
-                    <li><a href="community.html" class="active">社区</a></li>
+                    <li><a href="community.html" class="active">交流社区</a></li>
                     <li><a href="documents.html">文档资料</a></li>
                     <li><a href="appointment.html" class="btn btn-accent nav-btn">立即预约</a></li>
                 </ul>
             </nav>
             <div class="header-contact">
-                <a href="tel:400-xxx-xxxx" class="phone">400-xxx-xxxx</a>
+                <a href="tel:18987297831" class="phone">18987297831</a>
             </div>
         </div>
     </header>
@@ -53,94 +53,199 @@
 
         <section class="community-content">
             <div class="container">
+                <div class="search-bar">
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        <input type="text" id="searchInput" placeholder="搜索家政问题、服务知识..." onkeyup="searchQA()">
+                        <button class="search-btn" onclick="searchQA()">搜索</button>
+                    </div>
+                    <div class="search-tags">
+                        <span class="tag-label">热门搜索：</span>
+                        <button class="search-tag" onclick="setSearch('日常保洁')">日常保洁</button>
+                        <button class="search-tag" onclick="setSearch('深度清洁')">深度清洁</button>
+                        <button class="search-tag" onclick="setSearch('价格')">价格</button>
+                        <button class="search-tag" onclick="setSearch('预约')">预约</button>
+                    </div>
+                </div>
+
                 <div class="tab-content active" id="tab-qa">
+                    <div class="ask-form-card">
+                        <h3 class="ask-form-title">🙋 有问题？来提问</h3>
+                        <p class="ask-form-desc">我们会尽快为您解答，优质问题将收录到问答库中</p>
+                        <form id="askForm" onsubmit="submitQuestion(event)">
+                            <div class="form-group">
+                                <label>您的问题</label>
+                                <textarea id="questionInput" rows="3" placeholder="请输入您想咨询的问题，例如：日常保洁包含哪些服务？"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">提交提问</button>
+                        </form>
+                    </div>
+
                     <div class="qa-list">
                         <div class="qa-item">
-                            <div class="qa-question" onclick="toggleAnswer(this)">
+                            <div class="qa-header">
                                 <span class="q-icon">Q</span>
                                 <span class="q-text">日常保洁和深度清洁有什么区别？</span>
-                                <span class="toggle-icon">+</span>
                             </div>
                             <div class="qa-answer">
+                                <span class="a-icon">A</span>
                                 <div class="answer-content">
                                     <p>日常保洁主要针对客厅、卧室、厨房、卫生间等区域进行常规清洁，包括除尘、拖地、擦桌子等基础工作，适合每周或每两周定期维护。</p>
                                     <p>深度清洁则是全方位无死角清洁，包括重油污处理、角落除尘、消毒杀菌、家电清洗等，适合换季或长期未清洁的家庭。深度清洁通常需要4-6小时，是日常保洁的2-3倍时间。</p>
-                                    <div class="answer-cta">
-                                        <a href="appointment.html" class="btn btn-accent btn-sm">立即预约</a>
-                                        <span>还有疑问？<a href="tel:400-xxx-xxxx">在线咨询</a></span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="qa-item">
-                            <div class="qa-question" onclick="toggleAnswer(this)">
+                            <div class="qa-header">
                                 <span class="q-icon">Q</span>
                                 <span class="q-text">服务人员有健康证吗？安全有保障吗？</span>
-                                <span class="toggle-icon">+</span>
                             </div>
                             <div class="qa-answer">
+                                <span class="a-icon">A</span>
                                 <div class="answer-content">
                                     <p>所有服务人员均经过专业培训并持证上岗，持有健康证和技能证书。我们还为每位服务人员购买了意外保险，服务全程有保障，让您安心托付。</p>
                                     <p>每位阿姨都经过实名认证、背景调查，确保安全可靠。服务过程中如有任何问题，可随时联系客服处理。</p>
-                                    <div class="answer-cta">
-                                        <a href="appointment.html" class="btn btn-accent btn-sm">立即预约</a>
-                                        <span>还有疑问？<a href="tel:400-xxx-xxxx">在线咨询</a></span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="qa-item">
-                            <div class="qa-question" onclick="toggleAnswer(this)">
+                            <div class="qa-header">
                                 <span class="q-icon">Q</span>
                                 <span class="q-text">预约后多久能上门服务？</span>
-                                <span class="toggle-icon">+</span>
                             </div>
                             <div class="qa-answer">
+                                <span class="a-icon">A</span>
                                 <div class="answer-content">
                                     <p>一般情况下，预约成功后24小时内会有客服与您确认具体时间。紧急需求可选择加急服务，最快2小时上门（视区域和服务类型而定）。</p>
                                     <p>建议提前1-2天预约，以便我们安排最合适的阿姨为您服务。</p>
-                                    <div class="answer-cta">
-                                        <a href="appointment.html" class="btn btn-accent btn-sm">立即预约</a>
-                                        <span>还有疑问？<a href="tel:400-xxx-xxxx">在线咨询</a></span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="qa-item">
-                            <div class="qa-question" onclick="toggleAnswer(this)">
+                            <div class="qa-header">
                                 <span class="q-icon">Q</span>
                                 <span class="q-text">服务完成后不满意怎么办？</span>
-                                <span class="toggle-icon">+</span>
                             </div>
                             <div class="qa-answer">
+                                <span class="a-icon">A</span>
                                 <div class="answer-content">
                                     <p>我们承诺服务不满意可免费返工。服务完成后请当面验收，如有不满意的地方，我们会立即安排返工，直到您满意为止。</p>
                                     <p>如果服务过程中造成物品损坏，我们提供赔付保障，让您无后顾之忧。</p>
-                                    <div class="answer-cta">
-                                        <a href="appointment.html" class="btn btn-accent btn-sm">立即预约</a>
-                                        <span>还有疑问？<a href="tel:400-xxx-xxxx">在线咨询</a></span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="qa-item">
-                            <div class="qa-question" onclick="toggleAnswer(this)">
+                            <div class="qa-header">
                                 <span class="q-icon">Q</span>
                                 <span class="q-text">价格是怎么计算的？有隐形消费吗？</span>
-                                <span class="toggle-icon">+</span>
                             </div>
                             <div class="qa-answer">
+                                <span class="a-icon">A</span>
                                 <div class="answer-content">
                                     <p>我们承诺明码标价，无隐形消费。所有服务价格在预约时就会明确告知，服务前确认价格，服务过程中不会加价。</p>
                                     <p>具体价格根据服务类型、面积、时长等因素确定，您可以在服务介绍页面查看各类服务的参考价格。</p>
-                                    <div class="answer-cta">
-                                        <a href="services.html" class="btn btn-primary btn-sm">查看服务价格</a>
-                                        <span>还有疑问？<a href="tel:400-xxx-xxxx">在线咨询</a></span>
-                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">保洁需要准备什么工具？</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    <p>我们的服务人员会自带专业清洁工具和清洁剂，包括吸尘器、拖把、抹布、玻璃刮、各类清洁剂等。您只需要准备好饮用水即可。</p>
+                                    <p>如果您有特殊清洁需求或偏好的清洁剂，可以提前告知客服。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">服务过程中需要留人在家吗？</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    <p>建议留人在家，方便开门和验收。如果您无法留人，可以提前将钥匙交给信任的人，或与我们协商其他方式。</p>
+                                    <p>我们提供服务全程录像，您可以通过APP实时查看服务过程，确保服务质量。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">厨房油污怎么处理？</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    <p>我们使用专业油污清洁剂，配合高温蒸汽清洗机，可以有效清除厨房重油污。对于陈年油污，会采用软化+刮除+清洗的方式处理。</p>
+                                    <p>建议定期进行深度清洁，避免油污堆积过厚增加清洁难度。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">哪些物品需要提前收好？</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    <p>建议提前收好贵重物品、现金、首饰、证件等，避免丢失或损坏。易碎物品如玻璃器皿、陶瓷摆件也建议收纳。</p>
+                                    <p>我们的服务人员会小心对待您的物品，但提前收纳可以更好地保障您的财物安全。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">服务时间可以灵活调整吗？</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    <p>可以的，我们提供早、中、晚三个时段的服务，您可以根据自己的时间安排选择合适的服务时段。</p>
+                                    <p>如需临时调整服务时间，请提前4小时联系客服，我们会尽力协调。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">可以指定服务人员吗？</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    <p>可以的，如果您对某位服务人员的服务满意，可以在预约时备注指定该服务人员。</p>
+                                    <p>我们会尽力满足您的需求，如指定人员当日排满，会为您推荐同等水平的服务人员。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">服务后多久可以入住？</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    <p>日常保洁后即可入住。深度清洁后建议开窗通风30分钟，让清洁剂气味散去。</p>
+                                    <p>我们使用环保型清洁剂，对人体无害，您可以放心入住。</p>
                                 </div>
                             </div>
                         </div>
@@ -148,89 +253,12 @@
                 </div>
 
                 <div class="tab-content" id="tab-article">
-                    <div class="article-list">
-                        <div class="article-card">
-                            <div class="article-img">
-                                <img src="../assets/images/news/default.svg" alt="如何选择合适的家政服务">
-                            </div>
-                            <div class="article-info">
-                                <h3>如何选择合适的家政服务？</h3>
-                                <p>选择家政服务需要考虑服务类型、频率、预算等因素。本文为您详细分析如何根据自身需求选择最合适的家政服务...</p>
-                                <div class="article-meta">
-                                    <span class="article-date">2026-07-01</span>
-                                    <span class="article-tag">知识科普</span>
-                                </div>
-                                <a href="#" class="btn-link">阅读全文 →</a>
-                            </div>
-                        </div>
-
-                        <div class="article-card">
-                            <div class="article-img">
-                                <img src="../assets/images/news/default.svg" alt="深度清洁的标准流程">
-                            </div>
-                            <div class="article-info">
-                                <h3>深度清洁的标准流程是什么？</h3>
-                                <p>深度清洁不是简单的打扫，而是一套标准化的清洁流程。6区48道工序，每一步都有标准...</p>
-                                <div class="article-meta">
-                                    <span class="article-date">2026-06-28</span>
-                                    <span class="article-tag">服务标准</span>
-                                </div>
-                                <a href="#" class="btn-link">阅读全文 →</a>
-                            </div>
-                        </div>
-
-                        <div class="article-card">
-                            <div class="article-img">
-                                <img src="../assets/images/news/default.svg" alt="家政行业发展趋势">
-                            </div>
-                            <div class="article-info">
-                                <h3>2026年家政行业发展趋势分析</h3>
-                                <p>随着人们生活水平的提高和消费观念的转变，家政服务行业正在经历快速发展...</p>
-                                <div class="article-meta">
-                                    <span class="article-date">2026-06-25</span>
-                                    <span class="article-tag">行业趋势</span>
-                                </div>
-                                <a href="#" class="btn-link">阅读全文 →</a>
-                            </div>
-                        </div>
+                    <div class="article-list" id="articleList">
                     </div>
                 </div>
 
                 <div class="tab-content" id="tab-news">
-                    <div class="news-list">
-                        <div class="news-card">
-                            <div class="news-img">
-                                <img src="../assets/images/news/default.svg" alt="喜云到家服务升级">
-                            </div>
-                            <div class="news-info">
-                                <span class="news-tag">NEW</span>
-                                <h3>喜云到家服务全面升级公告</h3>
-                                <p>为提供更好的服务体验，我们对服务流程进行了全面升级，新增多项服务内容...</p>
-                                <span class="news-date">2026-07-05</span>
-                            </div>
-                        </div>
-
-                        <div class="news-card">
-                            <div class="news-img">
-                                <img src="../assets/images/news/default.svg" alt="社区活动">
-                            </div>
-                            <div class="news-info">
-                                <h3>喜云到家社区服务日活动</h3>
-                                <p>上周末，喜云到家在多个社区举办了免费家电清洗活动，受到居民热烈欢迎...</p>
-                                <span class="news-date">2026-06-30</span>
-                            </div>
-                        </div>
-
-                        <div class="news-card">
-                            <div class="news-img">
-                                <img src="../assets/images/news/default.svg" alt="服务覆盖">
-                            </div>
-                            <div class="news-info">
-                                <h3>喜云到家服务范围扩大通知</h3>
-                                <p>为满足更多用户需求，我们的服务范围已扩展至全市各区，欢迎预约体验...</p>
-                                <span class="news-date">2026-06-20</span>
-                            </div>
-                        </div>
+                    <div class="news-list" id="newsList">
                     </div>
                 </div>
             </div>
@@ -274,44 +302,176 @@
     <script src="../assets/js/common.js"></script>
     <script src="../assets/js/nav.js"></script>
     <script>
-        // Tab切换
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
                 document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+                
+                if (this.dataset.tab === 'article') {
+                    loadArticles();
+                } else if (this.dataset.tab === 'news') {
+                    loadNews();
+                }
             });
         });
 
-        // 问答手风琴展开
-        function toggleAnswer(questionEl) {
-            const item = questionEl.closest('.qa-item');
-            const answer = item.querySelector('.qa-answer');
-            const icon = questionEl.querySelector('.toggle-icon');
-            const isActive = item.classList.contains('active');
-
-            // 关闭其他展开的项
-            document.querySelectorAll('.qa-item.active').forEach(i => {
-                if (i !== item) {
-                    i.classList.remove('active');
-                    i.querySelector('.qa-answer').style.maxHeight = null;
-                    i.querySelector('.toggle-icon').textContent = '+';
+        async function loadFAQs() {
+            try {
+                const response = await fetch('/api/faqs/answered');
+                const { data } = await response.json();
+                
+                if (data && data.length > 0) {
+                    const qaList = document.querySelector('.qa-list');
+                    qaList.innerHTML = data.map(faq => `
+                        <div class="qa-item">
+                            <div class="qa-header">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">${faq.question}</span>
+                            </div>
+                            <div class="qa-answer">
+                                <span class="a-icon">A</span>
+                                <div class="answer-content">
+                                    ${faq.answer.split('\n').map(p => `<p>${p}</p>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
                 }
-            });
-
-            if (isActive) {
-                item.classList.remove('active');
-                answer.style.maxHeight = null;
-                icon.textContent = '+';
-            } else {
-                item.classList.add('active');
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-                icon.textContent = '−';
+            } catch (error) {
+                console.error('加载FAQ失败:', error);
             }
         }
 
+        async function loadArticles() {
+            try {
+                const response = await fetch('/api/articles?category=行业百科');
+                const { data } = await response.json();
+                
+                if (data && data.length > 0) {
+                    const articleList = document.getElementById('articleList');
+                    articleList.innerHTML = data.map(article => `
+                        <div class="article-card">
+                            <div class="article-img">
+                                <img src="${article.image_url || '../assets/images/news/default.svg'}" alt="${article.title}">
+                            </div>
+                            <div class="article-info">
+                                <h3>${article.title}</h3>
+                                <p>${article.summary || article.content || ''}</p>
+                                <div class="article-meta">
+                                    <span class="article-date">${article.date}</span>
+                                    <span class="article-tag">${article.category}</span>
+                                </div>
+                                <a href="#" class="btn-link">阅读全文 →</a>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    document.getElementById('articleList').innerHTML = '<div class="no-result">暂无行业百科内容</div>';
+                }
+            } catch (error) {
+                console.error('加载行业百科失败:', error);
+            }
+        }
 
+        async function loadNews() {
+            try {
+                const response = await fetch('/api/articles?category=喜云动态');
+                const { data } = await response.json();
+                
+                if (data && data.length > 0) {
+                    const newsList = document.getElementById('newsList');
+                    newsList.innerHTML = data.map(news => `
+                        <div class="news-card">
+                            <div class="news-img">
+                                <img src="${news.image_url || '../assets/images/news/default.svg'}" alt="${news.title}">
+                            </div>
+                            <div class="news-info">
+                                <span class="news-tag">NEW</span>
+                                <h3>${news.title}</h3>
+                                <p>${news.summary || news.content || ''}</p>
+                                <span class="news-date">${news.date}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    document.getElementById('newsList').innerHTML = '<div class="no-result">暂无喜云动态内容</div>';
+                }
+            } catch (error) {
+                console.error('加载喜云动态失败:', error);
+            }
+        }
+
+        async function submitQuestion(event) {
+            event.preventDefault();
+            const question = document.getElementById('questionInput').value.trim();
+            
+            if (!question) {
+                alert('请输入您的问题');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/faqs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('提问成功！我们会尽快为您解答');
+                    document.getElementById('questionInput').value = '';
+                } else {
+                    alert('提交失败，请稍后重试');
+                }
+            } catch (error) {
+                console.error('提交提问失败:', error);
+                alert('提交失败，请稍后重试');
+            }
+        }
+
+        function searchQA() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.qa-item, .article-card, .news-card');
+            
+            items.forEach(item => {
+                const title = item.querySelector('h3')?.textContent.toLowerCase() || '';
+                const text = item.querySelector('p')?.textContent.toLowerCase() || '';
+                
+                if (title.includes(keyword) || text.includes(keyword)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            const visibleItems = document.querySelectorAll('.qa-item[style="display: block;"], .article-card[style="display: block;"], .news-card[style="display: block;"]');
+            if (visibleItems.length === 0 && keyword) {
+                const activeTab = document.querySelector('.tab-content.active');
+                const noResult = document.createElement('div');
+                noResult.className = 'no-result';
+                noResult.textContent = '未找到相关内容，请尝试其他关键词';
+                if (!activeTab.querySelector('.no-result')) {
+                    activeTab.appendChild(noResult);
+                }
+            } else {
+                document.querySelectorAll('.no-result').forEach(el => el.remove());
+            }
+        }
+
+        function setSearch(keyword) {
+            document.getElementById('searchInput').value = keyword;
+            searchQA();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFAQs();
+            loadArticles();
+            loadNews();
+        });
     </script>
 </body>
 </html>

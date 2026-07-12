@@ -65,9 +65,9 @@ db.exec(`
     about_lead TEXT DEFAULT '',
     about_content TEXT DEFAULT '',
     about_image TEXT DEFAULT '',
-    mission TEXT DEFAULT '',
-    vision TEXT DEFAULT '',
-    core_values TEXT DEFAULT '',
+    mission TEXT DEFAULT '让每份劳动都有价值 | 让每个家庭都更安心',
+    vision TEXT DEFAULT '家庭洁净的守护者，归家心情的治愈者',
+    core_values TEXT DEFAULT '至诚至信、匠心笃行',
     copyright TEXT DEFAULT '2025 喜云到家 版权所有'
   );
 
@@ -145,7 +145,28 @@ db.exec(`
     cta_button_text TEXT DEFAULT '',
     cta_button_link TEXT DEFAULT ''
   );
-`);
+
+  CREATE TABLE IF NOT EXISTS faqs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question TEXT NOT NULL,
+    answer TEXT DEFAULT '',
+    status TEXT DEFAULT 'pending',
+    sort_order INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    answered_at DATETIME DEFAULT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS downloads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT DEFAULT '',
+    file_url TEXT NOT NULL,
+    file_name TEXT DEFAULT '',
+    file_size TEXT DEFAULT '',
+    file_type TEXT DEFAULT '',
+    sort_order INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );`);
 try {
   db.exec(`ALTER TABLE company_info ADD COLUMN about_image TEXT DEFAULT '';`);
 } catch (e) {
@@ -166,6 +187,7 @@ if (count === 0) {
   const insertCase = db.prepare('INSERT INTO cases (title, description, date, sort_order) VALUES (?, ?, ?, ?)');
   const insertArticle = db.prepare('INSERT INTO articles (title, summary, content, date, category, sort_order) VALUES (?, ?, ?, ?, ?, ?)');
   const insertFeature = db.prepare('INSERT INTO features (title, description, sort_order) VALUES (?, ?, ?)');
+  const insertDownload = db.prepare('INSERT INTO downloads (title, description, file_url, file_name, file_size, file_type, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)');
 
   // 使用事务批量插入，确保原子性
   const seed = db.transaction(() => {
@@ -200,6 +222,11 @@ if (count === 0) {
       db.prepare(`INSERT OR IGNORE INTO pages (title, slug, hero_title, hero_tagline, hero_button_text, hero_button_link, brand_story_title, brand_story_lead, brand_story_content, cta_title, cta_content, cta_button_text, cta_button_link)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
         .run(page.title, slug, page.hero_title || '', page.hero_tagline || '', page.hero_button_text || '', page.hero_button_link || '', page.brand_story_title || '', page.brand_story_lead || '', page.brand_story_content || '', page.cta_title || '', page.cta_content || '', page.cta_button_text || '', page.cta_button_link || '');
+    }
+
+    // 插入下载文件
+    for (const d of seedData.downloads || []) {
+      insertDownload.run(d.title, d.description || '', d.file_url, d.file_name || '', d.file_size || '', d.file_type || '', d.sort_order || 0);
     }
   });
   seed(); // 执行事务
@@ -305,9 +332,15 @@ app.delete('/api/cases/:id', (req, res) => {
 // 新闻资讯 API（CRUD 增删改查）
 // --------------------------------------------
 
-// 获取新闻列表
+// 获取新闻列表（支持按分类筛选）
 app.get('/api/articles', (req, res) => {
-  const articles = db.prepare('SELECT * FROM articles ORDER BY sort_order, date DESC').all();
+  const { category } = req.query;
+  let articles;
+  if (category && category !== 'all') {
+    articles = db.prepare('SELECT * FROM articles WHERE category = ? ORDER BY sort_order, date DESC').all(category);
+  } else {
+    articles = db.prepare('SELECT * FROM articles ORDER BY sort_order, date DESC').all();
+  }
   res.json({ data: articles });
 });
 
@@ -397,6 +430,79 @@ app.delete('/api/contacts/:id', (req, res) => {
 });
 
 // --------------------------------------------
+// FAQ 问答 API（CRUD 增删改查）
+// --------------------------------------------
+
+// 获取FAQ列表（前台只显示已回答的）
+app.get('/api/faqs', (req, res) => {
+  const { status } = req.query;
+  let faqs;
+  if (status && status !== 'all') {
+    faqs = db.prepare('SELECT * FROM faqs WHERE status = ? ORDER BY sort_order, created_at DESC').all(status);
+  } else {
+    faqs = db.prepare('SELECT * FROM faqs ORDER BY sort_order, created_at DESC').all();
+  }
+  res.json({ data: faqs });
+});
+
+// 获取已回答的FAQ（前台展示用）
+app.get('/api/faqs/answered', (req, res) => {
+  const faqs = db.prepare('SELECT * FROM faqs WHERE status = "answered" ORDER BY sort_order, created_at DESC').all();
+  res.json({ data: faqs });
+});
+
+// 新增FAQ（用户提问）
+app.post('/api/faqs', (req, res) => {
+  const { question, answer } = req.body;
+  const result = db.prepare('INSERT INTO faqs (question, answer, status) VALUES (?, ?, ?)')
+    .run(question, answer || '', answer ? 'answered' : 'pending');
+  res.json({ id: result.lastInsertRowid, success: true });
+});
+
+// 更新FAQ（后台回答）
+app.put('/api/faqs/:id', (req, res) => {
+  const { question, answer, status, sort_order } = req.body;
+  const answeredAt = status === 'answered' && !req.body.answered_at ? new Date().toISOString() : null;
+  db.prepare('UPDATE faqs SET question=?, answer=?, status=?, sort_order=?, answered_at=? WHERE id=?')
+    .run(question, answer || '', status || 'pending', sort_order || 0, answeredAt, req.params.id);
+  res.json({ success: true });
+});
+
+// 删除FAQ
+app.delete('/api/faqs/:id', (req, res) => {
+  db.prepare('DELETE FROM faqs WHERE id = ?').run(req.params.id);
+  res.json({ success: true });
+});
+
+// --------------------------------------------
+// 下载文件 API（文档资料页面用）
+// --------------------------------------------
+
+app.get('/api/downloads', (req, res) => {
+  const downloads = db.prepare('SELECT * FROM downloads ORDER BY sort_order').all();
+  res.json({ data: downloads });
+});
+
+app.post('/api/downloads', (req, res) => {
+  const { title, description, file_url, file_name, file_size, file_type, sort_order } = req.body;
+  const result = db.prepare('INSERT INTO downloads (title, description, file_url, file_name, file_size, file_type, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)')
+    .run(title, description || '', file_url, file_name || '', file_size || '', file_type || '', sort_order || 0);
+  res.json({ id: result.lastInsertRowid, success: true });
+});
+
+app.put('/api/downloads/:id', (req, res) => {
+  const { title, description, file_url, file_name, file_size, file_type, sort_order } = req.body;
+  db.prepare('UPDATE downloads SET title=?, description=?, file_url=?, file_name=?, file_size=?, file_type=?, sort_order=? WHERE id=?')
+    .run(title, description, file_url, file_name, file_size, file_type, sort_order, req.params.id);
+  res.json({ success: true });
+});
+
+app.delete('/api/downloads/:id', (req, res) => {
+  db.prepare('DELETE FROM downloads WHERE id = ?').run(req.params.id);
+  res.json({ success: true });
+});
+
+// --------------------------------------------
 // 页面配置 API
 // --------------------------------------------
 
@@ -429,7 +535,36 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   res.json({ url: `/assets/images/uploads/${newName}` }); // 返回文件访问路径
 });
 
-// 上传文档文件（PDF、Word等），保存到 assets/docs/ 目录
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function getFileType(ext) {
+  const extMap = {
+    '.pdf': 'PDF',
+    '.doc': 'Word',
+    '.docx': 'Word',
+    '.xls': 'Excel',
+    '.xlsx': 'Excel',
+    '.ppt': 'PowerPoint',
+    '.pptx': 'PowerPoint',
+    '.txt': '文本',
+    '.jpg': '图片',
+    '.jpeg': '图片',
+    '.png': '图片',
+    '.gif': '图片',
+    '.webp': '图片',
+    '.zip': '压缩包',
+    '.rar': '压缩包',
+    '.7z': '压缩包'
+  };
+  return extMap[ext.toLowerCase()] || '其他';
+}
+
 app.post('/api/upload-doc', upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: '未选择文件' });
   const ext = path.extname(req.file.originalname);
@@ -440,7 +575,10 @@ app.post('/api/upload-doc', upload.single('file'), (req, res) => {
   res.json({ 
     url: `/assets/docs/${newName}`,
     originalName: originalName,
-    size: req.file.size
+    size: req.file.size,
+    formattedSize: formatFileSize(req.file.size),
+    type: getFileType(ext),
+    extension: ext.substring(1).toUpperCase()
   });
 });
 

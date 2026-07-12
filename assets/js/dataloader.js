@@ -105,7 +105,8 @@ const DataLoader = {
 
     const storyContent = document.querySelector('.story-content .story-text');
     if (storyContent && info.about_content) {
-      storyContent.innerHTML = info.about_content.replace(/\n/g, '<br>');
+      const paragraphs = info.about_content.split('\n').filter(line => line.trim());
+      storyContent.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
     }
 
     const storyImage = document.querySelector('.story-image img');
@@ -121,14 +122,14 @@ const DataLoader = {
       missionText.innerHTML = info.mission.replace(/\n/g, '<br>');
     }
 
-    const visionText = document.querySelector('.mission-card:nth-child(2) p');
-    if (visionText && info.vision) {
-      visionText.innerHTML = info.vision.replace(/\n/g, '<br>');
-    }
-
-    const valuesText = document.querySelector('.mission-card:nth-child(3) p');
+    const valuesText = document.querySelector('.mission-card:nth-child(2) p');
     if (valuesText && info.core_values) {
       valuesText.innerHTML = info.core_values.replace(/\n/g, '<br>');
+    }
+
+    const visionText = document.querySelector('.mission-card:nth-child(3) p');
+    if (visionText && info.vision) {
+      visionText.innerHTML = info.vision.replace(/\n/g, '<br>');
     }
 
     const sloganEl = document.querySelector('.page-header .tagline');

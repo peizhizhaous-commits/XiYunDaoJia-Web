@@ -6,9 +6,10 @@
     "email": "service@xiyun.com",
     "address": "云南省昆明市官渡区巫家坝社区中海寰宇天下5栋",
     "work_hours": "周一至周日 8:00-20:00",
-    "about_title": "关于喜云到家",
-    "about_lead": "我们坚信，洁净之家，是心灵最好的栖息与疗愈。每一次归家，都应告别尘垢与繁杂，拥抱从容与安宁。喜云到家，为这份美好而来。",
-    "about_content": "作为智净优邸旗下专注家庭保洁的专业家政品牌，我们不止清洁空间，更守护每一份归家心情。所有服务人员均经过高标准服务体系与专业风控培训，恪守「至诚至信、匠心笃行」的服务理念，以专业、细致、可靠的态度服务每一户家庭。\n\n我们以「洁净为基，温暖为伴，主动为先」为信念，力求让每一次服务都成为您安心的理由。让专业的人做专业的事，让家的温暖不被琐事打扰。\n\n把琐碎家务托付于人，不是偷懒，而是对时光与自我的尊重。那些被家务占用的时光，理应回归陪伴、成长与热爱。我们为您还原的，不仅是窗明几净的家，更是从容生活的自由。",
+    "about_title": "品牌故事",
+    "about_lead": "喜云到家是智净优邸旗下专注家庭深度保洁与到家服务的品牌。",
+    "about_content": "我们致力于让每一个家庭享受洁净与舒适，通过专业化的服务团队、标准化的服务流程、透明化的价格体系，为客户创造省心、放心、舒心的服务体验。\n\n从日常保洁到深度清洁，从家电清洗到居家养老，我们覆盖家庭生活的方方面面，用专业和温暖守护每一个家。",
+    "about_image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20female%20housekeeper%20cleaning%20kitchen%20with%20spray%20bottle%20and%20cloth%2C%20wearing%20green%20apron%20and%20white%20shirt%2C%20warm%20smile%2C%20bright%20clean%20modern%20home%20interior%2C%20professional%20photography%2C%20natural%20lighting&image_size=portrait_4_3",
     "mission": "每一份劳动都有价值，每一个家庭都更安心",
     "vision": "做您身边值得信赖的生活伙伴",
     "core_values": "至诚至信，匠心笃行",
@@ -17,67 +18,115 @@
   "services": [
     {
       "title": "日常保洁",
-      "description": "专业清洁团队，提供日常家庭清洁服务，让家时刻保持整洁舒适",
+      "description": "专业清洁团队上门服务，让家时刻保持整洁舒适",
       "price": "¥99起",
       "category": "cleaning",
-      "sub_items": "客厅清洁、卧室整理、厨房清洁、卫生间消毒",
+      "sub_items": "客厅卧室除尘擦拭、地面清洁拖洗、厨房卫生间清洁、垃圾归整清运",
       "sort_order": 1
     },
     {
       "title": "深度清洁",
-      "description": "全方位深度清洁，死角无遗漏，让家焕然一新",
+      "description": "6区48道工序，死角彻底清除，让家焕然一新",
       "price": "¥199起",
       "category": "cleaning",
-      "sub_items": "全屋深度清洁、厨房重油污清洁、卫生间深度除垢",
+      "sub_items": "顽固污渍专业处理、死角深度清洁、油烟机拆洗、卫浴除垢杀菌",
       "sort_order": 2
     },
     {
-      "title": "空调维修清洗",
-      "description": "专业空调维修、清洗、加氟，保障制冷效果与空气质量",
-      "price": "¥80起",
-      "category": "repair",
-      "sub_items": "空调清洗、空调维修、加氟服务",
+      "title": "开荒保洁",
+      "description": "新房装修后首次全面清洁，装修残留彻底清除",
+      "price": "¥299起",
+      "category": "cleaning",
+      "sub_items": "建筑垃圾清理、玻璃窗清洁、地面除胶抛光、全屋消毒净化",
       "sort_order": 3
     },
     {
-      "title": "洗衣机维修",
-      "description": "各品牌洗衣机专业维修，快速诊断解决问题",
-      "price": "¥100起",
-      "category": "repair",
-      "sub_items": "故障检测、零部件更换、深度清洗",
+      "title": "家电清洗",
+      "description": "空调、油烟机等专业清洗，深度清洁延长寿命",
+      "price": "¥80起",
+      "category": "cleaning",
+      "sub_items": "空调内外机清洗、油烟机拆洗、洗衣机内桶清洗、冰箱除菌清洁",
       "sort_order": 4
     },
     {
-      "title": "家庭搬家",
-      "description": "一站式搬家服务，专业打包搬运，省心省力",
-      "price": "¥300起",
-      "category": "moving",
-      "sub_items": "物品打包、家具搬运、临时存放",
+      "title": "保姆服务",
+      "description": "专业阿姨，贴心照顾，住家/非住家均可",
+      "price": "¥200起/天",
+      "category": "care",
+      "sub_items": "日常家务清洁、一日三餐制作、衣物清洗整理、老人/小孩看护",
       "sort_order": 5
     },
     {
-      "title": "下水道疏通",
-      "description": "快速解决各类管道堵塞问题，专业设备高效疏通",
-      "price": "¥120起",
-      "category": "pipeline",
-      "sub_items": "厨房管道疏通、卫生间疏通、主管道清理",
+      "title": "月嫂服务",
+      "description": "科学育儿，母婴无忧，专业月嫂持证上岗",
+      "price": "¥8000起/月",
+      "category": "care",
+      "sub_items": "新生儿护理、产妇月子餐、母乳喂养指导、婴儿抚触早教",
       "sort_order": 6
     },
     {
-      "title": "油烟机清洗",
-      "description": "专业拆机深度清洗，去除重油污，恢复强劲吸力",
-      "price": "¥150起",
-      "category": "cleaning",
-      "sub_items": "外壳清洁、内部拆洗、油网更换",
+      "title": "居家养老",
+      "description": "贴心陪伴，专业照护，让老人安享晚年",
+      "price": "¥150起/天",
+      "category": "care",
+      "sub_items": "老人日常起居照料、饮食营养搭配、康复训练陪伴、就医陪同",
       "sort_order": 7
     },
     {
-      "title": "冰箱清洗",
-      "description": "内外全面清洁消毒，去除异味，保障食品储存安全",
-      "price": "¥120起",
-      "category": "cleaning",
-      "sub_items": "内部清洁、外部擦拭、除霜除味",
+      "title": "上门做饭",
+      "description": "家常美味，健康营养，专业厨师上门服务",
+      "price": "¥100起/次",
+      "category": "household",
+      "sub_items": "食材代买、家常菜烹饪、厨房清洁整理、口味定制",
       "sort_order": 8
+    },
+    {
+      "title": "收纳整理",
+      "description": "空间规划，整洁有序，让家井井有条",
+      "price": "¥150起/次",
+      "category": "household",
+      "sub_items": "衣柜橱柜整理、物品分类归纳、收纳方案设计、断舍离建议",
+      "sort_order": 9
+    },
+    {
+      "title": "衣物洗护",
+      "description": "专业洗护，呵护衣物，上门取送服务",
+      "price": "¥30起/件",
+      "category": "household",
+      "sub_items": "衣物干洗水洗、西装衬衫护理、皮具清洁保养、上门取送",
+      "sort_order": 10
+    },
+    {
+      "title": "家庭搬家",
+      "description": "一站式搬家，省心省力，专业打包搬运",
+      "price": "¥300起",
+      "category": "support",
+      "sub_items": "专业打包整理、家具安全搬运、大件拆装服务、物品归位摆放",
+      "sort_order": 11
+    },
+    {
+      "title": "管道疏通",
+      "description": "快速解决堵塞问题，专业设备高效疏通",
+      "price": "¥120起",
+      "category": "support",
+      "sub_items": "厨房油污疏通、卫生间毛发清理、主管道疏通、管道检测修复",
+      "sort_order": 12
+    },
+    {
+      "title": "家电维修",
+      "description": "专业技师，原厂配件，支持各品牌型号",
+      "price": "¥80起",
+      "category": "support",
+      "sub_items": "故障检测维修、深度清洗保养、原厂配件更换、保修期内免费",
+      "sort_order": 13
+    },
+    {
+      "title": "跑腿代办",
+      "description": "急事琐事，帮您搞定，快速响应靠谱放心",
+      "price": "¥50起",
+      "category": "support",
+      "sub_items": "物品代买代送、文件代办跑腿、排队挂号陪同、紧急事务处理",
+      "sort_order": 14
     }
   ],
   "cases": [
@@ -120,36 +169,52 @@
   ],
   "articles": [
     {
-      "title": "喜云到家正式上线，开启智慧家政新时代",
-      "summary": "2025年3月，喜云到家品牌正式上线，以\"至诚至信、匠心笃行\"为核心理念，致力于为每个家庭提供专业、靠谱的家政服务。",
-      "content": "喜云到家是智净优邸旗下专注家庭深度保洁与到家服务的品牌。我们以家政为入口，围绕真实生活场景，构建一站式高品质服务矩阵。\n\n我们坚信真正的竞争力源于三个支点：信念的温度、管理的精度、科技的锐度。三者交汇，构成了我们不浮躁、不取巧的底色。",
-      "date": "2025-03-27",
-      "category": "公司动态",
+      "title": "如何选择合适的家政服务？",
+      "summary": "选择家政服务需要考虑服务类型、频率、预算等因素。本文为您详细分析如何根据自身需求选择最合适的家政服务。",
+      "content": "选择家政服务需要考虑以下几个方面：\n\n1. 服务类型：日常保洁适合定期维护，深度清洁适合换季或长期未清洁的家庭\n2. 服务频率：根据家庭卫生状况和个人需求选择\n3. 预算考量：不同服务类型价格不同，建议提前了解清楚\n4. 口碑评价：选择有良好口碑的服务商\n\n选择适合自己的家政服务，能让生活更加轻松愉快。",
+      "date": "2026-07-01",
+      "category": "行业百科",
       "sort_order": 1
     },
     {
-      "title": "喜云到家服务标准全面升级",
-      "summary": "为提供更优质的服务体验，喜云到家正式发布新版服务标准，从人员培训、服务流程、质量验收三个维度全面提升。",
-      "content": "新版服务标准涵盖：\n\n1. 人员持证上岗：所有服务人员需通过专业技能培训与考核\n2. 服务流程标准化：从预约到完成，每个环节都有明确规范\n3. 质量验收制度：服务完成后客户确认满意才算完成\n\n我们不标榜\"最便宜\"，只承诺：同样的付出，更值得的体验；同样的价格，更可靠的服务。",
-      "date": "2025-04-15",
-      "category": "服务升级",
+      "title": "深度清洁的标准流程是什么？",
+      "summary": "深度清洁不是简单的打扫，而是一套标准化的清洁流程。6区48道工序，每一步都有标准。",
+      "content": "深度清洁标准流程：\n\n1. 准备工作：检查物品、准备工具\n2. 客厅清洁：除尘、拖地、整理\n3. 卧室清洁：床铺整理、衣物收纳\n4. 厨房清洁：重油污处理、消毒\n5. 卫生间清洁：除垢、消毒、通风\n6. 收尾检查：整体验收\n\n每一步都严格按照标准执行，确保清洁质量。",
+      "date": "2026-06-28",
+      "category": "行业百科",
       "sort_order": 2
     },
     {
-      "title": "家庭服务行业发展趋势分析",
-      "summary": "随着科技发展和消费升级，智能化、标准化成为行业发展新趋势，喜云到家如何把握机遇？",
-      "content": "当前家庭服务行业正经历深刻变革：\n\n1. 标准化趋势：客户对服务质量的要求越来越高\n2. 智能化趋势：AI派单、在线预约成为标配\n3. 品牌化趋势：客户更愿意选择有口碑的品牌\n\n喜云到家紧跟行业趋势，以科技赋能服务，以标准保障品质，致力于成为客户身边值得信赖的生活伙伴。",
-      "date": "2025-05-10",
-      "category": "行业资讯",
+      "title": "2026年家政行业发展趋势分析",
+      "summary": "随着人们生活水平的提高和消费观念的转变，家政服务行业正在经历快速发展。",
+      "content": "家政行业发展趋势：\n\n1. 专业化：服务人员更加专业，持证上岗成为标配\n2. 标准化：服务流程标准化，质量更有保障\n3. 智能化：AI派单、在线预约成为常态\n4. 品牌化：客户更愿意选择有口碑的品牌\n\n喜云到家紧跟行业趋势，致力于成为行业标杆。",
+      "date": "2026-06-25",
+      "category": "行业百科",
       "sort_order": 3
     },
     {
-      "title": "喜云到家获用户好评，复购率超80%",
-      "summary": "上线两个月以来，喜云到家凭借专业服务获得大量用户好评，老客户复购率超过80%，口碑持续发酵。",
-      "content": "数据显示，喜云到家上线以来：\n\n- 累计服务家庭超500户\n- 用户满意度达98%\n- 老客户复购率超80%\n- 口碑推荐占比超40%\n\n\"把家交给我们，我们负责守护它的洁净与安心。\"这是喜云到家对每一位客户的承诺。",
-      "date": "2025-06-01",
-      "category": "用户口碑",
+      "title": "喜云到家服务全面升级公告",
+      "summary": "为提供更好的服务体验，我们对服务流程进行了全面升级，新增多项服务内容。",
+      "content": "喜云到家服务全面升级：\n\n1. 新增服务项目：油烟机清洗、冰箱清洗等\n2. 优化服务流程：更加便捷高效\n3. 提升服务品质：更高标准的培训体系\n4. 增加保障措施：服务不满意可返工\n\n感谢您的支持与信任，我们将继续努力，为您提供更优质的服务。",
+      "date": "2026-07-05",
+      "category": "喜云动态",
       "sort_order": 4
+    },
+    {
+      "title": "喜云到家社区服务日活动",
+      "summary": "上周末，喜云到家在多个社区举办了免费家电清洗活动，受到居民热烈欢迎。",
+      "content": "喜云到家社区服务日活动回顾：\n\n- 活动时间：2026年6月28-29日\n- 服务内容：免费家电清洗、家政咨询\n- 参与社区：5个社区\n- 服务家庭：100+户\n\n活动受到居民一致好评，我们将继续举办更多社区活动。",
+      "date": "2026-06-30",
+      "category": "喜云动态",
+      "sort_order": 5
+    },
+    {
+      "title": "喜云到家服务范围扩大通知",
+      "summary": "为满足更多用户需求，我们的服务范围已扩展至全市各区，欢迎预约体验。",
+      "content": "喜云到家服务范围扩大：\n\n- 新增服务区域：五华区、盘龙区、西山区\n- 服务覆盖：全市所有主城区\n- 响应时间：主城区2小时内响应\n\n无论您在哪里，都能享受到喜云到家的优质服务。",
+      "date": "2026-06-20",
+      "category": "喜云动态",
+      "sort_order": 6
     }
   ],
   "features": [
@@ -181,6 +246,62 @@
     {
       "title": "售后无忧",
       "description": "服务不满意可返工，全程有保障让您放心",
+      "sort_order": 6
+    }
+  ],
+  "downloads": [
+    {
+      "title": "服务协议模板",
+      "description": "标准服务协议，明确双方权责",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=service%20agreement%20document%20icon%2C%20PDF%20file%20symbol%2C%20professional%20business%20contract&image_size=square",
+      "file_name": "服务协议模板.pdf",
+      "file_size": "2.3MB",
+      "file_type": "PDF",
+      "sort_order": 1
+    },
+    {
+      "title": "价格清单",
+      "description": "各类服务项目收费标准",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=price%20list%20document%20icon%2C%20business%20pricing%20sheet%2C%20professional%20style&image_size=square",
+      "file_name": "价格清单.pdf",
+      "file_size": "856KB",
+      "file_type": "PDF",
+      "sort_order": 2
+    },
+    {
+      "title": "客户权益保障",
+      "description": "售后服务、投诉处理流程",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=customer%20rights%20protection%20document%20icon%2C%20shield%20symbol%2C%20professional%20style&image_size=square",
+      "file_name": "客户权益保障.pdf",
+      "file_size": "1.2MB",
+      "file_type": "PDF",
+      "sort_order": 3
+    },
+    {
+      "title": "服务价格对比图",
+      "description": "各类服务价格对比一览",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=price%20comparison%20chart%2C%20cleaning%20service%20pricing%2C%20professional%20infographic&image_size=landscape_16_9",
+      "file_name": "服务价格对比图.jpg",
+      "file_size": "1.5MB",
+      "file_type": "JPG",
+      "sort_order": 4
+    },
+    {
+      "title": "四大核心产品",
+      "description": "产品体系介绍图",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=four%20core%20products%20infographic%2C%20cleaning%20services%20portfolio%2C%20professional%20design&image_size=landscape_16_9",
+      "file_name": "四大核心产品.jpg",
+      "file_size": "2.1MB",
+      "file_type": "JPG",
+      "sort_order": 5
+    },
+    {
+      "title": "品牌宣传图",
+      "description": "品牌介绍与服务展示",
+      "file_url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cleaning%20service%20brand%20promotion%20image%2C%20professional%20clean%20home%2C%20service%20team&image_size=portrait_4_3",
+      "file_name": "品牌宣传图.jpg",
+      "file_size": "3.2MB",
+      "file_type": "JPG",
       "sort_order": 6
     }
   ],
