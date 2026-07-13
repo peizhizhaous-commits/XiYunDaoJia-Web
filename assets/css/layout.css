@@ -36,6 +36,7 @@
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease;
+    overflow: visible;
 }
 
 .site-header.scrolled {
@@ -49,6 +50,7 @@
     justify-content: space-between;
     height: 72px;
     transition: height 0.3s ease;
+    overflow: visible;
 }
 
 .site-header.scrolled .container {
@@ -705,33 +707,44 @@
 /* ==== 12. 响应式 ==== */
 @media (max-width: 768px) {
     .site-header .container {
-        height: 60px;
+        height: 50px;
+        overflow: visible !important;
+    }
+
+    .site-header {
+        overflow: visible !important;
+    }
+
+    .logo img {
+        height: 38px !important;
     }
 
     .main-nav {
         display: flex;
         position: fixed;
-        top: 60px;
+        top: 50px;
         left: 0;
         right: 0;
-        bottom: 0;
         background: rgba(255, 255, 255, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         padding: 24px;
         z-index: 999;
-        overflow-y: auto;
+        overflow-y: visible;
         flex-direction: column;
-        transform: translateX(100%);
+        max-height: calc(100vh - 50px);
+        transform: translateY(-10%);
         opacity: 0;
         pointer-events: none;
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, box-shadow 0.3s ease;
     }
 
     .main-nav.active {
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
     .main-nav ul {

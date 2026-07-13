@@ -22,29 +22,41 @@ document.addEventListener('DOMContentLoaded', () => {
         let overlay = document.createElement('div');
         overlay.className = 'menu-overlay';
         document.body.appendChild(overlay);
+        
+        // 将菜单移动到 body 直接子元素位置，避免被父元素 backdrop-filter 创建的 stacking context 裁剪
+        // 仅在移动端执行此操作
+        if (window.innerWidth <= 768) {
+            document.body.appendChild(nav);
+        }
+        
+        // 监听窗口大小变化，在移动端/桌面端切换时处理菜单位置
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768 && nav.parentNode !== document.body) {
+                document.body.appendChild(nav);
+            }
+        });
 
         const toggleMenu = (isOpen) => {
             menuToggle.classList.toggle('active', isOpen);
             nav.classList.toggle('active', isOpen);
             overlay.classList.toggle('active', isOpen);
             
-            // 菜单展开时禁用页面滚动
             document.body.style.overflow = isOpen ? 'hidden' : '';
             
-            // 菜单链接动画
             const navItems = nav.querySelectorAll('li');
             navItems.forEach((item, index) => {
                 if (isOpen) {
                     item.style.opacity = '0';
-                    item.style.transform = 'translateX(20px)';
-                    item.style.transition = `all 0.3s ease ${index * 0.08}s`;
+                    item.style.transform = 'translateY(10px) scale(0.95)';
+                    item.style.transition = `all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 0.06}s`;
                     setTimeout(() => {
                         item.style.opacity = '1';
-                        item.style.transform = 'translateX(0)';
-                    }, 50);
+                        item.style.transform = 'translateY(0) scale(1)';
+                    }, 80);
                 } else {
+                    item.style.transition = `all 0.2s ease ${(navItems.length - 1 - index) * 0.04}s`;
                     item.style.opacity = '0';
-                    item.style.transform = 'translateX(20px)';
+                    item.style.transform = 'translateY(-5px)';
                 }
             });
         };

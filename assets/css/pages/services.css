@@ -370,7 +370,7 @@
 @media (max-width: 768px) {
     .page-nav {
         position: fixed;
-        top: 60px;
+        top: 50px;
         left: 0;
         right: 0;
         z-index: 999;
@@ -385,15 +385,17 @@
     }
     
     .page-nav-inner {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
         gap: 12px;
-        padding: 12px 16px;
+        padding: 8px 16px;
     }
     
     .page-title {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
+        flex-shrink: 0;
+        width: auto;
     }
     
     .category-tabs {
